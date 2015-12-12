@@ -1,19 +1,14 @@
 {
-  "name": "redux-todos-with-undo-example",
+  "name": "anchor",
   "version": "0.0.0",
-  "description": "Redux todos with undo example",
+  "description": "Anchor app",
   "scripts": {
     "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rackt/redux.git"
+    "url": "https://github.com/hoodsy/anchor"
   },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rackt/redux/issues"
-  },
-  "homepage": "http://rackt.github.io/redux",
   "dependencies": {
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
@@ -24,8 +19,13 @@
   },
   "devDependencies": {
     "babel-core": "^5.6.18",
+    "babel-eslint": "^4.1.6",
     "babel-loader": "^5.1.4",
     "babel-plugin-react-transform": "^1.1.0",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^2.0.0",
+    "eslint-loader": "^1.1.1",
+    "eslint-plugin-react": "^3.11.3",
     "expect": "^1.6.0",
     "express": "^4.13.3",
     "node-libs-browser": "^0.5.2",
