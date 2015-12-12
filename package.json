@@ -3,13 +3,16 @@
   "version": "0.0.0",
   "description": "Anchor app",
   "scripts": {
-    "start": "node server/server.babel.js"
+    "start": "node server/server.babel.js",
+    "dev": "BABEL_ENV=development node server/server.babel.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/hoodsy/anchor"
   },
   "dependencies": {
+    "body-parser": "^1.14.1",
+    "ejs": "^2.3.4",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "^4.0.0",
