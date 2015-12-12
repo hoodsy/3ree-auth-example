@@ -14,9 +14,9 @@ class App extends Component {
         <$.AddList
           onAddListSubmit={ text => dispatch( actions.addList( text ) ) }
         />
-        <$.ListContainer 
+        <$.ListContainer
           //todos={ todos }
-          lists={ lists } 
+          lists={ lists }
           onAddSubmit={ (text, index) => dispatch( actions.addTodo( text, index ) ) }
           onTodoClick={ (listIndex, index) => dispatch( actions.completeTodo( listIndex, index ) ) }
         />

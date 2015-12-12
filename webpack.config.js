@@ -20,7 +20,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['babel'],
+      loaders: ['eslint', 'babel'],
       exclude: /node_modules/,
       include: __dirname
     }]
