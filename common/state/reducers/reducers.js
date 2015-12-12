@@ -12,7 +12,7 @@ function todo(state = [], action) {
         {
           text: action.text,
           listIndex: action.listIndex,
-          completed: false  
+          completed: false
         }
       ]
 
@@ -68,8 +68,8 @@ function lists(state = [], action) {
   }
 }
 
-const todoApp = combineReducers({
+const anchorApp = combineReducers({
   lists
 })
 
-export default todoApp
+export default anchorApp
