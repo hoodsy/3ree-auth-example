@@ -11,30 +11,14 @@ import { DevTools,
          LogMonitor } from 'redux-devtools/lib/react';
 
 import App from '../common/views/containers/App';
-import anchorApp   from '../common/state/reducers/reducers';
+import anchorApp from '../common/state/reducers/reducers';
 import configureStore from '../common/state/stores/configureStore';
-
 
 export default function initialRender(req, res) {
   var initialState = {lists: [{text: 'testList', todos: []}] };
 
   // Create a new Redux store instance
   const store = configureStore(anchorApp, initialState);
-
-  // Wire up routing based upon routes
-  // store.dispatch(match(req.url, (error, redirectLocation, renderProps) => {
-  //   if (error)  {
-  //     console.log('Error', error);
-  //     res.status(400);
-  //     res.send(error);
-  //     return;
-  //   }
-
-  //   if (redirectLocation) {
-  //     res.redirect(redirectLocation);
-  //     return;
-  //   }
-
 
   // Render the component to a string
   const html = ReactDOMServer.renderToString(

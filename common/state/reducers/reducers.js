@@ -1,6 +1,6 @@
-import { combineReducers } from 'redux'
-import undoable, { distinctState } from 'redux-undo'
-import * as types from '../constants/actionTypes'
+import { combineReducers } from 'redux';
+// import undoable, { distinctState } from 'redux-undo';
+import * as types from '../constants/actionTypes';
 
 // Todos
 // =====
@@ -12,21 +12,21 @@ function todo(state = [], action) {
         {
           text: action.text,
           listIndex: action.listIndex,
-          completed: false
-        }
-      ]
+          completed: false,
+        },
+      ];
 
     case types.COMPLETE_TODO:
       return [
         ...state.slice(0, action.index),
         Object.assign({}, state[action.index], {
-          completed: true
+          completed: true,
         }),
-        ...state.slice(action.index + 1)
-      ]
+        ...state.slice(action.index + 1),
+      ];
 
     default:
-      return state
+      return state;
   }
 }
 
@@ -39,37 +39,37 @@ function lists(state = [], action) {
         ...state,
         {
           text: action.text,
-          todos: []
-        }
-      ]
+          todos: [],
+        },
+      ];
 
     case types.ADD_TODO:
       return [
         ...state.slice(0, action.listIndex),
         {
-         text: state[action.listIndex].text,
-         todos: todo(state[action.listIndex].todos, action)
+          text: state[action.listIndex].text,
+          todos: todo(state[action.listIndex].todos, action),
         },
-        ...state.slice(action.listIndex + 1)
-      ]
+        ...state.slice(action.listIndex + 1),
+      ];
 
     case types.COMPLETE_TODO:
       return [
         ...state.slice(0, action.listIndex),
         {
-         text: state[action.listIndex].text,
-         todos: todo(state[action.listIndex].todos, action)
+          text: state[action.listIndex].text,
+          todos: todo(state[action.listIndex].todos, action),
         },
-        ...state.slice(action.listIndex + 1)
-      ]
+        ...state.slice(action.listIndex + 1),
+      ];
 
     default:
-      return state
+      return state;
   }
 }
 
 const anchorApp = combineReducers({
-  lists
-})
+  lists,
+});
 
-export default anchorApp
+export default anchorApp;

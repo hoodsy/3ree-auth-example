@@ -1,14 +1,14 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
 export default class AddTodo extends Component {
 
   handleSubmit(e) {
-    e.preventDefault()
-    const node = this.refs.input
-    const text = node.value.trim()
+    e.preventDefault();
+    const node = this.refs.input;
+    const text = node.value.trim();
     if (text) {
-      this.props.onAddSubmit(text, this.context.listIndex)
-      node.value = ''
+      this.props.onAddSubmit(text, this.context.listIndex);
+      node.value = '';
     }
   }
 
@@ -22,14 +22,14 @@ export default class AddTodo extends Component {
           </button>
         </form>
       </div>
-    )
+    );
   }
 }
 
 AddTodo.contextTypes = {
-  listIndex: PropTypes.number
-}
+  listIndex: PropTypes.number,
+};
 
 AddTodo.propTypes = {
-  onAddSubmit: PropTypes.func.isRequired
-}
+  onAddSubmit: PropTypes.func.isRequired,
+};

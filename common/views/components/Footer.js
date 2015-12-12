@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
 export default class Footer extends Component {
 
@@ -8,7 +8,7 @@ export default class Footer extends Component {
         <button onClick={this.props.onUndo} disabled={this.props.undoDisabled}>Undo</button>
         <button onClick={this.props.onRedo} disabled={this.props.redoDisabled}>Redo</button>
       </p>
-    )
+    );
   }
 
   render() {
@@ -16,7 +16,7 @@ export default class Footer extends Component {
       <div>
         {this.renderUndo()}
       </div>
-    )
+    );
   }
 }
 
@@ -25,4 +25,4 @@ Footer.propTypes = {
   onRedo: PropTypes.func.isRequired,
   undoDisabled: PropTypes.bool.isRequired,
   redoDisabled: PropTypes.bool.isRequired,
-}
+};
