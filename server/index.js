@@ -14,7 +14,6 @@ import App from '../common/views/containers/App';
 import anchorApp from '../common/state/reducers/reducers';
 import configureStore from '../common/state/stores/configureStore';
 
-
 export default function initialRender(req, res) {
   var initialState = {lists: [{text: 'testList', todos: []}] };
 

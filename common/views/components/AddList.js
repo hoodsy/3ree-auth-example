@@ -1,14 +1,14 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component, PropTypes } from 'react';
 
 export default class AddList extends Component {
 
   handleSubmit(e) {
-    e.preventDefault()
-    const node = this.refs.input
-    const text = node.value.trim()
+    e.preventDefault();
+    const node = this.refs.input;
+    const text = node.value.trim();
     if (text) {
-      this.props.onAddListSubmit(text)
-      node.value = ''
+      this.props.onAddListSubmit(text);
+      node.value = '';
     }
   }
 
@@ -22,10 +22,10 @@ export default class AddList extends Component {
           </button>
         </form>
       </div>
-    )
+    );
   }
 }
 
 AddList.propTypes = {
-  onAddListSubmit: PropTypes.func.isRequired
-}
+  onAddListSubmit: PropTypes.func.isRequired,
+};

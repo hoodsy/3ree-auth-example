@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react'
-import { Todo, AddTodo } from './components'
+import React, { Component, PropTypes } from 'react';
+import { Todo, AddTodo } from './components';
 
 export default class TodoList extends Component {
 
   getChildContext() {
-    return { listIndex: this.props.listIndex }
+    return { listIndex: this.props.listIndex };
   }
 
   render() {
@@ -13,7 +13,7 @@ export default class TodoList extends Component {
         <h3> { this.props.text } </h3>
         <ul>
           { this.props.todos.map((todo, index) =>
-            <Todo 
+            <Todo
               {...todo}
               key={index}
               index={index}
@@ -26,18 +26,21 @@ export default class TodoList extends Component {
           onAddSubmit={ this.props.onAddSubmit }
         />
       </div>
-    )
+    );
   }
 }
 
 TodoList.childContextTypes = {
-  listIndex: PropTypes.number
-}
+  listIndex: PropTypes.number,
+};
 
 TodoList.propTypes = {
   onClick: PropTypes.func.isRequired,
   todos: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.string.isRequired,
-    completed: PropTypes.bool.isRequired
-  }).isRequired).isRequired
-}
+    completed: PropTypes.bool.isRequired,
+  }).isRequired).isRequired,
+  listIndex: PropTypes.number.isRequired,
+  text: PropTypes.text.isRequired,
+  onAddSubmit: PropTypes.func.isRequired,
+};
