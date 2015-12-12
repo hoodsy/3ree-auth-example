@@ -41,6 +41,6 @@ TodoList.propTypes = {
     completed: PropTypes.bool.isRequired,
   }).isRequired).isRequired,
   listIndex: PropTypes.number.isRequired,
-  text: PropTypes.text.isRequired,
+  text: PropTypes.string.isRequired,
   onAddSubmit: PropTypes.func.isRequired,
 };

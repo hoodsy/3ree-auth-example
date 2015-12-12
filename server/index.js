@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
+
 import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { compose,
          createStore,
-         combineReducers,
          applyMiddleware } from 'redux';
 import { DevTools,
          DebugPanel,
@@ -15,13 +15,12 @@ import anchorApp from '../common/state/reducers/reducers';
 import configureStore from '../common/state/stores/configureStore';
 
 export default function initialRender(req, res) {
-  var initialState = {lists: [{text: 'testList', todos: []}] };
-
   // Create a new Redux store instance
+  var initialState = {lists: [{text: 'testList', todos: [{text: 'testIt', completed: false}]}] };
   const store = configureStore(anchorApp, initialState);
 
   // Render the component to a string
-  const html = ReactDOMServer.renderToString(
+  const html = renderToString(
     <div>
       <Provider store={store}>
         <App />
