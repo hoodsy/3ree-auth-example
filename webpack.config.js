@@ -33,6 +33,7 @@ var config = {
 }
 
 // enable React Hot loader
+// https://github.com/gaearon/react-transform-hmr/issues/5
 if (process.env.HOT) {
   config.module.loaders[0].query.plugins.push('react-transform');
   config.module.loaders[0].query.extra = {
