@@ -23,26 +23,9 @@ var config = {
       test: /\.js$/,
       exclude: /node_modules/,
       include: __dirname,
-      loader: 'babel',
-      query: {
-        stage: 0,
-        plugins: []
-      }
+      loaders: ['babel', 'eslint'],
     }]
   }
-}
-
-// enable React Hot loader
-// https://github.com/gaearon/react-transform-hmr/issues/5
-if (process.env.HOT) {
-  config.module.loaders[0].query.plugins.push('react-transform');
-  config.module.loaders[0].query.extra = {
-    'react-transform': [{
-      target: 'react-transform-hmr',
-      imports: ['react'],
-      locals: ['module']
-    }]
-  };
 }
 
 module.exports = config;

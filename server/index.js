@@ -11,7 +11,7 @@ import { DevTools,
          LogMonitor } from 'redux-devtools/lib/react';
 
 import App from '../common/views/containers/App';
-import anchorApp   from '../common/state/reducers/reducers';
+import anchorApp from '../common/state/reducers/reducers';
 import configureStore from '../common/state/stores/configureStore';
 
 
