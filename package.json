@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Anchor app",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.babel.js"
   },
   "repository": {
     "type": "git",
