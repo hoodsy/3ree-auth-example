@@ -5,4 +5,4 @@ export default compose(
   applyMiddleware(),
   devTools(),
   persistState(),
-)(createStore); //eslint-disable-line no-use-before-define
+)(createStore);

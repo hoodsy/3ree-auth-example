@@ -15,7 +15,7 @@ import anchorApp from '../common/state/reducers/reducers';
 import configureStore from '../common/state/stores/configureStore';
 
 export default function initialRender(req, res) {
-  var initialState = {lists: [{text: 'testList', todos: []}] };
+  var initialState = {lists: [{text: 'testList', todos: [{text: 'testIt', completed: false}]}] };
 
   // Create a new Redux store instance
   const store = configureStore(anchorApp, initialState);

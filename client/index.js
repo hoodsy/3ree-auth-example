@@ -6,7 +6,8 @@ import todoApp from '../common/state/reducers/reducers';
 import configureStore from '../common/state/stores/configureStore';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
-const store = configureStore(todoApp);
+const initialState = window.__INITIAL_STATE__;
+const store = configureStore(todoApp, initialState);
 const rootElement = document.getElementById('root');
 render(
   <div>

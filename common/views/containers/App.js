@@ -14,7 +14,6 @@ class App extends Component {
           onAddListSubmit={ text => dispatch(actions.addList(text)) }
         />
         <$.ListContainer
-          // todos={ todos }
           lists={ lists }
           onAddSubmit={ (text, index) => dispatch(actions.addTodo(text, index)) }
           onTodoClick={ (listIndex, index) => dispatch(actions.completeTodo(listIndex, index)) }
@@ -29,10 +28,6 @@ class App extends Component {
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
   lists: PropTypes.array.isRequired,
-  // todos: PropTypes.arrayOf(PropTypes.shape({
-  //   text: PropTypes.string.isRequired,
-  //   completed: PropTypes.bool.isRequired
-  // })),
 };
 
 function select(state) {

@@ -22,13 +22,14 @@ app.set('views', path.join(__dirname, 'views'));
 // =================
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 const compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
 app.use(webpackHotMiddleware(compiler));
 
 // Client App Endpoint
 // ===================
-app.get('*', initialRender);
+app.use(initialRender);
 
 app.listen(port, function(error) {
   if (error) {

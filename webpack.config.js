@@ -25,6 +25,11 @@ var config = {
       include: __dirname,
       loaders: ['babel', 'eslint'],
     }]
+  },
+  // build breaks on eslint without this workaround
+  // https://github.com/MoOx/eslint-loader/issues/23
+  eslint: {
+    emitWarning: true
   }
 }
 
