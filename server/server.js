@@ -9,6 +9,8 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../webpack.config';
 import initialRender from './index';
 
+// Server Config
+// =============
 const app = express();
 const port = 3000;
 
@@ -16,16 +18,16 @@ app.engine('html', ejs.renderFile);
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middleware
-// ==========
+// Server Middleware
+// =================
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const compiler = webpack(config);
 app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
 app.use(webpackHotMiddleware(compiler));
 
-// App Endpoint
-// ============
+// Client App Endpoint
+// ===================
 app.get('*', initialRender);
 
 app.listen(port, function(error) {
