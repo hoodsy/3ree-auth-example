@@ -8,7 +8,7 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 
 import config from '../webpack.config';
 import initialRender from './index';
-import liveUpdates from '../config/liveUpdates';
+// import liveUpdates from '../config/liveUpdates';
 import SocketIO from 'socket.io';
 
 // Server Config
@@ -44,4 +44,4 @@ const server = app.listen(port, function(error) {
 })
 const io = SocketIO.listen(server);
 
-liveUpdates(io);
+// liveUpdates(io);

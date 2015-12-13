@@ -8,7 +8,7 @@ import { DevTools,
 import { createStore } from 'redux';
 
 import App from '../common/views/containers/App';
-import startSocketListener from './socketListener';
+// import startSocketListener from './socketListener';
 import todoApp from '../common/state/reducers/reducers';
 import * as actions from '../common/state/actions/actions';
 import configureStore from '../common/state/stores/configureStore';
@@ -28,4 +28,4 @@ render(
   rootElement,
 );
 
-startSocketListener(store, actions);
+// startSocketListener(store, actions);
