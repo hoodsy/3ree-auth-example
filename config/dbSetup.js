@@ -1,8 +1,8 @@
 import r from 'rethinkdb';
 import config from './dbConfig';
 
-let DATABASE = config.db;
-let TABLES = ['lists'];
+const DATABASE = config.db;
+const TABLES = ['lists'];
 
 r.connect(config, (err, conn) => {
   if (err) throw err;
