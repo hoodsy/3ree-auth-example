@@ -8,6 +8,8 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 
 import config from '../webpack.config';
 import initialRender from './index';
+// import liveUpdates from '../config/liveUpdates';
+import SocketIO from 'socket.io';
 
 // Server Config
 // =============
@@ -31,10 +33,15 @@ app.use(webpackHotMiddleware(compiler));
 // ===================
 app.use(initialRender);
 
-app.listen(port, function(error) {
+// Start Server
+// ============
+const server = app.listen(port, function(error) {
   if (error) {
     console.error(error);
   } else {
     console.info(`==> 🌎  Server listening on port ${port}.`);
   }
 })
+const io = SocketIO.listen(server);
+
+// liveUpdates(io);
