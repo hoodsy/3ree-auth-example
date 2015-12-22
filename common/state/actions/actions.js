@@ -27,7 +27,6 @@ export function completeTodo(listIndex, index) {
 // Lists
 // =====
 export function addList (text) {
-    // { type: types.ADD_LIST, text };
   return (dispatch) => {
     dispatch(addListRequest(text))
     console.log(`dispatched addListRequest`);

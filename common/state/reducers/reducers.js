@@ -33,11 +33,11 @@ function todo(state = [], action) {
 // Lists
 // =====
 function lists(state = [], action) {
-  console.log(state);
-  console.log('-----');
-  console.log(action);
-  console.log('=======');
-  console.log('=======');
+  // console.log(state);
+  // console.log('-----');
+  // console.log(action);
+  // console.log('=======');
+  // console.log('=======');
   switch (action.type) {
     case types.ADD_LIST_REQUEST:
       // return Object.assign({}, state, {
@@ -49,12 +49,6 @@ function lists(state = [], action) {
       ];
 
     case types.ADD_LIST_SUCCESS:
-      // const lists = state.lists;
-      // return Object.assign({}, state, {
-      //   isFetching: false,
-      //   error: null,
-      //   lists
-      // });
       return [
         ...state,
         action.list

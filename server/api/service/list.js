@@ -21,3 +21,13 @@ export function addList(list) {
   });
 }
 
+export function getLists() {
+  return connect()
+  .then(conn => {
+    return r
+    .table('lists')
+    .orderBy('id').run(conn)
+    .then(cursor => cursor.toArray());
+  });
+}
+
