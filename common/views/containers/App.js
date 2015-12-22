@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-// import { ActionCreators } from 'redux-undo';
 import * as actions from '../../state/actions/actions';
 import * as $ from '../components/components';
 

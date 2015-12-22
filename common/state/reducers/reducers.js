@@ -33,14 +33,31 @@ function todo(state = [], action) {
 // Lists
 // =====
 function lists(state = [], action) {
+  console.log(state);
+  console.log('-----');
+  console.log(action);
+  console.log('=======');
+  console.log('=======');
   switch (action.type) {
-    case types.ADD_LIST:
+    case types.ADD_LIST_REQUEST:
+      // return Object.assign({}, state, {
+      //   isFetching: true,
+      //   error: null
+      // });
+      return [
+        ...state
+      ];
+
+    case types.ADD_LIST_SUCCESS:
+      // const lists = state.lists;
+      // return Object.assign({}, state, {
+      //   isFetching: false,
+      //   error: null,
+      //   lists
+      // });
       return [
         ...state,
-        {
-          text: action.text,
-          todos: [],
-        },
+        action.list
       ];
 
     case types.ADD_TODO:
@@ -62,6 +79,12 @@ function lists(state = [], action) {
         },
         ...state.slice(action.listIndex + 1),
       ];
+
+    case types.ADD_LIST_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        error: action.error,
+      });
 
     default:
       return state;

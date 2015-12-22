@@ -5,11 +5,12 @@ import bodyParser from 'body-parser';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
+import SocketIO from 'socket.io';
 
 import config from '../webpack.config';
 import initialRender from './index';
+import * as api from './api/http';
 // import liveUpdates from '../config/liveUpdates';
-import SocketIO from 'socket.io';
 
 // Server Config
 // =============
@@ -31,7 +32,9 @@ app.use(webpackHotMiddleware(compiler));
 
 // Client App Endpoint
 // ===================
-app.use(initialRender);
+
+app.post('/api/list/:id', api.addList);
+app.get('*', initialRender);
 
 // Start Server
 // ============
