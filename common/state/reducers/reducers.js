@@ -2,11 +2,11 @@ import { combineReducers } from 'redux';
 // import undoable, { distinctState } from 'redux-undo';
 import * as types from '../constants/actionTypes';
 
-// Todos
+// Resources
 // =====
-function todo(state = [], action) {
+function resource(state = [], action) {
   switch (action.type) {
-    case types.ADD_TODO:
+    case types.ADD_RESOURCE:
       return [
         ...state,
         {
@@ -16,7 +16,7 @@ function todo(state = [], action) {
         },
       ];
 
-    case types.COMPLETE_TODO:
+    case types.COMPLETE_RESOURCE:
       return [
         ...state.slice(0, action.index),
         Object.assign({}, state[action.index], {
@@ -45,31 +45,31 @@ function lists(state = [], action) {
       //   error: null
       // });
       return [
-        ...state
+        ...state,
       ];
 
     case types.ADD_LIST_SUCCESS:
       return [
         ...state,
-        action.list
+        action.list,
       ];
 
-    case types.ADD_TODO:
+    case types.ADD_RESOURCE:
       return [
         ...state.slice(0, action.listIndex),
         {
           text: state[action.listIndex].text,
-          todos: todo(state[action.listIndex].todos, action),
+          resources: resource(state[action.listIndex].resources, action),
         },
         ...state.slice(action.listIndex + 1),
       ];
 
-    case types.COMPLETE_TODO:
+    case types.COMPLETE_RESOURCE:
       return [
         ...state.slice(0, action.listIndex),
         {
           text: state[action.listIndex].text,
-          todos: todo(state[action.listIndex].todos, action),
+          resources: resource(state[action.listIndex].resources, action),
         },
         ...state.slice(action.listIndex + 1),
       ];

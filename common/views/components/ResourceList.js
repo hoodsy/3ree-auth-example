@@ -1,10 +1,21 @@
 import React, { Component, PropTypes } from 'react';
-import { Todo, AddTodo } from './components';
+import { Resource, AddResource } from './components';
 
-export default class TodoList extends Component {
+export default class ResourceList extends Component {
 
   getChildContext() {
     return { listIndex: this.props.listIndex };
+  }
+
+  _renderResources(resource, index) {
+    return (
+      <Resource
+        {...resource}
+        key={index}
+        index={index}
+        onClick={ this.props.onClick }
+      />
+    );
   }
 
   render() {
@@ -12,16 +23,12 @@ export default class TodoList extends Component {
       <div>
         <h3> { this.props.text } </h3>
         <ul>
-          { this.props.todos.map((todo, index) =>
-            <Todo
-              {...todo}
-              key={index}
-              index={index}
-              onClick={ this.props.onClick }
-            />
-          )}
+          { (this.props.resources)
+              ? this.props.resources.map(this._renderResources)
+              : null
+          }
         </ul>
-        <AddTodo
+        <AddResource
           listIndex={ this.props.listIndex }
           onAddSubmit={ this.props.onAddSubmit }
         />
@@ -30,13 +37,13 @@ export default class TodoList extends Component {
   }
 }
 
-TodoList.childContextTypes = {
+ResourceList.childContextTypes = {
   listIndex: PropTypes.number,
 };
 
-TodoList.propTypes = {
+ResourceList.propTypes = {
   onClick: PropTypes.func.isRequired,
-  todos: PropTypes.arrayOf(PropTypes.shape({
+  resources: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.string.isRequired,
     completed: PropTypes.bool.isRequired,
   }).isRequired).isRequired,

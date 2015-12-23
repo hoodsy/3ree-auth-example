@@ -1,7 +1,11 @@
-// Todos
+// Resources
 // =====
-export const ADD_TODO = 'ADD_TODO';
-export const COMPLETE_TODO = 'COMPLETE_TODO';
+export const ADD_RESOURCE = 'ADD_RESOURCE';
+export const ADD_RESOURCE_REQUEST = 'ADD_RESOURCE_REQUEST';
+export const ADD_RESOURCE_SUCCESS = 'ADD_RESOURCE_SUCCESS';
+export const ADD_RESOURCE_FAILURE = 'ADD_RESOURCE_FAILURE';
+
+export const COMPLETE_RESOURCE = 'COMPLETE_RESOURCE';
 
 // Lists
 // =====

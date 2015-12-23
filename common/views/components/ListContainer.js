@@ -1,20 +1,27 @@
 import React, { Component, PropTypes } from 'react';
-import { TodoList } from './components';
+import { ResourceList } from './components';
 
 export default class ListContainer extends Component {
+
+  _renderLists(list, listIndex) {
+    return (
+      <ResourceList
+        { ...list }
+        key={ listIndex }
+        listIndex={ listIndex }
+        onClick={ this.props.onResourceClick }
+        onAddSubmit={ this.props.onAddSubmit }
+      />
+    );
+  }
 
   render() {
     return (
       <div>
-        { this.props.lists.map((list, listIndex) =>
-          <TodoList
-            {...list}
-            key={ listIndex }
-            listIndex={ listIndex }
-            onClick={ this.props.onTodoClick }
-            onAddSubmit={ this.props.onAddSubmit }
-          />
-        )}
+        { (this.props.lists)
+            ? this.props.lists.map(this._renderLists)
+            : null
+        }
       </div>
     );
   }
@@ -24,5 +31,5 @@ export default class ListContainer extends Component {
 ListContainer.propTypes = {
   onAddSubmit: PropTypes.func.isRequired,
   lists: PropTypes.array.isRequired,
-  onTodoClick: PropTypes.func,
+  onResourceClick: PropTypes.func,
 };

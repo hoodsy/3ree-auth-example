@@ -1,11 +1,7 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 
-import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { compose,
-         createStore,
-         applyMiddleware } from 'redux';
 import { DevTools,
          DebugPanel,
          LogMonitor } from 'redux-devtools/lib/react';
@@ -16,10 +12,9 @@ import anchorApp from '../common/state/reducers/reducers';
 import configureStore from '../common/state/stores/configureStore';
 
 export default function initialRender(req, res) {
-  // Create a new Redux store instance
   getLists()
   .then(initialLists => {
-    var initialState = { lists: initialLists };
+    const initialState = { lists: initialLists };
     const store = configureStore(anchorApp, initialState);
 
     // Render the component to a string
@@ -35,6 +30,11 @@ export default function initialRender(req, res) {
     );
 
     // Send the rendered page back to the client with the initial state
-    res.render('index', { html: html, initialState: JSON.stringify(store.getState()) });
+    res.render('index',
+      {
+        initialState: JSON.stringify(store.getState()),
+        html,
+      }
+    );
   });
 }

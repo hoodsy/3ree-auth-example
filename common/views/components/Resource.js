@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class Todo extends Component {
+export default class Resource extends Component {
   render() {
     return (
       <li
@@ -8,18 +8,19 @@ export default class Todo extends Component {
         style={{
           textDecoration: this.props.completed ? 'line-through' : 'none',
           cursor: this.props.completed ? 'default' : 'pointer',
-        }}>
+        }}
+      >
         { this.props.text }
       </li>
     );
   }
 }
 
-Todo.contextTypes = {
+Resource.contextTypes = {
   listIndex: PropTypes.number,
 };
 
-Todo.propTypes = {
+Resource.propTypes = {
   onClick: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,

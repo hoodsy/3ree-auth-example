@@ -26,6 +26,6 @@ export default class AddList extends Component {
   }
 }
 
-// AddList.propTypes = {
-//   onAddListSubmit: PropTypes.func.isRequired,
-// };
+AddList.propTypes = {
+  onAddListSubmit: PropTypes.func.isRequired,
+};

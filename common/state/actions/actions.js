@@ -6,64 +6,94 @@ import request from 'superagent/lib/client';
 // ============
 const apiEndpoint = '/api';
 
-// Todos
+// Resources
 // =====
-export function addTodo(text, listIndex) {
+export function addResourceRequest(text) {
   return {
-    type: types.ADD_TODO,
-    listIndex,
+    type: types.ADD_RESOURCE_REQUEST,
     text,
   };
 }
 
-export function completeTodo(listIndex, index) {
+export function addResourceSuccess(resource) {
   return {
-    type: types.COMPLETE_TODO,
+    type: types.ADD_RESOURCE_SUCCESS,
+    resource,
+  };
+}
+
+export function addResourceFailure(error) {
+  return {
+    type: types.ADD_RESOURCE_FAILURE,
+    error,
+  };
+}
+
+export function addResource(text) {
+  return (dispatch) => {
+    dispatch(addResourceRequest(text));
+
+    return request
+      .post(`${apiEndpoint}/resource`)
+      .send({ text })
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err) {
+          dispatch(addResourceFailure(err, text));
+          console.log(`FAILED RESPONSE: ${err}`);
+        } else {
+          dispatch(addResourceSuccess(res.body));
+          console.log(`SUCESSFUL RESPONSE: ${res}`);
+        }
+      });
+  };
+}
+
+export function completeResource(listIndex, index) {
+  return {
+    type: types.COMPLETE_RESOURCE,
     listIndex,
-    index
+    index,
   };
 }
 
 // Lists
 // =====
-export function addList (text) {
+export function addListRequest(text) {
+  return {
+    type: types.ADD_LIST_REQUEST,
+    text,
+  };
+}
+
+export function addListSuccess(list) {
+  return {
+    type: types.ADD_LIST_SUCCESS,
+    list,
+  };
+}
+
+export function addListFailure(error) {
+  return {
+    type: types.ADD_LIST_FAILURE,
+    error,
+  };
+}
+
+export function addList(text) {
   return (dispatch) => {
-    dispatch(addListRequest(text))
-    console.log(`dispatched addListRequest`);
+    dispatch(addListRequest(text));
 
     return request
-      .post(`${apiEndpoint}/list/1`)
+      .post(`${apiEndpoint}/list`)
       .send({ text })
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
           dispatch(addListFailure(err, text));
-          console.log(`FAILED RESPONSE: ${err}`);
         } else {
           dispatch(addListSuccess(res.body));
-          console.log(`SUCESSFUL RESPONSE: ${res}`);
         }
       });
-  }
-}
-
-export function addListRequest (text) {
-  return {
-    type: types.ADD_LIST_REQUEST,
-    text
-  };
-}
-
-export function addListSuccess (list) {
-  return {
-    type: types.ADD_LIST_SUCCESS,
-    list
-  };
-}
-
-export function addListFailure (text) {
-  return {
-    type: types.ADD_LIST_FAILURE,
-    text
   };
 }

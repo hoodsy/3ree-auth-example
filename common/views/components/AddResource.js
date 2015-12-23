@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class AddTodo extends Component {
+export default class AddResource extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
@@ -26,10 +26,10 @@ export default class AddTodo extends Component {
   }
 }
 
-AddTodo.contextTypes = {
+AddResource.contextTypes = {
   listIndex: PropTypes.number,
 };
 
-AddTodo.propTypes = {
+AddResource.propTypes = {
   onAddSubmit: PropTypes.func.isRequired,
 };

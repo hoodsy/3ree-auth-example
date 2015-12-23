@@ -33,12 +33,13 @@ app.use(webpackHotMiddleware(compiler));
 // Client App Endpoint
 // ===================
 
-app.post('/api/list/:id', api.addList);
+app.post('/api/list', api.addList);
+app.post('/api/resource', api.addResource);
 app.get('*', initialRender);
 
 // Start Server
 // ============
-const server = app.listen(port, function(error) {
+const server = app.listen(port, function (error) {
   if (error) {
     console.error(error);
   } else {
