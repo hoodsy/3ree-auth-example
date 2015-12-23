@@ -7,28 +7,22 @@ export default class ResourceList extends Component {
     return { listIndex: this.props.listIndex };
   }
 
-  _renderResources(resource, index) {
-    return (
-      <Resource
-        {...resource}
-        key={index}
-        index={index}
-        onClick={ this.props.onClick }
-      />
-    );
-  }
-
   render() {
     return (
       <div>
         <h3> { this.props.text } </h3>
         <ul>
-          { (this.props.resources)
-              ? this.props.resources.map(this._renderResources)
-              : null
-          }
+          { this.props.resources.map((resource, index) =>
+            <Resource
+              { ...resource }
+              key={ index }
+              index={ index }
+              onClick={ this.props.onClick }
+            />
+          )}
         </ul>
         <AddResource
+          listId={ this.props.id }
           listIndex={ this.props.listIndex }
           onAddSubmit={ this.props.onAddSubmit }
         />
@@ -50,4 +44,5 @@ ResourceList.propTypes = {
   listIndex: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   onAddSubmit: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };

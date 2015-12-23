@@ -7,7 +7,9 @@ export default class AddResource extends Component {
     const node = this.refs.input;
     const text = node.value.trim();
     if (text) {
-      this.props.onAddSubmit(text, this.context.listIndex);
+      const { onAddSubmit, listId } = this.props;
+      onAddSubmit(listId, text);
+      // this.props.onAddSubmit(text, this.context.listIndex);
       node.value = '';
     }
   }
@@ -32,4 +34,5 @@ AddResource.contextTypes = {
 
 AddResource.propTypes = {
   onAddSubmit: PropTypes.func.isRequired,
+  listId: PropTypes.string.isRequired,
 };

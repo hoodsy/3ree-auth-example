@@ -14,10 +14,9 @@ class App extends Component {
         />
         <$.ListContainer
           lists={ lists }
-          onAddSubmit={ (text, index) => dispatch(actions.addResource(text, index)) }
+          onAddSubmit={ (listId, text) => dispatch(actions.addResource(listId, text)) }
           onResourceClick={ (listIndex, index) => dispatch(actions.completeResource(listIndex, index)) }
         />
-
       </div>
     );
   }

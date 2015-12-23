@@ -1,7 +1,6 @@
 import * as types from '../constants/actionTypes';
 import request from 'superagent/lib/client';
 
-
 // API Endpoint
 // ============
 const apiEndpoint = '/api';
@@ -29,17 +28,18 @@ export function addResourceFailure(error) {
   };
 }
 
-export function addResource(text) {
+export function addResource(listId, text) {
+  console.log(`in addResource with ${listId} - ${text}`);
   return (dispatch) => {
     dispatch(addResourceRequest(text));
 
     return request
       .post(`${apiEndpoint}/resource`)
-      .send({ text })
+      .send({ listId, text })
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
-          dispatch(addResourceFailure(err, text));
+          dispatch(addResourceFailure(err));
           console.log(`FAILED RESPONSE: ${err}`);
         } else {
           dispatch(addResourceSuccess(res.body));

@@ -3,25 +3,18 @@ import { ResourceList } from './components';
 
 export default class ListContainer extends Component {
 
-  _renderLists(list, listIndex) {
-    return (
-      <ResourceList
-        { ...list }
-        key={ listIndex }
-        listIndex={ listIndex }
-        onClick={ this.props.onResourceClick }
-        onAddSubmit={ this.props.onAddSubmit }
-      />
-    );
-  }
-
   render() {
     return (
       <div>
-        { (this.props.lists)
-            ? this.props.lists.map(this._renderLists)
-            : null
-        }
+        { this.props.lists.map((list, listIndex) =>
+          <ResourceList
+            { ...list }
+            key={ listIndex }
+            listIndex={ listIndex }
+            onClick={ this.props.onResourceClick }
+            onAddSubmit={ this.props.onAddSubmit }
+          />
+        )}
       </div>
     );
   }

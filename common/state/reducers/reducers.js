@@ -6,6 +6,17 @@ import * as types from '../constants/actionTypes';
 // =====
 function resource(state = [], action) {
   switch (action.type) {
+    case types.ADD_RESOURCE_REQUEST:
+      return [
+        ...state,
+      ];
+
+    case types.ADD_RESOURCE_SUCCESS:
+      return [
+        ...state,
+        action.resource,
+      ];
+
     case types.ADD_RESOURCE:
       return [
         ...state,
@@ -54,12 +65,13 @@ function lists(state = [], action) {
         action.list,
       ];
 
-    case types.ADD_RESOURCE:
+    case types.ADD_RESOURCE_SUCCESS:
+      const list = state.filter(list => list.id === action.listId);
       return [
         ...state.slice(0, action.listIndex),
         {
-          text: state[action.listIndex].text,
-          resources: resource(state[action.listIndex].resources, action),
+          text: list.text,
+          resources: resource(list.resources, action),
         },
         ...state.slice(action.listIndex + 1),
       ];

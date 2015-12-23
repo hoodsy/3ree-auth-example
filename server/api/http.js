@@ -1,4 +1,4 @@
-import * as service from './service/list';
+import * as service from './service';
 
 // Resources
 // =====
