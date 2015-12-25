@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class AddResource extends Component {
+export class AddResource extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
@@ -9,7 +9,6 @@ export default class AddResource extends Component {
     if (text) {
       const { onAddSubmit, listId } = this.props;
       onAddSubmit(listId, text);
-      // this.props.onAddSubmit(text, this.context.listIndex);
       node.value = '';
     }
   }

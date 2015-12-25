@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../state/actions/actions';
-import * as $ from '../components/components';
+
+import * as actions from '../../state/actions';
+import { AddList,
+         ListContainer } from '../';
 
 class App extends Component {
 
@@ -9,10 +11,10 @@ class App extends Component {
     const { dispatch, lists } = this.props;
     return (
       <div>
-        <$.AddList
+        <AddList
           onAddListSubmit={ text => dispatch(actions.addList(text)) }
         />
-        <$.ListContainer
+        <ListContainer
           lists={ lists }
           onAddSubmit={ (listId, text) => dispatch(actions.addResource(listId, text)) }
           onResourceClick={ (listIndex, index) => dispatch(actions.completeResource(listIndex, index)) }

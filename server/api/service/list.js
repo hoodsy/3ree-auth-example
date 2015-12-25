@@ -1,6 +1,7 @@
 import xss from 'xss';
 import r from 'rethinkdb';
 import config from '../../../config/dbConfig';
+import { getResources } from './resource';
 
 function connect() {
   return r.connect(config);
@@ -31,19 +32,5 @@ export function getLists() {
     .orderBy('id').run(conn)
     .then(cursor => cursor.toArray())
     .then(lists => getResources(lists, conn));
-  });
-}
-
-export function getResources(lists, conn) {
-  return r
-  .table('lists')
-  .merge(list => {
-    const resources = r.table('resources')
-      .getAll(list('id'), { index: 'listId' })
-      .coerceTo('array');
-    return { resources };
-  }).run(conn)
-  .then(cursor => {
-    return cursor.toArray();
   });
 }

@@ -7,10 +7,10 @@ import { DevTools,
          LogMonitor } from 'redux-devtools/lib/react';
 import { createStore } from 'redux';
 
-import App from '../common/views/containers/App';
+import { App } from '../common/views';
 // import startSocketListener from './socketListener';
-import resourceApp from '../common/state/reducers/reducers';
-import * as actions from '../common/state/actions/actions';
+import resourceApp from '../common/state/reducers';
+import * as actions from '../common/state/actions';
 import configureStore from '../common/state/stores/configureStore';
 
 const initialState = window.__INITIAL_STATE__;

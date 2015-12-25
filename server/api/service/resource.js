@@ -21,3 +21,17 @@ export function addResource(resource) {
     });
   });
 }
+
+export function getResources(lists, conn) {
+  return r
+  .table('lists')
+  .merge(list => {
+    const resources = r.table('resources')
+      .getAll(list('id'), { index: 'listId' })
+      .coerceTo('array');
+    return { resources };
+  }).run(conn)
+  .then(cursor => {
+    return cursor.toArray();
+  });
+}

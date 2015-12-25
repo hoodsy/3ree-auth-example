@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class Resource extends Component {
+export class Resource extends Component {
   render() {
     return (
       <li

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { Resource, AddResource } from './components';
+import { Resource, AddResource } from '../';
 
-export default class ResourceList extends Component {
+export class ResourceList extends Component {
 
   getChildContext() {
     return { listIndex: this.props.listIndex };
@@ -39,7 +39,6 @@ ResourceList.propTypes = {
   onClick: PropTypes.func.isRequired,
   resources: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.string.isRequired,
-    completed: PropTypes.bool.isRequired,
   }).isRequired).isRequired,
   listIndex: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,

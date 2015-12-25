@@ -6,19 +6,14 @@ import { DevTools,
          DebugPanel,
          LogMonitor } from 'redux-devtools/lib/react';
 
-import { getLists,
-         getResources } from './api/service/list';
-import App from '../common/views/containers/App';
-import anchorApp from '../common/state/reducers/reducers';
+import { App } from '../common/views';
+import { getLists } from './api/service/list';
+import anchorApp from '../common/state/reducers';
 import configureStore from '../common/state/stores/configureStore';
 
 export default function initialRender(req, res) {
   getLists()
   .then(initialLists => {
-    // console.log(test);
-    console.log(initialLists);
-    // initialLists[0].then(obj => console.log(obj))
-  // .then(initialLists => getResources(initialLists))
     const initialState = { lists: initialLists };
     const store = configureStore(anchorApp, initialState);
 

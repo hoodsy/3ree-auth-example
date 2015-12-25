@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class AddList extends Component {
+export class AddList extends Component {
 
   handleSubmit(e) {
     e.preventDefault();

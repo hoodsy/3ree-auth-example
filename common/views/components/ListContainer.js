@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { ResourceList } from './components';
+import { ResourceList } from '../';
 
-export default class ListContainer extends Component {
+export class ListContainer extends Component {
 
   render() {
     return (
