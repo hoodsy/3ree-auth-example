@@ -3,44 +3,56 @@
 **state.dashboard**
 ```javascript
   dashboard: {
-    currentDashboard,
 
-    availableDashboards: [
-      id,
-      ...
-    ],
+    id,
+    title,
+    created,
+    lists: [
 
-    items: [
       { 
-        list: {
-          title,
-          items: [
-            resource,
-          ],
-          ...
-        }
-      },
-      {
-        resource
+        id,
+        title,
+        created,
+        resources: [
+
+          {
+            id,
+            listId,
+            created,
+            text,
+          },
+
+        ],
+        ...
       },
       ...
     ],
+
   }
 ```
 **state.user**
 ```javascript
   user: {
-    username,
+
     id,
-    ...
+    username,
+    availableDashboards: [
+
+      dashboardId,
+      ...
+
+    ]
+
   }
 ```
 
 **state.status**
 ``` javascript
   status: {
+
     isFetching,
     error
+    
   }
 ```
 

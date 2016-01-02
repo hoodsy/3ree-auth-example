@@ -14,7 +14,7 @@ import configureStore from '../common/state/stores/configureStore';
 export default function initialRender(req, res) {
   getLists()
   .then(initialLists => {
-    const initialState = { dashboard: { title: '', id: '2', lists: initialLists } };
+    const initialState = { dashboard: { id: '2', title: '', lists: initialLists } };
     const store = configureStore(anchorApp, initialState);
 
     // Render the component to a string

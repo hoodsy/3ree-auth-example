@@ -9,7 +9,7 @@ class App extends Component {
 
   render() {
     const { dispatch, dashboard } = this.props;
-    const { title, id, lists } = dashboard;
+    const { id, title, lists } = dashboard;
     return (
       <div>
         <AddList
