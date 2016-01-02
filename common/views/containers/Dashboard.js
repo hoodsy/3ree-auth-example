@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as actions from '../../state/actions';
@@ -9,20 +10,30 @@ import { AddList,
 export class Dashboard extends Component {
 
   render() {
-    const { dispatch, dashboard } = this.props;
-    const { title, lists } = dashboard;
+    // Extract props
+    const {
+      dashboard,
+      addList,
+      addResource,
+      completeResource,
+    } = this.props;
+    const {
+      title,
+      lists,
+    } = dashboard;
+
     return (
       <div>
         <DashboardHeader
           title={ title }
         />
         <AddList
-          onAddListSubmit={ text => dispatch(actions.addList(text)) }
+          onAddListSubmit={ text => addList(text) }
         />
         <ListContainer
           lists={ lists }
-          onAddSubmit={ (listId, text) => dispatch(actions.addResource(listId, text)) }
-          onResourceClick={ (listIndex, index) => dispatch(actions.completeResource(listIndex, index)) }
+          onAddSubmit={ (listId, text) => addResource(listId, text) }
+          onResourceClick={ (listIndex, index) => completeResource(listIndex, index) }
         />
       </div>
     );
@@ -31,14 +42,20 @@ export class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   dashboard: PropTypes.object.isRequired,
+  addList: PropTypes.function,
+  addResource: PropTypes.function,
+  completeResource: PropTypes.function,
 };
 
-function select(state) {
+function mapStateToProps(state) {
   return {
     dashboard: state.dashboard,
   };
 }
 
-export default connect(select)(Dashboard);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actions, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
