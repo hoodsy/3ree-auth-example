@@ -8,7 +8,8 @@ import { AddList,
 class App extends Component {
 
   render() {
-    const { dispatch, lists } = this.props;
+    const { dispatch, dashboard } = this.props;
+    const { title, id, lists } = dashboard;
     return (
       <div>
         <AddList
@@ -32,7 +33,8 @@ App.propTypes = {
 
 function select(state) {
   return {
-    lists: state.lists,
+    dashboard: state.dashboard,
+    // lists: state.dashboard.lists,
   };
 }
 

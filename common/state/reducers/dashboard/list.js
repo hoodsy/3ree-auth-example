@@ -1,5 +1,5 @@
 import { resources } from './resource';
-import * as types from '../constants/actionTypes';
+import * as types from '../../constants/actionTypes';
 
 // Lists
 // =====
