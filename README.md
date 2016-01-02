@@ -5,21 +5,22 @@
   dashboard: {
 
     id,
-    title,
     created,
+    title,
     lists: [
 
       { 
         id,
-        title,
+        dashboardId,
         created,
+        title,
         resources: [
 
           {
             id,
             listId,
             created,
-            text,
+            url,
           },
 
         ],
