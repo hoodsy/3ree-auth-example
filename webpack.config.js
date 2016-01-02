@@ -1,12 +1,11 @@
 var path = require('path')
 var webpack = require('webpack')
 
-var config = {
+module.exports = {
   devtool: 'cheap-module-eval-source-map',
-  target: 'node',
   entry: [
     'webpack-hot-middleware/client',
-    './client/index'
+    './app/index'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -16,33 +15,14 @@ var config = {
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin(
-      {
-        'process.env.NODE_ENV': '"development"',
-        'global.GENTLY': false
-      }
-    ),
+    new webpack.NoErrorsPlugin()
   ],
   module: {
-    loaders: [
-      { test: /\.json$/, loaders: ['json'], },
-      { test: /\.js$/, exlude: /node_modules/, loaders: ['babel', 'eslint'], },
-    ]
-  },
-  // build breaks on eslint without this workaround
-  // https://github.com/MoOx/eslint-loader/issues/23
-  eslint: {
-    emitWarning: true
-  },
-  node: {
-    __dirname: true,
-  },
-  // resolve: {
-  //   alias: {
-  //     'superagent': path.join(__dirname, 'node_modules/superagent/lib/client')
-  //   }
-  // }
+    loaders: [{
+      test: /\.js$/,
+      loaders: ['babel'],
+      exclude: /node_modules/,
+      include: __dirname
+    }]
+  }
 }
-
-module.exports = config;
