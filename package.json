@@ -1,33 +1,43 @@
 {
-  "name": "redux-todos-with-undo-example",
+  "name": "anchor",
   "version": "0.0.0",
-  "description": "Redux todos with undo example",
+  "description": "Anchor app",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "NODE_ENV=development node server/server.babel.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rackt/redux.git"
+    "url": "https://github.com/hoodsy/anchor"
   },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rackt/redux/issues"
-  },
-  "homepage": "http://rackt.github.io/redux",
   "dependencies": {
+    "body-parser": "^1.14.1",
+    "ejs": "^2.3.4",
+    "eslint-loader": "^1.2.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-redux": "^4.0.0",
+    "reduce": "^1.0.1",
     "redux": "^3.0.0",
     "redux-thunk": "^0.1.0",
-    "redux-undo": "^0.5.0"
+    "redux-undo": "^0.5.0",
+    "rethinkdb": "^2.2.0",
+    "socket.io": "^1.3.7",
+    "socket.io-client": "^1.3.7",
+    "superagent": "^1.6.1",
+    "xss": "^0.2.9"
   },
   "devDependencies": {
     "babel-core": "^5.6.18",
+    "babel-eslint": "^4.1.6",
     "babel-loader": "^5.1.4",
     "babel-plugin-react-transform": "^1.1.0",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^2.0.0",
+    "eslint-loader": "^1.1.1",
+    "eslint-plugin-react": "^3.11.3",
     "expect": "^1.6.0",
     "express": "^4.13.3",
+    "json-loader": "^0.5.4",
     "node-libs-browser": "^0.5.2",
     "react-transform-hmr": "^1.0.0",
     "redux-devtools": "^2.1.5",
