@@ -9,6 +9,10 @@ export * from './components/AddList';
 export * from './components/ResourceList';
 export * from './components/ListContainer';
 
+// Dashboard
+// =========
+export * from './components/DashboardHeader';
+
 // Containers
 // ==========
-export { default as App } from './containers/App';
+export { default as Dashboard } from './containers/Dashboard';

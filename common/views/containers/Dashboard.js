@@ -3,15 +3,19 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../state/actions';
 import { AddList,
-         ListContainer } from '../';
+         ListContainer,
+         DashboardHeader } from '../';
 
-class App extends Component {
+export class Dashboard extends Component {
 
   render() {
     const { dispatch, dashboard } = this.props;
-    const { id, title, lists } = dashboard;
+    const { title, lists } = dashboard;
     return (
       <div>
+        <DashboardHeader
+          title={ title }
+        />
         <AddList
           onAddListSubmit={ text => dispatch(actions.addList(text)) }
         />
@@ -26,16 +30,15 @@ class App extends Component {
 
 }
 
-App.propTypes = {
+Dashboard.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  lists: PropTypes.array.isRequired,
+  dashboard: PropTypes.object.isRequired,
 };
 
 function select(state) {
   return {
     dashboard: state.dashboard,
-    // lists: state.dashboard.lists,
   };
 }
 
-export default connect(select)(App);
+export default connect(select)(Dashboard);

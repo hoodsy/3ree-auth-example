@@ -6,7 +6,7 @@ function id (state = '1', action) {
   return state;
 }
 
-function title (state = '', action) {
+function title (state = 'Strategic Synergy Syndicate', action) {
   return state;
 }
 

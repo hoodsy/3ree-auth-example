@@ -7,7 +7,7 @@ import { DevTools,
          LogMonitor } from 'redux-devtools/lib/react';
 import { createStore } from 'redux';
 
-import { App } from '../common/views';
+import { Dashboard } from '../common/views';
 // import startSocketListener from './socketListener';
 import resourceApp from '../common/state/reducers';
 import * as actions from '../common/state/actions';
@@ -19,7 +19,7 @@ const rootElement = document.getElementById('root');
 render(
   <div>
     <Provider store={store}>
-      <App />
+      <Dashboard />
     </Provider>
     <DebugPanel top right bottom>
       <DevTools store={store} monitor={LogMonitor} />
