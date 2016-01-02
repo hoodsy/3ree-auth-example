@@ -14,7 +14,7 @@ export function addList(list) {
   .then(conn => {
     list.created = new Date();
     list.resources = [];
-    list.text = xss(list.text);
+    list.title = xss(list.title);
     return r
     .table('lists')
     .insert(list).run(conn)

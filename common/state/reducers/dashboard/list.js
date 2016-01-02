@@ -24,10 +24,11 @@ export function lists(state = [], action) {
       const { listId } = action.resource;
       const list = state.filter(list => list.id === listId)[0];
       const listIndex = state.map(list => list.id).indexOf(listId);
+
       return [
         ...state.slice(0, listIndex),
         {
-          text: list.text,
+          title: list.title,
           resources: resources(list.resources, action),
         },
         ...state.slice(listIndex + 1),
@@ -37,7 +38,7 @@ export function lists(state = [], action) {
       return [
         ...state.slice(0, action.listIndex),
         {
-          text: state[action.listIndex].text,
+          title: state[action.listIndex].title,
           resources: resources(state[action.listIndex].resources, action),
         },
         ...state.slice(action.listIndex + 1),

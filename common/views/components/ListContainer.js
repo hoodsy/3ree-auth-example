@@ -10,8 +10,6 @@ export class ListContainer extends Component {
           <ResourceList
             { ...list }
             key={ listIndex }
-            listIndex={ listIndex }
-            onClick={ this.props.onResourceClick }
             onAddSubmit={ this.props.onAddSubmit }
           />
         )}
@@ -24,5 +22,4 @@ export class ListContainer extends Component {
 ListContainer.propTypes = {
   onAddSubmit: PropTypes.func.isRequired,
   lists: PropTypes.array.isRequired,
-  onResourceClick: PropTypes.func,
 };

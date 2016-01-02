@@ -7,10 +7,10 @@ const apiEndpoint = '/api/list';
 
 // Lists
 // =====
-export function addListRequest(text) {
+export function addListRequest(title) {
   return {
     type: types.ADD_LIST_REQUEST,
-    text,
+    title,
   };
 }
 
@@ -28,17 +28,17 @@ export function addListFailure(error) {
   };
 }
 
-export function addList(text) {
+export function addList(title) {
   return (dispatch) => {
-    dispatch(addListRequest(text));
+    dispatch(addListRequest(title));
 
     return request
       .post(apiEndpoint)
-      .send({ text })
+      .send({ title })
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
-          dispatch(addListFailure(err, text));
+          dispatch(addListFailure(err, title));
         } else {
           dispatch(addListSuccess(res.body));
         }

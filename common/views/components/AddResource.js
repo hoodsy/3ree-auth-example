@@ -5,10 +5,10 @@ export class AddResource extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const node = this.refs.input;
-    const text = node.value.trim();
-    if (text) {
+    const url = node.value.trim();
+    if (url) {
       const { onAddSubmit, listId } = this.props;
-      onAddSubmit(listId, text);
+      onAddSubmit(listId, url);
       node.value = '';
     }
   }
@@ -17,7 +17,7 @@ export class AddResource extends Component {
     return (
       <div>
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <input type="text" ref="input" />
+          <input type="url" ref="input" />
           <button>
             Add
           </button>
@@ -26,10 +26,6 @@ export class AddResource extends Component {
     );
   }
 }
-
-AddResource.contextTypes = {
-  listIndex: PropTypes.number,
-};
 
 AddResource.propTypes = {
   onAddSubmit: PropTypes.func.isRequired,

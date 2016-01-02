@@ -3,27 +3,20 @@ import { Resource, AddResource } from '../';
 
 export class ResourceList extends Component {
 
-  getChildContext() {
-    return { listIndex: this.props.listIndex };
-  }
-
   render() {
     return (
       <div>
-        <h3> { this.props.text } </h3>
+        <h3> { this.props.title } </h3>
         <ul>
           { this.props.resources.map((resource, index) =>
             <Resource
               { ...resource }
               key={ index }
-              index={ index }
-              onClick={ this.props.onClick }
             />
           )}
         </ul>
         <AddResource
           listId={ this.props.id }
-          listIndex={ this.props.listIndex }
           onAddSubmit={ this.props.onAddSubmit }
         />
       </div>
@@ -31,17 +24,11 @@ export class ResourceList extends Component {
   }
 }
 
-ResourceList.childContextTypes = {
-  listIndex: PropTypes.number,
-};
-
 ResourceList.propTypes = {
-  onClick: PropTypes.func.isRequired,
   resources: PropTypes.arrayOf(PropTypes.shape({
-    text: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  listIndex: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   onAddSubmit: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
 };

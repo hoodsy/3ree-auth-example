@@ -10,30 +10,23 @@ import { AddList,
 export class Dashboard extends Component {
 
   render() {
-    // Extract props
     const {
       dashboard,
       addList,
       addResource,
-      completeResource,
     } = this.props;
-    const {
-      title,
-      lists,
-    } = dashboard;
 
     return (
       <div>
         <DashboardHeader
-          title={ title }
+          title={ dashboard.title }
         />
         <AddList
-          onAddListSubmit={ text => addList(text) }
+          onAddListSubmit={ title => addList(title) }
         />
         <ListContainer
-          lists={ lists }
-          onAddSubmit={ (listId, text) => addResource(listId, text) }
-          onResourceClick={ (listIndex, index) => completeResource(listIndex, index) }
+          lists={ dashboard.lists }
+          onAddSubmit={ (listId, url) => addResource(listId, url) }
         />
       </div>
     );
@@ -43,9 +36,8 @@ export class Dashboard extends Component {
 
 Dashboard.propTypes = {
   dashboard: PropTypes.object.isRequired,
-  addList: PropTypes.function,
-  addResource: PropTypes.function,
-  completeResource: PropTypes.function,
+  addList: PropTypes.func,
+  addResource: PropTypes.func,
 };
 
 function mapStateToProps(state) {

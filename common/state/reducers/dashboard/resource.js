@@ -19,19 +19,9 @@ export function resources(state = [], action) {
       return [
         ...state,
         {
-          text: action.text,
-          listIndex: action.listIndex,
+          url: action.url,
           completed: false,
         },
-      ];
-
-    case types.COMPLETE_RESOURCE:
-      return [
-        ...state.slice(0, action.index),
-        Object.assign({}, state[action.index], {
-          completed: true,
-        }),
-        ...state.slice(action.index + 1),
       ];
 
     default:

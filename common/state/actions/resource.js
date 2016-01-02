@@ -7,10 +7,10 @@ const apiEndpoint = '/api/resource';
 
 // Resources
 // =====
-export function addResourceRequest(text) {
+export function addResourceRequest(url) {
   return {
     type: types.ADD_RESOURCE_REQUEST,
-    text,
+    url,
   };
 }
 
@@ -28,13 +28,13 @@ export function addResourceFailure(error) {
   };
 }
 
-export function addResource(listId, text) {
+export function addResource(listId, url) {
   return (dispatch) => {
-    dispatch(addResourceRequest(text));
+    dispatch(addResourceRequest(url));
 
     return request
       .post(apiEndpoint)
-      .send({ listId, text })
+      .send({ listId, url })
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
@@ -43,13 +43,5 @@ export function addResource(listId, text) {
           dispatch(addResourceSuccess(res.body));
         }
       });
-  };
-}
-
-export function completeResource(listIndex, index) {
-  return {
-    type: types.COMPLETE_RESOURCE,
-    listIndex,
-    index,
   };
 }

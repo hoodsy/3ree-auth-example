@@ -12,7 +12,7 @@ export function addResource(resource) {
   return connect()
   .then(conn => {
     resource.created = new Date();
-    resource.text = xss(resource.text);
+    resource.url = xss(resource.url);
     return r
     .table('resources')
     .insert(resource).run(conn)

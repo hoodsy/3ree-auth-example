@@ -1,28 +1,19 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-export class Resource extends Component {
-  render() {
-    return (
-      <li
-        onClick={ () => this.props.onClick(this.context.listIndex, this.props.index) }
-        style={{
-          textDecoration: this.props.completed ? 'line-through' : 'none',
-          cursor: this.props.completed ? 'default' : 'pointer',
-        }}
+export const Resource = (props) => {
+  // const url = `http://${props.url}`;
+  return (
+    <li>
+      <a
+        href={ props.url }
+        target="_blank"
       >
-        { this.props.text }
-      </li>
-    );
-  }
-}
-
-Resource.contextTypes = {
-  listIndex: PropTypes.number,
+        { props.url }
+      </a>
+    </li>
+  );
 };
 
 Resource.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
-  completed: PropTypes.bool.isRequired,
-  index: PropTypes.number.isRequired,
+  url: PropTypes.string.isRequired,
 };
