@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class AddList extends Component {
+export class AddList extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
     const node = this.refs.input;
-    const text = node.value.trim();
-    if (text) {
-      this.props.onAddListSubmit(text);
+    const title = node.value.trim();
+    if (title) {
+      this.props.onAddListSubmit(title);
       node.value = '';
     }
   }

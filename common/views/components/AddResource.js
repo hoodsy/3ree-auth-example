@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
-export default class AddTodo extends Component {
+export class AddResource extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
     const node = this.refs.input;
-    const text = node.value.trim();
-    if (text) {
-      this.props.onAddSubmit(text, this.context.listIndex);
+    const url = node.value.trim();
+    if (url) {
+      const { onAddSubmit, listId } = this.props;
+      onAddSubmit(listId, url);
       node.value = '';
     }
   }
@@ -16,7 +17,7 @@ export default class AddTodo extends Component {
     return (
       <div>
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <input type="text" ref="input" />
+          <input type="url" ref="input" />
           <button>
             Add
           </button>
@@ -26,10 +27,7 @@ export default class AddTodo extends Component {
   }
 }
 
-AddTodo.contextTypes = {
-  listIndex: PropTypes.number,
-};
-
-AddTodo.propTypes = {
+AddResource.propTypes = {
   onAddSubmit: PropTypes.func.isRequired,
+  listId: PropTypes.string.isRequired,
 };

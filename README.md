@@ -1,3 +1,64 @@
+## App State Structure
+
+**state.dashboard**
+```javascript
+  dashboard: {
+
+    id,
+    created,
+    title,
+    lists: [
+
+      { 
+        id,
+        dashboardId,
+        created,
+        title,
+        resources: [
+
+          {
+            id,
+            listId,
+            created,
+            url,
+          },
+
+        ],
+        ...
+      },
+      ...
+    ],
+
+  }
+```
+**state.user**
+```javascript
+  user: {
+
+    id,
+    username,
+    availableDashboards: [
+
+      dashboardId,
+      ...
+
+    ]
+
+  }
+```
+
+**state.status**
+``` javascript
+  status: {
+
+    isFetching,
+    error
+    
+  }
+```
+
+## Resources
+
 #### Gitflow
 https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow/
 
