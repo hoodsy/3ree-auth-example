@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../state/actions';
 import { AddList,
+         AddDashboard,
          ListContainer,
          DashboardHeader } from '../';
 
@@ -14,6 +15,7 @@ export class Dashboard extends Component {
       dashboard,
       addList,
       addResource,
+      addDashboard,
     } = this.props;
 
     return (
@@ -21,8 +23,11 @@ export class Dashboard extends Component {
         <DashboardHeader
           title={ dashboard.title }
         />
+        <AddDashboard
+          onAddDashboardSubmit={ title => addDashboard(title) }
+        />
         <AddList
-          onAddListSubmit={ title => addList(title) }
+          onAddListSubmit={ (dashboardId, title) => addList((dashboardId, title)) }
         />
         <ListContainer
           lists={ dashboard.lists }
@@ -38,6 +43,7 @@ Dashboard.propTypes = {
   dashboard: PropTypes.object.isRequired,
   addList: PropTypes.func,
   addResource: PropTypes.func,
+  addDashboard: PropTypes.func,
 };
 
 function mapStateToProps(state) {

@@ -30,3 +30,23 @@ export function getLists(req, res) {
     res.json({ error: err });
   });
 }
+
+// Dashboards
+// ==========
+export function addDashboard(req, res) {
+  service.addDashboard(req.body)
+  .then((dashboard) => res.json(dashboard))
+  .catch(err => {
+    res.status(400);
+    res.json({ error: err, dashboard: req.body });
+  });
+}
+
+export function getDashboards(req, res) {
+  service.getDashboards()
+  .then((dashboards) => res.json(dashboards))
+  .catch(err => {
+    res.status(400);
+    res.json({ error: err });
+  });
+}

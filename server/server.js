@@ -35,6 +35,7 @@ app.use(webpackHotMiddleware(compiler));
 
 app.post('/api/list', api.addList);
 app.post('/api/resource', api.addResource);
+app.post('/api/dashboard', api.addDashboard);
 app.get('*', initialRender);
 
 // Start Server

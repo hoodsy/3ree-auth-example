@@ -7,7 +7,7 @@ function connect() {
 }
 
 // Resources
-// =====
+// =========
 export function addResource(resource) {
   return connect()
   .then(conn => {
@@ -19,19 +19,5 @@ export function addResource(resource) {
     .then(response => {
       return Object.assign({}, resource, { id: response.generated_keys[0] });
     });
-  });
-}
-
-export function getResources(lists, conn) {
-  return r
-  .table('lists')
-  .merge(list => {
-    const resources = r.table('resources')
-      .getAll(list('id'), { index: 'listId' })
-      .coerceTo('array');
-    return { resources };
-  }).run(conn)
-  .then(cursor => {
-    return cursor.toArray();
   });
 }

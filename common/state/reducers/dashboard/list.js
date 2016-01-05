@@ -22,8 +22,10 @@ export function lists(state = [], action) {
 
     case types.ADD_RESOURCE_SUCCESS:
       const { listId } = action.resource;
+      /* eslint-disable */
       const list = state.filter(list => list.id === listId)[0];
       const listIndex = state.map(list => list.id).indexOf(listId);
+      /* eslint-enable */
 
       return [
         ...state.slice(0, listIndex),

@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
-export class AddList extends Component {
+export class AddDashboard extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
     const node = this.refs.input;
     const title = node.value.trim();
     if (title) {
-      const { onAddListSubmit, dashboardId } = this.props;
-      onAddListSubmit(dashboardId, title);
+      this.props.onAddDashboardSubmit(title);
       node.value = '';
     }
   }
@@ -19,7 +18,7 @@ export class AddList extends Component {
         <form onSubmit={(e) => this.handleSubmit(e)}>
           <input type="text" ref="input" />
           <button>
-            Add List
+            Add Dashboard
           </button>
         </form>
       </div>
@@ -27,7 +26,6 @@ export class AddList extends Component {
   }
 }
 
-AddList.propTypes = {
-  onAddListSubmit: PropTypes.func.isRequired,
-  dashboardId: PropTypes.string.isRequired,
+AddDashboard.propTypes = {
+  onAddDashboardSubmit: PropTypes.func.isRequired,
 };
