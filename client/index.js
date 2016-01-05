@@ -9,12 +9,12 @@ import { createStore } from 'redux';
 
 import { Dashboard } from '../common/views';
 // import startSocketListener from './socketListener';
-import resourceApp from '../common/state/reducers';
+import anchorApp from '../common/state/reducers';
 import * as actions from '../common/state/actions';
 import configureStore from '../common/state/stores/configureStore';
 
 const initialState = window.__INITIAL_STATE__;
-const store = configureStore(resourceApp, initialState);
+const store = configureStore(anchorApp, initialState);
 const rootElement = document.getElementById('root');
 render(
   <div>

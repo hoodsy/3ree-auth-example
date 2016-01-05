@@ -12,6 +12,7 @@ export * from './components/ListContainer';
 // Dashboard
 // =========
 export * from './components/DashboardHeader';
+export * from './components/AddDashboard';
 
 // Containers
 // ==========

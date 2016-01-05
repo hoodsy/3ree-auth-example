@@ -28,13 +28,13 @@ export function addListFailure(error) {
   };
 }
 
-export function addList(title) {
+export function addList(dashboardId, title) {
   return (dispatch) => {
     dispatch(addListRequest(title));
 
     return request
       .post(apiEndpoint)
-      .send({ title })
+      .send({ dashboardId, title })
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
