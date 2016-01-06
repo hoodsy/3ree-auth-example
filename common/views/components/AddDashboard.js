@@ -1,14 +1,14 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react'
 
 export class AddDashboard extends Component {
 
   handleSubmit(e) {
-    e.preventDefault();
-    const node = this.refs.input;
-    const title = node.value.trim();
+    e.preventDefault()
+    const node = this.refs.input
+    const title = node.value.trim()
     if (title) {
-      this.props.onAddDashboardSubmit(title);
-      node.value = '';
+      this.props.onAddDashboardSubmit(title)
+      node.value = ''
     }
   }
 
@@ -22,10 +22,10 @@ export class AddDashboard extends Component {
           </button>
         </form>
       </div>
-    );
+    )
   }
 }
 
 AddDashboard.propTypes = {
-  onAddDashboardSubmit: PropTypes.func.isRequired,
-};
+  onAddDashboardSubmit: PropTypes.func.isRequired
+}
