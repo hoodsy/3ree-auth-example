@@ -4,10 +4,8 @@ import { DashboardPicker,
 
 export const DashboardHeader = (props) => {
   const {
-    byId,
-    current,
-    isFetching,
-    onAddDashboardSubmit,
+    dashboards,
+    addDashboard,
     setCurrentDashboard,
     globalInput,
     setCurrentInputType
@@ -16,14 +14,12 @@ export const DashboardHeader = (props) => {
   return (
     <div>
       <DashboardPicker
-        byId={ byId }
-        current={ current }
-        isFetching={ isFetching }
+        { ...dashboards }
         onClick={ setCurrentDashboard }
       />
       <GlobalInput
         { ...globalInput }
-        onAddDashboardSubmit={ onAddDashboardSubmit }
+        addDashboard={ addDashboard }
         setCurrentInputType={ setCurrentInputType }
       />
     </div>
@@ -31,10 +27,9 @@ export const DashboardHeader = (props) => {
 }
 
 DashboardHeader.propTypes = {
-  byId: PropTypes.object.isRequired,
-  current: PropTypes.string.isRequired,
-  isFetching: PropTypes.bool.isRequired,
-  onAddDashboardSubmit: PropTypes.func.isRequired,
+  dashboards: PropTypes.object.isRequired,
   setCurrentDashboard: PropTypes.func.isRequired,
+  globalInput: PropTypes.object.isRequired,
+  addDashboard: PropTypes.func.isRequired,
   setCurrentInputType: PropTypes.func.isRequired
 }

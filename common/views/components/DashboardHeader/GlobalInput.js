@@ -10,15 +10,15 @@ export class GlobalInput extends Component {
     return byId[current].inputType
   }
 
-  mapInputToHandler(inputText) {
+  _mapInputToHandler(inputText) {
     const {
-      onAddDashboardSubmit
+      addDashboard
     } = this.props
     const inputType = this._getInputType()
 
     switch(inputType) {
       case 'dashboard':
-        return onAddDashboardSubmit(inputText)
+        return addDashboard(inputText)
     }
   }
 
@@ -28,7 +28,7 @@ export class GlobalInput extends Component {
     const inputText = node.value.trim()
     if (inputText) {
       // this.props.onGlobalInputSubmit(inputText)
-      this.mapInputToHandler(inputText)
+      this._mapInputToHandler(inputText)
       node.value = ''
     }
   }
@@ -62,5 +62,5 @@ GlobalInput.propTypes = {
   byId: PropTypes.object.isRequired,
   current: PropTypes.string.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,
-  onAddDashboardSubmit: PropTypes.func.isRequired
+  addDashboard: PropTypes.func.isRequired
 }
