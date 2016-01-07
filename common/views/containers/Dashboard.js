@@ -1,10 +1,12 @@
 import React, { PropTypes } from 'react'
-import { DashboardHeaderContainer } from '../'
+import { DashboardHeaderContainer,
+         DashboardBodyContainer } from '../'
 
 export const Dashboard = () => {
   return (
     <div>
       <DashboardHeaderContainer />
+      <DashboardBodyContainer />
 
       {/*
       <AddList

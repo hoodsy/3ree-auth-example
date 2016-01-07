@@ -1,29 +1,32 @@
 import React, { PropTypes } from 'react'
 
-export const DashboardPicker = ({ byId, current, onClick }) => {
-  function renderDashboardTitles(id, index) {
-    return (
+export const DashboardPicker = (
+  { dashboardsById,
+    currentDashboard,
+    setCurrentDashboard }) =>
+(
+  <div>
+    { Object.keys(dashboardsById).map((id, index) =>
       <h1
         key={ index }
-        onClick={ () => onClick(id) }
+        onClick={ () => setCurrentDashboard(id) }
         style={{
           ...styles,
-          color: id == current ? 'red' : 'black'
+          color: id == currentDashboard ? 'BlueViolet' : 'black'
         }}>
-        { byId[id].title }
+        { dashboardsById[id].title }
       </h1>
-    )
-  }
-  const nodes = Object.keys(byId).map(renderDashboardTitles)
-  return <div>{ nodes }</div>
-}
+    )}
+  </div>
+)
 
 const styles = {
   cursor: 'pointer'
 }
 
 DashboardPicker.propTypes = {
-  byId: PropTypes.object.isRequired,
-  current: PropTypes.string.isRequired,
+  dashboardsById: PropTypes.object.isRequired,
+  currentDashboard: PropTypes.string.isRequired,
+  setCurrentDashboard: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired
 }

@@ -5,12 +5,12 @@ import { Provider } from 'react-redux'
 import { DevTools,
          DebugPanel,
          LogMonitor } from 'redux-devtools/lib/react'
-import { createStore } from 'redux'
+// import { createStore } from 'redux'
 
 import { Dashboard } from '../common/views'
 // import startSocketListener from './socketListener'
 import anchorApp from '../common/state/reducers'
-import * as actions from '../common/state/actions'
+// import * as actions from '../common/state/actions'
 import configureStore from '../common/state/stores/configureStore'
 
 const initialState = window.__INITIAL_STATE__

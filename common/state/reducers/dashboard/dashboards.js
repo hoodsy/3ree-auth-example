@@ -3,14 +3,14 @@ import * as types from '../../constants/actionTypes'
 // State Shape
 // ===========
 const initialState = {
-  byId: {},
-  current: '',
+  dashboardsById: {},
+  currentDashboard: '',
   isFetching: false
 }
 
 // Private Sub-Reducers
 // ====================
-function byId(state = {}, action) {
+function dashboardsById(state = {}, action) {
   switch(action.type) {
     case types.ADD_DASHBOARD_SUCCESS:
       const { dashboard } = action
@@ -24,7 +24,7 @@ function byId(state = {}, action) {
   }
 }
 
-function current(state = '', action) {
+function currentDashboard(state = '', action) {
   switch(action.type) {
     case types.ADD_DASHBOARD_SUCCESS:
       const { dashboard } = action
@@ -50,8 +50,8 @@ export default function dashboards(state = initialState, action) {
 
     case types.ADD_DASHBOARD_SUCCESS:
       return {
-        byId: byId(state.byId, action),
-        current: current(state.current, action),
+        dashboardsById: dashboardsById(state.dashboardsById, action),
+        currentDashboard: currentDashboard(state.currentDashboard, action),
         isFetching: false
       }
 
@@ -63,17 +63,10 @@ export default function dashboards(state = initialState, action) {
 
     case types.SET_CURRENT_DASHBOARD:
       return Object.assign({}, state, {
-        current: current(state.current, action)
+        currentDashboard: currentDashboard(state.currentDashboard, action)
       })
 
     default:
       return state
   }
-}
-
-// Utility Functions
-// =================
-export function getCurrentDashboard(state) {
-  const { byId, current } = state
-  return byId[current]
 }

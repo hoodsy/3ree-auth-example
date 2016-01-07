@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-import { ResourceList } from '../';
+import React, { Component, PropTypes } from 'react'
+import { ResourceList } from '../../'
 
 export class ListContainer extends Component {
 
@@ -14,7 +14,7 @@ export class ListContainer extends Component {
           />
         )}
       </div>
-    );
+    )
   }
 
 }
@@ -22,4 +22,4 @@ export class ListContainer extends Component {
 ListContainer.propTypes = {
   onAddSubmit: PropTypes.func.isRequired,
   lists: PropTypes.array.isRequired,
-};
+}

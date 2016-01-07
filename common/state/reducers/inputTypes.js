@@ -3,30 +3,30 @@ import * as types from '../constants/actionTypes'
 // State Shape
 // ===========
 const initialState = {
-  byId: {
+  inputTypesById: {
     0: {
-      inputType: 'search'
+      title: 'search'
     },
     1: {
-      inputType: 'list'
+      title: 'list'
     },
     2: {
-      inputType: 'resource'
+      title: 'resource'
     },
     3: {
-      inputType: 'dashboard'
+      title: 'dashboard'
     }
   },
-  current: '0'
+  currentInputType: '0'
 }
 
 // Public Reducer
 // ==============
-export default function globalInput(state = initialState, action) {
+export default function inputTypes(state = initialState, action) {
   switch (action.type) {
     case types.SET_CURRENT_INPUT_TYPE:
       return Object.assign({}, state, {
-        current: action.inputTypeId
+        currentInputType: action.inputTypeId
       })
 
     default:

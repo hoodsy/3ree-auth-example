@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react'
 import { DashboardPicker,
-         GlobalInput } from '../../'
+         InputTypesPicker } from '../../'
 
 export const DashboardHeader = (props) => {
   const {
     dashboards,
     addDashboard,
+    addList,
     setCurrentDashboard,
-    globalInput,
+    inputTypes,
     setCurrentInputType
   } = props
 
@@ -15,13 +16,12 @@ export const DashboardHeader = (props) => {
     <div>
       <DashboardPicker
         { ...dashboards }
-        onClick={ setCurrentDashboard }
-      />
-      <GlobalInput
-        { ...globalInput }
+        setCurrentDashboard={ setCurrentDashboard } />
+      <InputTypesPicker
+        { ...inputTypes }
         addDashboard={ addDashboard }
-        setCurrentInputType={ setCurrentInputType }
-      />
+        addList={ addList }
+        setCurrentInputType={ setCurrentInputType } />
     </div>
   )
 }
@@ -29,7 +29,8 @@ export const DashboardHeader = (props) => {
 DashboardHeader.propTypes = {
   dashboards: PropTypes.object.isRequired,
   setCurrentDashboard: PropTypes.func.isRequired,
-  globalInput: PropTypes.object.isRequired,
+  inputTypes: PropTypes.object.isRequired,
   addDashboard: PropTypes.func.isRequired,
+  addList: PropTypes.func.isRequired,
   setCurrentInputType: PropTypes.func.isRequired
 }

@@ -1,24 +1,28 @@
 import React, { Component, PropTypes } from 'react'
 import { InputTypes } from '../../'
 
-export class GlobalInput extends Component {
+export class InputTypesPicker extends Component {
   _getInputType() {
     const {
-      byId,
-      current
+      inputTypesById,
+      currentInputType
     } = this.props
-    return byId[current].inputType
+    return inputTypesById[currentInputType].title
   }
 
   _mapInputToHandler(inputText) {
     const {
-      addDashboard
+      addDashboard,
+      addList,
+      currentInputType
     } = this.props
     const inputType = this._getInputType()
 
     switch(inputType) {
       case 'dashboard':
         return addDashboard(inputText)
+      case 'list':
+        return addList(currentInputType, inputText)
     }
   }
 
@@ -27,7 +31,7 @@ export class GlobalInput extends Component {
     const node = this.refs.input
     const inputText = node.value.trim()
     if (inputText) {
-      // this.props.onGlobalInputSubmit(inputText)
+      // this.props.onInputTypesPickerSubmit(inputText)
       this._mapInputToHandler(inputText)
       node.value = ''
     }
@@ -35,18 +39,17 @@ export class GlobalInput extends Component {
 
   render() {
     const {
-      byId,
-      current,
+      inputTypesById,
+      currentInputType,
       setCurrentInputType
     } = this.props
 
     return (
       <div>
         <InputTypes
-          byId={ byId }
-          current={ current }
-          onClick={ setCurrentInputType }
-        />
+          inputTypesById={ inputTypesById }
+          currentInputType={ currentInputType }
+          onClick={ setCurrentInputType } />
         <form onSubmit={(e) => this.handleSubmit(e)}>
           <input type="text" ref="input" />
           <button>
@@ -58,9 +61,10 @@ export class GlobalInput extends Component {
   }
 }
 
-GlobalInput.propTypes = {
-  byId: PropTypes.object.isRequired,
-  current: PropTypes.string.isRequired,
+InputTypesPicker.propTypes = {
+  inputTypesById: PropTypes.object.isRequired,
+  currentInputType: PropTypes.string.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,
-  addDashboard: PropTypes.func.isRequired
+  addDashboard: PropTypes.func.isRequired,
+  addList: PropTypes.func.isRequired
 }

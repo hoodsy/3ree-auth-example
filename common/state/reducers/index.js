@@ -1,20 +1,20 @@
 import { combineReducers } from 'redux'
 // import user from './user'
 import dashboards from './dashboard/dashboards'
-import globalInput from './globalInput'
-// import status from './status'
+import inputTypes from './inputTypes'
+import lists from './lists'
 
 const anchorApp = combineReducers({
   // user,
   dashboards,
-  globalInput
-  // status
+  lists,
+  inputTypes
 })
 
 // Exports
 // =======
-// export * from './dashboard/list'
+export * from './lists'
 // export * from './dashboard/resource'
 export * from './dashboard/dashboards'
-export * from './globalInput'
+export * from './inputTypes'
 export default anchorApp

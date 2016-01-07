@@ -1,22 +1,24 @@
 import React, { PropTypes } from 'react'
 
-export const InputTypes = ({ byId, current, onClick }) => {
-  function renderInputTypes(id, index) {
-    return (
+export const InputTypes = (
+  { inputTypesById,
+    currentInputType,
+    onClick }) =>
+(
+  <div>
+    { Object.keys(inputTypesById).map((id, index) =>
       <span
         key={ index }
         onClick={ () => onClick(id) }
         style={{
           ...styles,
-          color: id == current ? 'red' : 'black'
+          color: id == currentInputType ? 'BlueViolet' : 'black'
         }}>
-        { byId[id].inputType }
+        { inputTypesById[id].title }
       </span>
-    )
-  }
-  const nodes = Object.keys(byId).map(renderInputTypes)
-  return <div>{ nodes }</div>
-}
+    )}
+  </div>
+)
 
 const styles = {
   padding: 10,
@@ -24,7 +26,7 @@ const styles = {
 }
 
 InputTypes.propTypes = {
-  byId: PropTypes.object.isRequired,
-  current: PropTypes.string.isRequired,
+  inputTypesById: PropTypes.object.isRequired,
+  currentInputType: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired
 }

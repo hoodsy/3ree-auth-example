@@ -1,7 +1,7 @@
 import xss from 'xss'
 import r from 'rethinkdb'
 import config from '../../../config/dbConfig'
-// import { getLists } from './list'
+import { getLists } from './list'
 import normalize from '../util/normalize'
 
 function connect() {
@@ -52,3 +52,10 @@ export function getDashboardLists(dashboards) { // eslint-disable-line no-unused
     })
   })
 }
+
+// export function getDashboardData() {
+//   return {
+//     dashboards: getDashboards().then(dashboards => dashboards),
+//     lists: getLists().then(lists => lists)
+//   }
+// }
