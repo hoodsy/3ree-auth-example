@@ -31,7 +31,7 @@ function current(state = '', action) {
       if (!state) return dashboard.id
       return state
 
-    case types.CHANGE_CURRENT_DASHBOARD:
+    case types.SET_CURRENT_DASHBOARD:
       return action.dashboardId
 
     default:
@@ -61,7 +61,7 @@ export default function dashboards(state = initialState, action) {
         error: action.error
       })
 
-    case types.CHANGE_CURRENT_DASHBOARD:
+    case types.SET_CURRENT_DASHBOARD:
       return Object.assign({}, state, {
         current: current(state.current, action)
       })

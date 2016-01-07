@@ -23,11 +23,7 @@ const styles = {
 }
 
 DashboardPicker.propTypes = {
-  byId: PropTypes.objectOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    created: PropTypes.string.isRequired
-  })).isRequired,
+  byId: PropTypes.object.isRequired,
   current: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired
 }

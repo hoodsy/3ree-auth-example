@@ -11,11 +11,12 @@ export * from './components/ListContainer'
 
 // Dashboard
 // =========
-export * from './components/DashboardHeader'
-export * from './components/AddDashboard'
-export * from './components/DashboardPicker'
+export * from './components/DashboardHeader/DashboardHeader'
+export * from './components/DashboardHeader/DashboardPicker'
+export * from './components/DashboardHeader/GlobalInput'
+export * from './components/DashboardHeader/InputTypes'
 
 // Containers
 // ==========
-export { default as Dashboard } from './containers/Dashboard'
+export * from './containers/Dashboard'
 export { default as DashboardHeaderContainer } from './containers/DashboardHeaderContainer'

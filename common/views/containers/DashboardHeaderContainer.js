@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import { addDashboard,
-         changeCurrentDashboard } from '../../state/actions'
+         setCurrentDashboard,
+         setCurrentInputType } from '../../state/actions'
 import { DashboardHeader } from '../'
 
 class DashboardHeaderContainer extends Component {
@@ -12,7 +13,9 @@ class DashboardHeaderContainer extends Component {
       current,
       isFetching,
       addDashboard,
-      changeCurrentDashboard
+      setCurrentDashboard,
+      globalInput,
+      setCurrentInputType
     } = this.props
 
     return (
@@ -21,7 +24,9 @@ class DashboardHeaderContainer extends Component {
         current={ current }
         isFetching={ isFetching }
         onAddDashboardSubmit={ addDashboard }
-        changeCurrentDashboard={ changeCurrentDashboard }
+        setCurrentDashboard={ setCurrentDashboard }
+        globalInput={ globalInput }
+        setCurrentInputType={ setCurrentInputType }
       />
     )
   }
@@ -38,18 +43,20 @@ DashboardHeaderContainer.propTypes = {
   current: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   addDashboard: PropTypes.func.isRequired,
-  changeCurrentDashboard: PropTypes.func.isRequired
+  setCurrentDashboard: PropTypes.func.isRequired,
+  setCurrentInputType: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
   return {
     ...state.dashboards,
-    addDashboard: state.addDashboard
+    globalInput: state.globalInput
   }
 }
 
 export default connect(
   mapStateToProps,
   { addDashboard,
-    changeCurrentDashboard }
+    setCurrentDashboard,
+    setCurrentInputType }
 )(DashboardHeaderContainer)

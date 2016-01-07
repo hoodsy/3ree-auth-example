@@ -46,9 +46,9 @@ export function addDashboard(title) {
   }
 }
 
-export function changeCurrentDashboard(dashboardId) {
+export function setCurrentDashboard(dashboardId) {
   return {
-    type: types.CHANGE_CURRENT_DASHBOARD,
+    type: types.SET_CURRENT_DASHBOARD,
     dashboardId
   }
 }

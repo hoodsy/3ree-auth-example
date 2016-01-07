@@ -9,7 +9,7 @@ function connect() {
 }
 
 // Dashboards
-// =====
+// ==========
 export function addDashboard(dashboard) {
   return connect()
   .then(conn => {

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
-import { AddDashboard,
-         DashboardPicker } from '../'
+import { DashboardPicker,
+         GlobalInput } from '../../'
 
 export const DashboardHeader = (props) => {
   const {
@@ -8,7 +8,9 @@ export const DashboardHeader = (props) => {
     current,
     isFetching,
     onAddDashboardSubmit,
-    changeCurrentDashboard
+    setCurrentDashboard,
+    globalInput,
+    setCurrentInputType
   } = props
 
   return (
@@ -17,23 +19,22 @@ export const DashboardHeader = (props) => {
         byId={ byId }
         current={ current }
         isFetching={ isFetching }
-        onClick={ changeCurrentDashboard }
+        onClick={ setCurrentDashboard }
       />
-      <AddDashboard
+      <GlobalInput
+        { ...globalInput }
         onAddDashboardSubmit={ onAddDashboardSubmit }
+        setCurrentInputType={ setCurrentInputType }
       />
     </div>
   )
 }
 
 DashboardHeader.propTypes = {
-  byId: PropTypes.objectOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    created: PropTypes.string.isRequired
-  })).isRequired,
+  byId: PropTypes.object.isRequired,
   current: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   onAddDashboardSubmit: PropTypes.func.isRequired,
-  changeCurrentDashboard: PropTypes.func.isRequired
+  setCurrentDashboard: PropTypes.func.isRequired,
+  setCurrentInputType: PropTypes.func.isRequired
 }
