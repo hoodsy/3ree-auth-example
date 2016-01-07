@@ -1,7 +1,8 @@
 import xss from 'xss'
 import r from 'rethinkdb'
 import config from '../../../config/dbConfig'
-import { getLists } from './list'
+// import { getLists } from './list'
+import normalize from '../util/normalize'
 
 function connect() {
   return r.connect(config)
@@ -30,7 +31,8 @@ export function getDashboards() {
     .table('dashboards')
     .orderBy('id').run(conn)
     .then(cursor => cursor.toArray())
-    .then(dashboards => getLists(dashboards, conn))
+    .then(cursor => normalize(cursor))
+    // .then(dashboards => getLists(dashboards, conn))
   })
 }
 

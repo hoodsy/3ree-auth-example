@@ -5,17 +5,14 @@ import { connect } from 'react-redux'
 import * as actions from '../../state/actions'
 import {
          // AddList,
-         AddDashboard,
          // ListContainer,
          DashboardHeaderContainer } from '../'
 
 export default class Dashboard extends Component {
   render() {
     const {
-      // dashboard,
       // addList,
       // addResource,
-      addDashboard
     } = this.props
 
     return (

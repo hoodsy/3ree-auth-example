@@ -7,19 +7,16 @@ import { DevTools,
          LogMonitor } from 'redux-devtools/lib/react'
 
 import { Dashboard } from '../common/views'
-import { getLists,
-         getListResources } from './api/service'
+import { getDashboards } from './api/service'
 import anchorApp from '../common/state/reducers'
 import configureStore from '../common/state/stores/configureStore'
 
 export default function initialRender(req, res) {
-  getLists()
-  .then(lists => getListResources(lists)) // Fill Lists with their resources
-  .then(lists => {
-    // const initialState = { dashboard: { title: 'Strategic Synergy Syndicate', lists } }
+  getDashboards()
+  .then(dashboards => {
     const initialState = {
       dashboards: {
-        byId: {},
+        byId: dashboards,
         current: '',
         isFetching: false
       }

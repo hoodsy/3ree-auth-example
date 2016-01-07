@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { addDashboard,
          changeCurrentDashboard } from '../../state/actions'
 import { DashboardHeader } from '../'
-// import { getCurrentDashboard } from '../../state/actions'
 
 class DashboardHeaderContainer extends Component {
   render() {
@@ -21,13 +20,15 @@ class DashboardHeaderContainer extends Component {
         byId={ byId }
         current={ current }
         isFetching={ isFetching }
-        onAddDashboardSubmit={ title => addDashboard(title) }
-        changeCurrentDashboard={ dashboardId => changeCurrentDashboard(dashboardId) }
+        onAddDashboardSubmit={ addDashboard }
+        changeCurrentDashboard={ changeCurrentDashboard }
       />
     )
   }
 }
 
+// Current bug of error thrown for date Proptype:
+// https://github.com/facebook/react-native/issues/4547
 DashboardHeaderContainer.propTypes = {
   byId: PropTypes.objectOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
