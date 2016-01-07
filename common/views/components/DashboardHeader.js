@@ -6,8 +6,9 @@ export const DashboardHeader = (props) => {
   const {
     byId,
     current,
-    // isFetching,
-    onAddDashboardSubmit
+    isFetching,
+    onAddDashboardSubmit,
+    changeCurrentDashboard
   } = props
 
   return (
@@ -15,6 +16,8 @@ export const DashboardHeader = (props) => {
       <DashboardPicker
         byId={ byId }
         current={ current }
+        isFetching={ isFetching }
+        onClick={ changeCurrentDashboard }
       />
       <AddDashboard
         onAddDashboardSubmit={ onAddDashboardSubmit }
@@ -24,5 +27,13 @@ export const DashboardHeader = (props) => {
 }
 
 DashboardHeader.propTypes = {
-  // title: PropTypes.string.isRequired
+  byId: PropTypes.objectOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    created: PropTypes.string.isRequired
+  })).isRequired,
+  current: PropTypes.string.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  onAddDashboardSubmit: PropTypes.func.isRequired,
+  changeCurrentDashboard: PropTypes.func.isRequired
 }

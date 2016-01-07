@@ -1,6 +1,4 @@
-// import { combineReducers } from 'redux'
 import * as types from '../../constants/actionTypes'
-// import { lists } from './list'
 
 // State Shape
 // ===========
@@ -33,6 +31,9 @@ function current(state = '', action) {
       if (!state) return dashboard.id
       return state
 
+    case types.CHANGE_CURRENT_DASHBOARD:
+      return action.dashboardId
+
     default:
       return state
   }
@@ -58,6 +59,11 @@ export default function dashboards(state = initialState, action) {
       return Object.assign({}, state, {
         isFetching: false,
         error: action.error
+      })
+
+    case types.CHANGE_CURRENT_DASHBOARD:
+      return Object.assign({}, state, {
+        current: current(state.current, action)
       })
 
     default:

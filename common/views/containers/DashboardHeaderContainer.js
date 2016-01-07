@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { addDashboard } from '../../state/actions'
+import { addDashboard,
+         changeCurrentDashboard } from '../../state/actions'
 import { DashboardHeader } from '../'
 // import { getCurrentDashboard } from '../../state/actions'
 
@@ -11,7 +12,8 @@ class DashboardHeaderContainer extends Component {
       byId,
       current,
       isFetching,
-      addDashboard
+      addDashboard,
+      changeCurrentDashboard
     } = this.props
 
     return (
@@ -20,6 +22,7 @@ class DashboardHeaderContainer extends Component {
         current={ current }
         isFetching={ isFetching }
         onAddDashboardSubmit={ title => addDashboard(title) }
+        changeCurrentDashboard={ dashboardId => changeCurrentDashboard(dashboardId) }
       />
     )
   }
@@ -33,7 +36,8 @@ DashboardHeaderContainer.propTypes = {
   })).isRequired,
   current: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
-  addDashboard: PropTypes.func.isRequired
+  addDashboard: PropTypes.func.isRequired,
+  changeCurrentDashboard: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -45,5 +49,6 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { addDashboard }
+  { addDashboard,
+    changeCurrentDashboard }
 )(DashboardHeaderContainer)

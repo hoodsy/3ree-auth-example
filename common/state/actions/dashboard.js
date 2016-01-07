@@ -45,3 +45,10 @@ export function addDashboard(title) {
       })
   }
 }
+
+export function changeCurrentDashboard(dashboardId) {
+  return {
+    type: types.CHANGE_CURRENT_DASHBOARD,
+    dashboardId
+  }
+}
