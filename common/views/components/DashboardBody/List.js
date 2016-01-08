@@ -5,7 +5,8 @@ export const List = (
   { id,
     title,
     currentList,
-    onClick }) =>
+    onClick,
+    children }) =>
 (
   <h3
     onClick={ () => onClick(id) }
@@ -14,6 +15,7 @@ export const List = (
       color: id == currentList ? 'BlueViolet' : 'black'
     }}>
     { title }
+    { children }
   </h3>
 )
 

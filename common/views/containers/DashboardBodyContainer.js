@@ -8,12 +8,16 @@ class DashboardBodyContainer extends Component {
   render() {
     const {
       lists,
+      resources,
+      currentDashboard,
       setCurrentList
     } = this.props
 
     return (
       <DashboardBody
         lists={ lists }
+        resources={ resources }
+        currentDashboard={ currentDashboard }
         setCurrentList={ setCurrentList } />
     )
   }
@@ -28,13 +32,24 @@ DashboardBodyContainer.propTypes = {
     })).isRequired,
     currentList: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired
-  }).isRequired
+  }).isRequired,
+  resources: PropTypes.shape({
+    resourcesById: PropTypes.objectOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+      created: PropTypes.string.isRequired
+    })).isRequired,
+    isFetching: PropTypes.bool.isRequired
+  }).isRequired,
+  currentDashboard: PropTypes.string.isRequired,
+  setCurrentList: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
   return {
-    lists: state.lists
-    // resources: state.resources
+    lists: state.lists,
+    resources: state.resources,
+    currentDashboard: state.dashboards.currentDashboard
   }
 }
 

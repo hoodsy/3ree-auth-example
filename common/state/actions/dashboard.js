@@ -6,29 +6,31 @@ import * as types from '../constants/actionTypes'
 // ============
 const apiEndpoint = '/api/dashboard'
 
-// Dashboards
-// ==========
-export function addDashboardRequest(title) {
+// Private Actions
+// ===============
+function addDashboardRequest(title) {
   return {
     type: types.ADD_DASHBOARD_REQUEST,
     title
   }
 }
 
-export function addDashboardSuccess(dashboard) {
+function addDashboardSuccess(dashboard) {
   return {
     type: types.ADD_DASHBOARD_SUCCESS,
     dashboard
   }
 }
 
-export function addDashboardFailure(error) {
+function addDashboardFailure(error) {
   return {
     type: types.ADD_DASHBOARD_FAILURE,
     error
   }
 }
 
+// Public Actions
+// ==============
 export function addDashboard(title) {
   return (dispatch) => {
     dispatch(addDashboardRequest(title))

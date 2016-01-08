@@ -5,29 +5,31 @@ import request from 'superagent/lib/client'
 // ============
 const apiEndpoint = '/api/list'
 
-// Lists
-// =====
-export function addListRequest(title) {
+// Private Actions
+// ===============
+function addListRequest(title) {
   return {
     type: types.ADD_LIST_REQUEST,
     title
   }
 }
 
-export function addListSuccess(list) {
+function addListSuccess(list) {
   return {
     type: types.ADD_LIST_SUCCESS,
     list
   }
 }
 
-export function addListFailure(error) {
+function addListFailure(error) {
   return {
     type: types.ADD_LIST_FAILURE,
     error
   }
 }
 
+// Public Actions
+// ==============
 export function addList(dashboardId, title) {
   return (dispatch) => {
     dispatch(addListRequest(title))

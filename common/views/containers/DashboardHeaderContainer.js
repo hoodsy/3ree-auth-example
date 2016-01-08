@@ -1,10 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { addDashboard,
-         addList,
-         setCurrentDashboard,
-         setCurrentInputType } from '../../state/actions'
+import * as actions from '../../state/actions'
 import { DashboardHeader } from '../'
 
 class DashboardHeaderContainer extends Component {
@@ -15,6 +12,7 @@ class DashboardHeaderContainer extends Component {
       inputTypes,
       addDashboard,
       addList,
+      addResource,
       setCurrentInputType,
       currentList
     } = this.props
@@ -27,6 +25,7 @@ class DashboardHeaderContainer extends Component {
         setCurrentInputType={ setCurrentInputType }
         addDashboard={ addDashboard }
         addList={ addList }
+        addResource={ addResource }
         currentList={ currentList } />
     )
   }
@@ -55,6 +54,7 @@ DashboardHeaderContainer.propTypes = {
   }).isRequired,
   addDashboard: PropTypes.func.isRequired,
   addList: PropTypes.func.isRequired,
+  addResource: PropTypes.func.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,
   currentList: PropTypes.string.isRequired
 }
@@ -69,8 +69,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { addDashboard,
-    addList,
-    setCurrentDashboard,
-    setCurrentInputType }
+  { ...actions }
 )(DashboardHeaderContainer)
