@@ -6,24 +6,24 @@ import { DevTools,
          LogMonitor } from 'redux-devtools/lib/react'
 
 import { App } from '../common/views'
-import { getDashboards, getLists } from './api/service'
+import { getDashboardData } from './api/service'
 import anchorApp from '../common/state/reducers'
 import configureStore from '../common/state/stores/configureStore'
 
 export default function initialRender(req, res) {
-  getLists()
-  .then(lists => {
-
-    // getLists().then(lists => console.log(lists))
+  getDashboardData()
+  .then(data => {
+    const { dashboardsById,
+            listsById } = data
 
     const initialState = {
       dashboards: {
-        dashboardsById: {},
+        dashboardsById,
         currentDashboard: '',
         isFetching: false
       },
       lists: {
-        listsById: lists,
+        listsById,
         currentList: '',
         isFetching: false
       }

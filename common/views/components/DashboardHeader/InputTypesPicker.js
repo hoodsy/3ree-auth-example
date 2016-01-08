@@ -15,7 +15,7 @@ export class InputTypesPicker extends Component {
     const {
       addDashboard,
       addList,
-      currentInputType
+      currentDashboard
     } = this.props
     const inputType = this._getInputType()
 
@@ -23,7 +23,7 @@ export class InputTypesPicker extends Component {
       case 'dashboard':
         return addDashboard(inputText)
       case 'list':
-        return addList(currentInputType, inputText)
+        return addList(currentDashboard, inputText)
     }
   }
 
@@ -68,6 +68,8 @@ export class InputTypesPicker extends Component {
 InputTypesPicker.propTypes = {
   inputTypesById: PropTypes.object.isRequired,
   currentInputType: PropTypes.string.isRequired,
+  currentDashboard: PropTypes.string.isRequired,
+  currentList: PropTypes.string.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,
   addDashboard: PropTypes.func.isRequired,
   addList: PropTypes.func.isRequired

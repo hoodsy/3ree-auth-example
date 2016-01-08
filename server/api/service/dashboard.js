@@ -3,6 +3,7 @@ import r from 'rethinkdb'
 import config from '../../../config/dbConfig'
 import { getLists } from './list'
 import normalize from '../util/normalize'
+import group from '../util/group'
 
 function connect() {
   return r.connect(config)
@@ -47,15 +48,22 @@ export function getDashboardLists(dashboards) { // eslint-disable-line no-unused
         .coerceTo('array')
       return { lists }
     }).run(conn)
-    .then(cursor => {
-      return cursor.toArray()
-    })
+    .then(cursor => cursor.toArray())
   })
 }
 
-// export function getDashboardData() {
-//   return {
-//     dashboards: getDashboards().then(dashboards => dashboards),
-//     lists: getLists().then(lists => lists)
-//   }
-// }
+export function getDashboardData() {
+  return connect()
+    .then(conn => {
+      return r
+      .table('lists')
+      .eqJoin('dashboardId', r.table('dashboards'))
+      .run(conn)
+      .then(cursor => cursor.toArray())
+    })
+    .then(cursor => group(cursor))
+    .then(cursor => ({
+      listsById: normalize(cursor['left']),
+      dashboardsById: normalize(cursor['right'])
+    }))
+}
