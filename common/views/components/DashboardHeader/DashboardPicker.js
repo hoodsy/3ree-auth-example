@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react'
 
+import { Dashboard } from '../../'
+
 export const DashboardPicker = (
   { dashboardsById,
     currentDashboard,
@@ -7,22 +9,14 @@ export const DashboardPicker = (
 (
   <div>
     { Object.keys(dashboardsById).map((id, index) =>
-      <h1
+      <Dashboard
+        { ...dashboardsById[id] }
         key={ index }
-        onClick={ () => setCurrentDashboard(id) }
-        style={{
-          ...styles,
-          color: id == currentDashboard ? 'BlueViolet' : 'black'
-        }}>
-        { dashboardsById[id].title }
-      </h1>
+        currentDashboard={ currentDashboard }
+        onClick={ setCurrentDashboard } />
     )}
   </div>
 )
-
-const styles = {
-  cursor: 'pointer'
-}
 
 DashboardPicker.propTypes = {
   dashboardsById: PropTypes.object.isRequired,

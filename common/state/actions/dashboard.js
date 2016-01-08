@@ -1,5 +1,6 @@
-import * as types from '../constants/actionTypes'
 import request from 'superagent/lib/client'
+
+import * as types from '../constants/actionTypes'
 
 // API Endpoint
 // ============

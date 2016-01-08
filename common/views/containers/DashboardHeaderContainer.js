@@ -46,6 +46,7 @@ DashboardHeaderContainer.propTypes = {
   setCurrentDashboard: PropTypes.func.isRequired,
   inputTypes: PropTypes.shape({
     inputTypesById: PropTypes.objectOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired
     })).isRequired,
     currentInputType: PropTypes.string.isRequired

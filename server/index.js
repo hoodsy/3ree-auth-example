@@ -1,12 +1,11 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-
 import { Provider } from 'react-redux'
 import { DevTools,
          DebugPanel,
          LogMonitor } from 'redux-devtools/lib/react'
 
-import { Dashboard } from '../common/views'
+import { App } from '../common/views'
 import { getDashboards, getLists } from './api/service'
 import anchorApp from '../common/state/reducers'
 import configureStore from '../common/state/stores/configureStore'
@@ -35,7 +34,7 @@ export default function initialRender(req, res) {
     const html = renderToString(
       <div>
         <Provider store={store}>
-          <Dashboard />
+          <App />
         </Provider>
         <DebugPanel top right bottom>
           <DevTools store={store} monitor={LogMonitor} />

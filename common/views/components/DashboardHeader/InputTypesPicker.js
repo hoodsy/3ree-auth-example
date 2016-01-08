@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { InputTypes } from '../../'
+
+import { InputType } from '../../'
 
 export class InputTypesPicker extends Component {
   _getInputType() {
@@ -46,10 +47,13 @@ export class InputTypesPicker extends Component {
 
     return (
       <div>
-        <InputTypes
-          inputTypesById={ inputTypesById }
-          currentInputType={ currentInputType }
-          onClick={ setCurrentInputType } />
+        { Object.keys(inputTypesById).map((id, index) =>
+          <InputType
+            { ...inputTypesById[id] }
+            key={ index }
+            currentInputType={ currentInputType }
+            onClick={ setCurrentInputType } />
+        )}
         <form onSubmit={(e) => this.handleSubmit(e)}>
           <input type="text" ref="input" />
           <button>
