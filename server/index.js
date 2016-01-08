@@ -14,7 +14,8 @@ export default function initialRender(req, res) {
   getDashboardData()
   .then(data => {
     const { dashboardsById,
-            listsById } = data
+            listsById,
+            resourcesById } = data
 
     const initialState = {
       dashboards: {
@@ -25,6 +26,10 @@ export default function initialRender(req, res) {
       lists: {
         listsById,
         currentList: '',
+        isFetching: false
+      },
+      resources: {
+        resourcesById,
         isFetching: false
       }
     }

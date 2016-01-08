@@ -1,7 +1,7 @@
 import xss from 'xss'
 import r from 'rethinkdb'
 import config from '../../../config/dbConfig'
-import normalize from '../util/normalize'
+// import normalize from '../util/normalize'
 
 function connect() {
   return r.connect(config)
@@ -30,7 +30,7 @@ export function getLists() {
     .table('lists')
     .orderBy('id').run(conn)
     .then(cursor => cursor.toArray())
-    .then(cursor => normalize(cursor))
+    // .then(cursor => normalize(cursor))
   })
 }
 
