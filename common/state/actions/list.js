@@ -1,36 +1,38 @@
-import * as types from '../constants/actionTypes';
-import request from 'superagent/lib/client';
+import * as types from '../constants/actionTypes'
+import request from 'superagent/lib/client'
 
 // API Endpoint
 // ============
-const apiEndpoint = '/api/list';
+const apiEndpoint = '/api/list'
 
-// Lists
-// =====
-export function addListRequest(title) {
+// Private Actions
+// ===============
+function addListRequest(title) {
   return {
     type: types.ADD_LIST_REQUEST,
-    title,
-  };
+    title
+  }
 }
 
-export function addListSuccess(list) {
+function addListSuccess(list) {
   return {
     type: types.ADD_LIST_SUCCESS,
-    list,
-  };
+    list
+  }
 }
 
-export function addListFailure(error) {
+function addListFailure(error) {
   return {
     type: types.ADD_LIST_FAILURE,
-    error,
-  };
+    error
+  }
 }
 
+// Public Actions
+// ==============
 export function addList(dashboardId, title) {
   return (dispatch) => {
-    dispatch(addListRequest(title));
+    dispatch(addListRequest(title))
 
     return request
       .post(apiEndpoint)
@@ -38,10 +40,17 @@ export function addList(dashboardId, title) {
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
-          dispatch(addListFailure(err, title));
+          dispatch(addListFailure(err, title))
         } else {
-          dispatch(addListSuccess(res.body));
+          dispatch(addListSuccess(res.body))
         }
-      });
-  };
+      })
+  }
+}
+
+export function setCurrentList(listId) {
+  return {
+    type: types.SET_CURRENT_LIST,
+    listId
+  }
 }

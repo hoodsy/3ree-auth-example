@@ -1,16 +1,21 @@
-import { combineReducers } from 'redux';
-import user from './user';
-import dashboard from './dashboard/dashboard';
-import status from './status';
+import { combineReducers } from 'redux'
+
+import dashboards from './dashboards'
+import lists from './lists'
+import resources from './resources'
+import inputTypes from './inputTypes'
 
 const anchorApp = combineReducers({
-  user,
-  dashboard,
-  status,
-});
+  dashboards,
+  lists,
+  resources,
+  inputTypes
+})
 
 // Exports
 // =======
-export * from './dashboard/list';
-export * from './dashboard/resource';
-export default anchorApp;
+export * from './dashboards'
+export * from './lists'
+export * from './resources'
+export * from './inputTypes'
+export default anchorApp

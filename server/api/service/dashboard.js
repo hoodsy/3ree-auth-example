@@ -1,53 +1,79 @@
-import xss from 'xss';
-import r from 'rethinkdb';
-import config from '../../../config/dbConfig';
-import { getLists } from './list';
+import xss from 'xss'
+import r from 'rethinkdb'
 
-function connect() {
-  return r.connect(config);
-}
+import config from '../../../config/dbConfig'
+import { extractByType,
+         merge,
+         normalize } from '../util'
 
 // Dashboards
-// =====
+// ==========
 export function addDashboard(dashboard) {
-  return connect()
+  return r.connect(config)
   .then(conn => {
-    dashboard.created = new Date();
-    dashboard.lists = [];
-    dashboard.title = xss(dashboard.title);
+    dashboard.created = new Date()
+    dashboard.title = xss(dashboard.title)
     return r
     .table('dashboards')
     .insert(dashboard).run(conn)
     .then(response => {
-      return Object.assign({}, dashboard, { id: response.generated_keys[0] });
-    });
-  });
+      return Object.assign({}, dashboard, { id: response.generated_keys[0] })
+    })
+  })
 }
 
 export function getDashboards() {
-  return connect()
+  return r.connect(config)
   .then(conn => {
     return r
     .table('dashboards')
     .orderBy('id').run(conn)
     .then(cursor => cursor.toArray())
-    .then(dashboards => getLists(dashboards, conn));
-  });
+    .then(cursor => normalize(cursor))
+    // .then(dashboards => getLists(dashboards, conn))
+  })
 }
 
-export function getDashboardLists(dashboards) { // eslint-disable-line no-unused-vars
-  return connect()
-  .then(conn => {
-    return r
-    .table('dashboards')
-    .merge(dashboard => {
-      const lists = r.table('lists')
+export function getDashboardData() {
+  return r.connect(config)
+    .then(conn => {
+      return r.table('dashboards')
+      .map(dashboard => {
+        const lists = r.table('lists')
         .getAll(dashboard('id'), { index: 'dashboardId' })
-        .coerceTo('array');
-      return { lists };
-    }).run(conn)
-    .then(cursor => {
-      return cursor.toArray();
-    });
-  });
+        .coerceTo('array')
+        .map(list => {
+          const resources = r.table('resources')
+          .getAll(list('id'), { index: 'listId' })
+          .coerceTo('array')
+          return { list, resources }
+        })
+        return { dashboard, lists }
+      })
+      .run(conn)
+      .then(formatDashboardData)
+    })
+}
+
+function formatDashboardData(cursor) {
+  return (
+    cursor.toArray()
+    .map(item => {
+      const {
+        lists,
+        resources
+      } = extractByType(item.lists)
+      return {
+        dashboards: item.dashboard,
+        lists,
+        resources
+      }
+    })
+    .then(cursor => merge(cursor))
+    .then(cursor => ({
+      dashboardsById: normalize(cursor['dashboards']),
+      listsById: normalize(cursor['lists']),
+      resourcesById: normalize(cursor['resources'])
+    }))
+  )
 }
