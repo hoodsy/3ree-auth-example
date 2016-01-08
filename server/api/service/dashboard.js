@@ -1,19 +1,15 @@
 import xss from 'xss'
 import r from 'rethinkdb'
+
 import config from '../../../config/dbConfig'
-// import { getLists } from './list'
 import { extractByType,
          merge,
          normalize } from '../util'
 
-function connect() {
-  return r.connect(config)
-}
-
 // Dashboards
 // ==========
 export function addDashboard(dashboard) {
-  return connect()
+  return r.connect(config)
   .then(conn => {
     dashboard.created = new Date()
     dashboard.title = xss(dashboard.title)
@@ -27,7 +23,7 @@ export function addDashboard(dashboard) {
 }
 
 export function getDashboards() {
-  return connect()
+  return r.connect(config)
   .then(conn => {
     return r
     .table('dashboards')
@@ -39,7 +35,7 @@ export function getDashboards() {
 }
 
 export function getDashboardData() {
-  return connect()
+  return r.connect(config)
     .then(conn => {
       return r.table('dashboards')
       .map(dashboard => {

@@ -1,16 +1,12 @@
 import xss from 'xss'
 import r from 'rethinkdb'
-import config from '../../../config/dbConfig'
-// import normalize from '../util/normalize'
 
-function connect() {
-  return r.connect(config)
-}
+import config from '../../../config/dbConfig'
 
 // Lists
 // =====
 export function addList(list) {
-  return connect()
+  return r.connect(config)
   .then(conn => {
     list.created = new Date()
     list.title = xss(list.title)
@@ -24,7 +20,7 @@ export function addList(list) {
 }
 
 export function getLists() {
-  return connect()
+  return r.connect(config)
   .then(conn => {
     return r
     .table('lists')
@@ -36,7 +32,7 @@ export function getLists() {
 
 // TODO: use lists to fill specific lists (not all in table)
 export function getListResources(lists) { // eslint-disable-line no-unused-vars
-  return connect()
+  return r.connect(config)
   .then(conn => {
     return r
     .table('lists')

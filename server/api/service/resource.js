@@ -1,15 +1,12 @@
 import xss from 'xss'
 import r from 'rethinkdb'
-import config from '../../../config/dbConfig'
 
-function connect() {
-  return r.connect(config)
-}
+import config from '../../../config/dbConfig'
 
 // Resources
 // =========
 export function addResource(resource) {
-  return connect()
+  return r.connect(config)
   .then(conn => {
     resource.created = new Date()
     resource.url = xss(resource.url)
