@@ -8,7 +8,7 @@ import { DevTools,
 import { App } from '../common/views'
 import { getDashboardData } from './api/service'
 // import anchorApp from '../common/state/reducers'
-import { rootReducer, configureStore } from '../common/state/stores/configureStore'
+import configureStore from '../common/state/stores/configureStore'
 
 export default function initialRender(req, res) {
   getDashboardData()
@@ -34,7 +34,7 @@ export default function initialRender(req, res) {
       }
     }
     // const store = configureStore(anchorApp, initialState)
-    const store = configureStore(rootReducer, initialState)
+    const store = configureStore(initialState)
 
     // Render the component to a string
     const html = renderToString(

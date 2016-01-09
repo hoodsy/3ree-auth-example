@@ -3,15 +3,15 @@ import React, { Component, PropTypes } from 'react'
 import { InputTypesPicker } from '../../'
 
 export class GlobalInput extends Component {
-  _getInputType() {
+  getInputType() {
     const {
       inputTypesById,
       currentInputType
     } = this.props
-    return this._capitalize(inputTypesById[currentInputType].title)
+    return this.capitalize(inputTypesById[currentInputType].title)
   }
 
-  _getCurrentListTitle() {
+  getCurrentListTitle() {
     const {
       currentList,
       listsById
@@ -21,8 +21,8 @@ export class GlobalInput extends Component {
       : ``
   }
 
-  _getInputAttributes() {
-    const inputType = this._getInputType()
+  getInputAttributes() {
+    const inputType = this.getInputType()
     switch(inputType) {
       case 'Search':
       case 'Dashboard':
@@ -34,12 +34,12 @@ export class GlobalInput extends Component {
       case 'Resource':
         return {
           type: 'url',
-          placeholder: `Add a ${inputType}${this._getCurrentListTitle()}`
+          placeholder: `Add a ${inputType}${this.getCurrentListTitle()}`
         }
     }
   }
 
-  _mapInputToHandler(inputText) {
+  mapInputToHandler(inputText) {
     const {
       addDashboard,
       addList,
@@ -47,7 +47,7 @@ export class GlobalInput extends Component {
       currentDashboard,
       currentList
     } = this.props
-    const inputType = this._getInputType()
+    const inputType = this.getInputType()
 
     switch(inputType) {
       case 'Search':
@@ -60,7 +60,7 @@ export class GlobalInput extends Component {
     }
   }
 
-  _capitalize(inputType) {
+  capitalize(inputType) {
     return inputType.charAt(0).toUpperCase() + inputType.slice(1)
   }
 
@@ -69,7 +69,7 @@ export class GlobalInput extends Component {
     const node = this.refs.input
     const inputText = node.value.trim()
     if (inputText) {
-      this._mapInputToHandler(inputText)
+      this.mapInputToHandler(inputText)
       node.value = ''
     }
   }
@@ -83,7 +83,7 @@ export class GlobalInput extends Component {
     const {
       type,
       placeholder
-    } = this._getInputAttributes()
+    } = this.getInputAttributes()
 
     return (
       <div>
@@ -97,7 +97,7 @@ export class GlobalInput extends Component {
             placeholder={ placeholder }
             ref="input" />
           <button>
-            { 'Add ' + this._getInputType() }
+            { 'Add ' + this.getInputType() }
           </button>
         </form>
       </div>

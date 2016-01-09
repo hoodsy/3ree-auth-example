@@ -8,10 +8,10 @@ import { DevTools,
 import { App } from '../common/views'
 // import anchorApp from '../common/state/reducers'
 // import startSocketListener from './socketListener'
-import { rootReducer, configureStore } from '../common/state/stores/configureStore'
+import configureStore from '../common/state/stores/configureStore'
 
 const initialState = window.__INITIAL_STATE__
-const store = configureStore(rootReducer, initialState)
+const store = configureStore(initialState)
 const rootElement = document.getElementById('root')
 render(
   <div>
