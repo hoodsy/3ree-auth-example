@@ -17,7 +17,6 @@ var config = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.IgnorePlugin(/server\/index\.js$/),
     new webpack.DefinePlugin(
       {
         'process.env.NODE_ENV': '"development"',
