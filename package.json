@@ -13,6 +13,7 @@
     "body-parser": "^1.14.1",
     "ejs": "^2.3.4",
     "eslint-loader": "^1.2.0",
+    "history": "^1.17.0",
     "lodash": "^3.10.1",
     "node-localstorage": "^1.1.2",
     "react": "^0.14.0",

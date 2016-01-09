@@ -9,8 +9,8 @@ import _ from 'lodash'
 
 import anchorApp from '../reducers'
 
-// Configure store w/ localStorage
-// ===============================
+// Init
+// ====
 const rootReducer = getPersistedState()
 const storage = configLocalStorage()
 const createStoreWithMiddleware = compose(
@@ -35,6 +35,8 @@ export default function configureStore(initialState) {
   return store
 }
 
+// Configure localStorage
+// ======================
 function getPersistedState() {
   return compose(
     mergePersistedState((initialState, persistedState) =>

@@ -1,28 +1,39 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
+import { Router } from 'react-router';
 import { DevTools,
          DebugPanel,
          LogMonitor } from 'redux-devtools/lib/react'
+import { syncReduxAndRouter } from 'redux-simple-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 import { App } from '../common/views'
+import routes from '../common/state/routes'
 // import anchorApp from '../common/state/reducers'
 // import startSocketListener from './socketListener'
 import configureStore from '../common/state/stores/configureStore'
 
+// Init Store
+// ==========
 const initialState = window.__INITIAL_STATE__
 const store = configureStore(initialState)
-const rootElement = document.getElementById('root')
+// Init Router
+// ===========
+const history = createBrowserHistory();
+syncReduxAndRouter(history, store);
 render(
   <div>
     <Provider store={store}>
-      <App />
+      <Router history={history}>
+        {routes}
+      </Router>
     </Provider>
     <DebugPanel top right bottom>
       <DevTools store={store} monitor={LogMonitor} />
     </DebugPanel>
   </div>,
-  rootElement
+  document.getElementById('root')
 )
 
 // startSocketListener(store, actions)
