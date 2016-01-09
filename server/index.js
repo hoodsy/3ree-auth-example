@@ -1,59 +1,84 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+import { RoutingContext, match } from 'react-router'
 import { Provider } from 'react-redux'
 import { DevTools,
          DebugPanel,
          LogMonitor } from 'redux-devtools/lib/react'
 
-import { App } from '../common/views'
+import routes from '../common/state/routes'
 import { getDashboardData } from './api/service'
-// import anchorApp from '../common/state/reducers'
 import configureStore from '../common/state/stores/configureStore'
 
 export default function initialRender(req, res) {
-  getDashboardData()
-  .then(data => {
-    const { dashboardsById,
-            listsById,
-            resourcesById } = data
+  match({ routes, location: req.url },
+  (error, redirectLocation, renderProps) => {
+    if (error) {
+      res.status(500).send(error.message)
+    } else if (redirectLocation) {
+      res.redirect(302, redirectLocation.pathname + redirectLocation.search)
+    } else if (renderProps) {
 
-    const initialState = {
-      dashboards: {
-        dashboardsById,
-        currentDashboard: '',
-        isFetching: false
-      },
-      lists: {
-        listsById,
-        currentList: '',
-        isFetching: false
-      },
-      resources: {
-        resourcesById,
-        isFetching: false
-      }
+      // TODO: authentication
+      // const authenticated = req.isAuthenticated()
+      // -------------------------
+
+      // Initial Data
+      // ============
+      getDashboardData()
+       .then(data => {
+         const store = configureStore({
+           dashboards: {
+             dashboardsById: data.dashboardsById,
+             currentDashboard: '',
+             isFetching: false
+           },
+           lists: {
+             listsById: data.listsById,
+             currentList: '',
+             isFetching: false
+           },
+           resources: {
+             resourcesById: data.resourcesById,
+             isFetching: false
+           }
+         })
+         const initialState = store.getState()
+
+         // Initial Render
+         // ==============
+         const html = renderToString(
+           <div>
+             <Provider store={store}>
+               <RoutingContext {...renderProps} />
+             </Provider>
+             <DebugPanel top right bottom>
+               <DevTools store={store} monitor={LogMonitor} />
+             </DebugPanel>
+           </div>
+         )
+         const renderedTemplate = renderTemplate(html, initialState)
+         res.status(200).send(renderedTemplate)
+       })
+    } else {
+      res.status(404).send('Not Found')
     }
-    // const store = configureStore(anchorApp, initialState)
-    const store = configureStore(initialState)
 
-    // Render the component to a string
-    const html = renderToString(
-      <div>
-        <Provider store={store}>
-          <App />
-        </Provider>
-        <DebugPanel top right bottom>
-          <DevTools store={store} monitor={LogMonitor} />
-        </DebugPanel>
-      </div>
-    )
-
-    // Send the rendered page back to the client with the initial state
-    res.render('index',
-      {
-        initialState: JSON.stringify(store.getState()),
-        html
-      }
-    )
   })
+}
+
+function renderTemplate(html, initialState) {
+  return `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Anchor</title>
+    </head>
+    <body>
+      <div id="root">${html}</div>
+      <script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}</script>
+      <script src="/static/bundle.js"></script>
+    </body>
+  </html>
+  `
 }

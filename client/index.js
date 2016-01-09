@@ -10,7 +10,6 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 import { App } from '../common/views'
 import routes from '../common/state/routes'
-// import anchorApp from '../common/state/reducers'
 // import startSocketListener from './socketListener'
 import configureStore from '../common/state/stores/configureStore'
 
