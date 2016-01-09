@@ -4,16 +4,14 @@ import { Provider } from 'react-redux'
 import { DevTools,
          DebugPanel,
          LogMonitor } from 'redux-devtools/lib/react'
-// import { createStore } from 'redux'
 
 import { App } from '../common/views'
-import anchorApp from '../common/state/reducers'
-// import * as actions from '../common/state/actions'
+// import anchorApp from '../common/state/reducers'
 // import startSocketListener from './socketListener'
-import configureStore from '../common/state/stores/configureStore'
+import { rootReducer, configureStore } from '../common/state/stores/configureStore'
 
 const initialState = window.__INITIAL_STATE__
-const store = configureStore(anchorApp, initialState)
+const store = configureStore(rootReducer, initialState)
 const rootElement = document.getElementById('root')
 render(
   <div>

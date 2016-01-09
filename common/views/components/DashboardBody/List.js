@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-// import { Resource, AddResource } from '../../'
 
 export const List = (
   { id,
@@ -8,15 +7,19 @@ export const List = (
     onClick,
     children }) =>
 (
-  <h3
-    onClick={ () => onClick(id) }
-    style={{
-      ...styles,
-      color: id == currentList ? 'BlueViolet' : 'black'
-    }}>
-    { title }
-    { children }
-  </h3>
+  <div>
+    <h3
+      onClick={ () => onClick(id) }
+      style={{
+        ...styles,
+        color: id == currentList ? 'BlueViolet' : 'black'
+      }}>
+      { title }
+    </h3>
+    <ul>
+      { children }
+    </ul>
+  </div>
 )
 
 const styles = {
@@ -29,17 +32,3 @@ List.propTypes = {
   created: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired
 }
-
-/* this.props.resources.map((resource, index) =>
-  <ul>
-      <Resource
-        { ...resource }
-        key={ index }
-      />
-    )
-  </ul>
-  <AddResource
-    listId={ this.props.id }
-    onAddSubmit={ this.props.onAddSubmit }
-  />
-  */

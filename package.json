@@ -18,6 +18,8 @@
     "react-redux": "^4.0.0",
     "reduce": "^1.0.1",
     "redux": "^3.0.0",
+    "redux-localstorage": "^1.0.0-rc4",
+    "redux-localstorage-filter": "^0.1.1",
     "redux-thunk": "^0.1.0",
     "redux-undo": "^0.5.0",
     "rethinkdb": "^2.2.0",

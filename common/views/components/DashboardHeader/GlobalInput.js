@@ -8,7 +8,35 @@ export class GlobalInput extends Component {
       inputTypesById,
       currentInputType
     } = this.props
-    return inputTypesById[currentInputType].title
+    return this._capitalize(inputTypesById[currentInputType].title)
+  }
+
+  _getCurrentListTitle() {
+    const {
+      currentList,
+      listsById
+    } = this.props
+    return currentList
+      ? ` in ${listsById[currentList].title}`
+      : ``
+  }
+
+  _getInputAttributes() {
+    const inputType = this._getInputType()
+    switch(inputType) {
+      case 'Search':
+      case 'Dashboard':
+      case 'List':
+        return {
+          type: 'text',
+          placeholder: `Create a new ${inputType}`
+        }
+      case 'Resource':
+        return {
+          type: 'url',
+          placeholder: `Add a ${inputType}${this._getCurrentListTitle()}`
+        }
+    }
   }
 
   _mapInputToHandler(inputText) {
@@ -22,13 +50,18 @@ export class GlobalInput extends Component {
     const inputType = this._getInputType()
 
     switch(inputType) {
-      case 'dashboard':
+      case 'Search':
+      case 'Dashboard':
         return addDashboard(inputText)
-      case 'list':
+      case 'List':
         return addList(currentDashboard, inputText)
-      case 'resource':
+      case 'Resource':
         return addResource(currentList, inputText)
     }
+  }
+
+  _capitalize(inputType) {
+    return inputType.charAt(0).toUpperCase() + inputType.slice(1)
   }
 
   handleSubmit(e) {
@@ -47,6 +80,10 @@ export class GlobalInput extends Component {
       currentInputType,
       setCurrentInputType
     } = this.props
+    const {
+      type,
+      placeholder
+    } = this._getInputAttributes()
 
     return (
       <div>
@@ -55,7 +92,10 @@ export class GlobalInput extends Component {
           currentInputType={ currentInputType }
           setCurrentInputType={ setCurrentInputType } />
         <form onSubmit={(e) => this.handleSubmit(e)}>
-          <input type="text" ref="input" />
+          <input
+            type={ type }
+            placeholder={ placeholder }
+            ref="input" />
           <button>
             { 'Add ' + this._getInputType() }
           </button>
@@ -67,6 +107,7 @@ export class GlobalInput extends Component {
 
 GlobalInput.propTypes = {
   inputTypesById: PropTypes.object.isRequired,
+  listsById: PropTypes.object.isRequired,
   currentInputType: PropTypes.string.isRequired,
   currentDashboard: PropTypes.string.isRequired,
   currentList: PropTypes.string.isRequired,

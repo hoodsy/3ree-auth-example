@@ -9,11 +9,11 @@ export const InputTypesPicker = (
 (
   <div>
     { Object.keys(inputTypesById).map((id, index) =>
-      <InputType
-        { ...inputTypesById[id] }
-        key={ index }
-        currentInputType={ currentInputType }
-        onClick={ setCurrentInputType } />
+        <InputType
+          { ...inputTypesById[id] }
+          key={ index }
+          currentInputType={ currentInputType }
+          onClick={ setCurrentInputType } />
     )}
   </div>
 )

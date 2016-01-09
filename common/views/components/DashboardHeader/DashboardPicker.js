@@ -9,11 +9,11 @@ export const DashboardPicker = (
 (
   <div>
     { Object.keys(dashboardsById).map((id, index) =>
-      <Dashboard
-        { ...dashboardsById[id] }
-        key={ index }
-        currentDashboard={ currentDashboard }
-        onClick={ setCurrentDashboard } />
+        <Dashboard
+          { ...dashboardsById[id] }
+          key={ index }
+          currentDashboard={ currentDashboard }
+          onClick={ setCurrentDashboard } />
     )}
   </div>
 )

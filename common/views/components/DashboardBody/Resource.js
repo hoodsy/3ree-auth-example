@@ -1,19 +1,18 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from 'react'
 
-export const Resource = (props) => {
-  // const url = `http://${props.url}`;
-  return (
-    <li>
-      <a
-        href={ props.url }
-        target="_blank"
-      >
-        { props.url }
-      </a>
-    </li>
-  );
-};
+export const Resource = (
+  { url }) =>
+(
+  <li>
+    <a
+      href={ url }
+      target="_blank" >
+      { url }
+    </a>
+  </li>
+)
+
 
 Resource.propTypes = {
-  url: PropTypes.string.isRequired,
-};
+  url: PropTypes.string.isRequired
+}
