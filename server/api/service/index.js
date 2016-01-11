@@ -1,3 +1,4 @@
-export * from './list'
-export * from './resource'
-export * from './dashboard'
+export * from './dashboards'
+export * from './lists'
+export * from './resources'
+export * from './users'

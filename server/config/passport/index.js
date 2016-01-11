@@ -1,7 +1,7 @@
 import local from './local'
-import google from './google'
-
-export default function (app, passport) {
+// import google from './google'
+import { deserializeUser } from '../../api/service'
+export default function (passport) {
   // Configure Passport authenticated session persistence.
   //
   // In order to restore authentication state across HTTP requests, Passport needs
@@ -9,20 +9,11 @@ export default function (app, passport) {
   // typical implementation of this is as simple as supplying the user ID when
   // serializing, and querying the user record by ID from the database when
   // deserializing.
-  passport.serializeUser(function(user, done) {
-    console.log('serializeUser')
-    done(null, user.id)
-  })
-
-  passport.deserializeUser(function(id, done) {
-    console.log('deserializeUser')
-    // User.findById(id, function(err, user) {
-    //   done(err, user)
-    // })
-  })
+  passport.serializeUser((user, done) => done(null, user))
+  passport.deserializeUser(deserializeUser)
 
   // Strategies
   // ==========
   passport.use(local)
-  passport.use(google)
+  // passport.use(google)
 }

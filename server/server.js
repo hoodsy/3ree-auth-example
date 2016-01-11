@@ -10,8 +10,14 @@ import passport from 'passport'
 // import SocketIO from 'socket.io'
 
 import config from '../webpack.config'
+import passportConfig from './config/passport'
 import initialRender from './index'
-import * as api from './api/http'
+import { addDashboard,
+         addList,
+         addResource,
+         loginUser,
+         logoutUser,
+         registerUser } from './api/http'
 import { catchError,
          devErrorHandler,
          prodErrorHandler } from './config/errorHandler'
@@ -40,26 +46,24 @@ if (process.env.NODE_ENV === 'development') {
 app.use(session({
   secret: 'PUT_IN_ENV',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: false
+  }
 }))
 app.use(passport.initialize())
 app.use(passport.session())
-
-// Error Handler
-// =============
-app.use(catchError)
-app.get('env') === 'development'
-  ? app.use(devErrorHandler)
-  : app.use(prodErrorHandler)
+passportConfig(passport)
 
 // API Endpoints
 // =============
-app.post('/api/list', api.addList)
-app.post('/api/resource', api.addResource)
-app.post('/api/dashboard', api.addDashboard)
-// app.post('/login', users.postLogin)
-// app.post('/signup', users.postSignUp)
-// app.get('/logout', users.getLogout)
+app.post('/api/list', addList)
+app.post('/api/resource', addResource)
+app.post('/api/dashboard', addDashboard)
+app.post('/api/login', passport.authenticate('local'), loginUser)
+app.get('/api/logout', logoutUser)
+app.post('/api/register', registerUser)
 
 app.get('*', initialRender)
 
@@ -75,3 +79,10 @@ const server = app.listen(port, function (error) {
 
 // const io = SocketIO.listen(server)
 // liveUpdates(io)
+
+// Error Handler
+// =============
+app.use(catchError)
+app.get('env') === 'development'
+  ? app.use(devErrorHandler)
+  : app.use(prodErrorHandler)
