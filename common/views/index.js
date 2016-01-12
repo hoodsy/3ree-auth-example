@@ -1,7 +1,7 @@
 // Containers
 // ==========
 export * from './containers/App'
-export * from './containers/Login'
+export { default as Login } from './containers/Login'
 export * from './containers/DashboardContainer'
 export { default as DashboardHeaderContainer } from './containers/DashboardHeaderContainer'
 export { default as DashboardBodyContainer } from './containers/DashboardBodyContainer'

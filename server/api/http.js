@@ -55,11 +55,8 @@ export function getDashboards(req, res) {
 
 // Users
 // =====
-export function loginUser(req, res, next) {
-  req.session.save(err => {
-    if (err) return next(err)
-    res.redirect('/')
-  })
+export function loginUser(req, res) {
+  res.status(200).send('OK')
 }
 
 export function logoutUser(req, res) {

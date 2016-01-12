@@ -49,7 +49,8 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: false
+    secure: false,
+    maxAge: 8640000 // 24hrs in ms
   }
 }))
 app.use(passport.initialize())
@@ -61,9 +62,9 @@ passportConfig(passport)
 app.post('/api/list', addList)
 app.post('/api/resource', addResource)
 app.post('/api/dashboard', addDashboard)
-app.post('/api/login', passport.authenticate('local'), loginUser)
-app.get('/api/logout', logoutUser)
-app.post('/api/register', registerUser)
+app.post('/api/user/login', passport.authenticate('local'), loginUser)
+app.get('/api/user/logout', logoutUser)
+app.post('/api/user/register', registerUser)
 
 app.get('*', initialRender)
 

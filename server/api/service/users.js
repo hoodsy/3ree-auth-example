@@ -3,12 +3,12 @@ import r from 'rethinkdb'
 
 import config from '../../config/dbConfig'
 
-export function deserializeUser(user, done) {
+export function deserializeUser(userId, done) {
   return r.connect(config)
   .then(conn => {
     return r
     .table('users')
-    .get(user['id'])
+    .get(userId)
     .run(conn)
     .then(function (user) {
       done(null, user)

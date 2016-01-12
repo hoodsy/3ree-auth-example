@@ -21,6 +21,7 @@ export default function initialRender(req, res) {
 
       // TODO: authentication
       // const authenticated = req.isAuthenticated()
+      // console.log(authenticated)
       // -------------------------
 
       // Initial Data

@@ -9,7 +9,7 @@ export default function (passport) {
   // typical implementation of this is as simple as supplying the user ID when
   // serializing, and querying the user record by ID from the database when
   // deserializing.
-  passport.serializeUser((user, done) => done(null, user))
+  passport.serializeUser((user, done) => done(null, user.id))
   passport.deserializeUser(deserializeUser)
 
   // Strategies

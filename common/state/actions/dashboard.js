@@ -34,7 +34,7 @@ function addDashboardFailure(error) {
 export function addDashboard(title) {
   return (dispatch) => {
     dispatch(addDashboardRequest(title))
-
+    console.log(title);
     return request
       .post(apiEndpoint)
       .send({ title })

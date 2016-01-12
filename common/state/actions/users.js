@@ -1,120 +1,51 @@
-// Including es6-promise so isomorphic fetch will work
-import 'es6-promise';
-import fetch from 'isomorphic-fetch';
+import request from 'superagent/lib/client'
+import { pushPath } from 'redux-simple-router'
 
-import * as types from 'constants';
+import * as types from '../constants/actionTypes'
 
-// Note this can be extracted out later
-/*
- * Utility function to make AJAX requests using isomorphic fetch.
- * You can also use jquery's $.ajax({}) if you do not want to use the
- * /fetch API.
- * @param Object Data you wish to pass to the server
- * @param String HTTP method, e.g. post, get, put, delete
- * @param String endpoint - defaults to /login
- * @return Promise
- */
-function makeUserRequest(method, data, api='/login') {
-  return fetch(api, {
-    method: method,
-    credentials: 'same-origin',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  });
+// API Endpoint
+// ============
+const apiEndpoint = '/api/user'
+
+// Private Actions
+// ===============
+function loginUserRequest(user) {
+  return {
+    type: types.LOGIN_USER_REQUEST,
+    user
+  }
 }
 
-
-// Log In Action Creators
-function beginLogin() {
-  return { type: types.MANUAL_LOGIN_USER };
+function loginUserSuccess() {
+  return {
+    type: types.LOGIN_USER_SUCCESS
+  }
 }
 
-function loginSuccess() {
-  return { type: types.LOGIN_SUCCESS_USER };
+function loginUserFailure(error) {
+  return {
+    type: types.LOGIN_USER_FAILURE,
+    error
+  }
 }
 
-function loginError() {
-  return { type: types.LOGIN_ERROR_USER };
-}
+// Public Actions
+// ==============
+export function loginUser(user) {
+  return (dispatch) => {
+    dispatch(loginUserRequest(user))
 
-// Sign Up Action Creators
-function signUpError() {
-  return { type: types.SIGNUP_ERROR_USER };
-}
-
-function beginSignUp() {
-  return { type: types.SIGNUP_USER };
-}
-
-function signUpSuccess() {
-  return { type: types.SIGNUP_SUCCESS_USER };
-}
-
-// Log Out Action Creators
-function beginLogout() {
-  return { type: types.LOGOUT_USER};
-}
-
-function logoutSuccess() {
-  return { type: types.LOGOUT_SUCCESS_USER};
-}
-
-function logoutError() {
-  return { type: types.LOGOUT_ERROR_USER};
-}
-
-export function manualLogin(data) {
-  return dispatch => {
-    dispatch(beginLogin());
-
-    return makeUserRequest('post', data, '/login')
-      .then( response => {
-        if (response.status === 200) {
-          dispatch(loginSuccess());
+    return request
+      .post(`${apiEndpoint}/login`)
+      .send({ ...user })
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err) {
+          dispatch(loginUserFailure(err, user))
         } else {
-          dispatch(loginError());
+          dispatch(loginUserSuccess(res.body))
+          dispatch(pushPath('/'))
         }
-      });
-  };
+      })
+  }
 }
-
-export function signUp(data) {
-  return dispatch => {
-    dispatch(beginSignUp());
-
-    return makeUserRequest('post', data, '/signup')
-      .then( response => {
-        if (response.status === 200) {
-          dispatch(signUpSuccess());
-        } else {
-          dispatch(signUpError());
-        }
-      });
-  };
-}
-
-export function logOut() {
-  return dispatch => {
-    dispatch(beginLogout());
-
-    return fetch('/logout', {
-      method: 'get',
-      credentials: 'same-origin',
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-      }
-    })
-      .then( response => {
-        if (response.status === 200) {
-          dispatch(logoutSuccess());
-        } else {
-          dispatch(logoutError());
-        }
-      });
-  };
-}
-

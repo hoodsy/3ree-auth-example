@@ -16,10 +16,12 @@ import configureStore from '../common/state/stores/configureStore'
 // ==========
 const initialState = window.__INITIAL_STATE__
 const store = configureStore(initialState)
+
 // Init Router
 // ===========
 const history = createBrowserHistory()
 syncReduxAndRouter(history, store)
+
 render(
   <div>
     <Provider store={store}>
