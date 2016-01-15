@@ -1,6 +1,6 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { RoutingContext, match } from 'react-router'
+import { RouterContext, match } from 'react-router'
 import { Provider } from 'react-redux'
 import { DevTools,
          DebugPanel,
@@ -18,32 +18,12 @@ export default function initialRender(req, res) {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-
-      // TODO: authentication
-      // const authenticated = req.isAuthenticated()
-      // console.log(authenticated)
-      // -------------------------
-
-      // Initial Data
-      // ============
       getDashboardData()
        .then(data => {
-         const store = configureStore({
-           dashboards: {
-             dashboardsById: data.dashboardsById,
-             currentDashboard: '',
-             isFetching: false
-           },
-           lists: {
-             listsById: data.listsById,
-             currentList: '',
-             isFetching: false
-           },
-           resources: {
-             resourcesById: data.resourcesById,
-             isFetching: false
-           }
-         })
+
+        // Initial Data
+        // ============
+         const store = initializeStore(data)
          const initialState = store.getState()
 
          // Initial Render
@@ -51,7 +31,9 @@ export default function initialRender(req, res) {
          const html = renderToString(
            <div>
              <Provider store={store}>
-               <RoutingContext {...renderProps} />
+               <RouterContext {...renderProps}>
+                 {routes}
+               </RouterContext>
              </Provider>
              <DebugPanel top right bottom>
                <DevTools store={store} monitor={LogMonitor} />
@@ -65,6 +47,25 @@ export default function initialRender(req, res) {
       res.status(404).send('Not Found')
     }
 
+  })
+}
+
+function initializeStore(data) {
+  return configureStore({
+    dashboards: {
+      dashboardsById: data.dashboardsById,
+      currentDashboard: '',
+      isFetching: false
+    },
+    lists: {
+      listsById: data.listsById,
+      currentList: '',
+      isFetching: false
+    },
+    resources: {
+      resourcesById: data.resourcesById,
+      isFetching: false
+    }
   })
 }
 

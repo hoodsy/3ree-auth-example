@@ -59,7 +59,7 @@ passportConfig(passport)
 
 // API Endpoints
 // =============
-// app.all('/api/*', isAuthenticated)
+app.all('/api/*', isAuthenticated)
 app.post('/api/list', addList)
 app.post('/api/resource', addResource)
 app.post('/api/dashboard', addDashboard)
@@ -67,6 +67,7 @@ app.post('/user/login', passport.authenticate('local'), loginUser)
 app.get('/user/logout', logoutUser)
 app.post('/user/register', registerUser)
 
+app.get('/', isAuthenticated, initialRender)
 app.get('*', initialRender)
 
 // Start Server

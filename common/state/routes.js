@@ -10,6 +10,6 @@ import { App,
 export default (
   <Route component={ App }>
     <Route path="/" component={ DashboardContainer } />
-    <Route path="login" component={ Login } />
+    <Route path="/login" component={ Login } />
   </Route>
 )
