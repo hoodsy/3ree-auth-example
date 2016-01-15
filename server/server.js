@@ -10,7 +10,7 @@ import passport from 'passport'
 // import SocketIO from 'socket.io'
 
 import config from '../webpack.config'
-import passportConfig from './config/passport'
+import passportConfig, { isAuthenticated } from './config/passport'
 import initialRender from './index'
 import { addDashboard,
          addList,
@@ -59,7 +59,8 @@ passportConfig(passport)
 
 // API Endpoints
 // =============
-app.post('/api/list', addList)
+app.post('/api/list', isAuthenticated, addList)
+// app.post('/api/list', passport.authenticate('local'), addList)
 app.post('/api/resource', addResource)
 app.post('/api/dashboard', addDashboard)
 app.post('/api/user/login', passport.authenticate('local'), loginUser)
