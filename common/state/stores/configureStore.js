@@ -8,13 +8,14 @@ import debounce from 'redux-localstorage-debounce'
 import _ from 'lodash'
 
 import anchorApp from '../reducers'
+import { authenticationRouter } from '../middleware'
 
 // Init
 // ====
 const rootReducer = getPersistedState()
 const storage = configLocalStorage()
 const createStoreWithMiddleware = compose(
-  applyMiddleware(thunk),
+  applyMiddleware(thunk, authenticationRouter),
   persistState(storage, 'UID-1337'),
   devTools(),
 )(createStore)
@@ -23,7 +24,6 @@ const createStoreWithMiddleware = compose(
 // ====================
 export default function configureStore(initialState) {
   const store = createStoreWithMiddleware(rootReducer, initialState)
-
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('../reducers', () => {

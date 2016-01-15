@@ -21,10 +21,11 @@ function addListSuccess(list) {
   }
 }
 
-function addListFailure(error) {
+function addListFailure(err, status) {
   return {
     type: types.ADD_LIST_FAILURE,
-    error
+    err,
+    status
   }
 }
 
@@ -40,7 +41,7 @@ export function addList(dashboardId, title) {
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
-          dispatch(addListFailure(err, title))
+          dispatch(addListFailure(err, res.status))
         } else {
           dispatch(addListSuccess(res.body))
         }

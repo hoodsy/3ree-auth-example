@@ -59,13 +59,13 @@ passportConfig(passport)
 
 // API Endpoints
 // =============
-app.post('/api/list', isAuthenticated, addList)
-// app.post('/api/list', passport.authenticate('local'), addList)
+// app.all('/api/*', isAuthenticated)
+app.post('/api/list', addList)
 app.post('/api/resource', addResource)
 app.post('/api/dashboard', addDashboard)
-app.post('/api/user/login', passport.authenticate('local'), loginUser)
-app.get('/api/user/logout', logoutUser)
-app.post('/api/user/register', registerUser)
+app.post('/user/login', passport.authenticate('local'), loginUser)
+app.get('/user/logout', logoutUser)
+app.post('/user/register', registerUser)
 
 app.get('*', initialRender)
 
@@ -73,9 +73,9 @@ app.get('*', initialRender)
 // ============
 const server = app.listen(port, function (error) {
   if (error) {
-    console.error(error)
+    console.error(error) // eslint-disable-line no-console
   } else {
-    console.info(`==> 🌎  Server listening on port ${port}.`)
+    console.info(`==> 🌎  Server listening on port ${port}.`) // eslint-disable-line no-console
   }
 })
 

@@ -5,7 +5,7 @@ import * as types from '../constants/actionTypes'
 
 // API Endpoint
 // ============
-const apiEndpoint = '/api/user'
+const apiEndpoint = '/user'
 
 // Private Actions
 // ===============

@@ -20,5 +20,5 @@ export default function (passport) {
 
 export function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) next()
-  else res.status(400).send('Please login to continue.')
+  else res.status(401).send('Please login to continue.')
 }
