@@ -10,7 +10,8 @@ import passport from 'passport'
 // import SocketIO from 'socket.io'
 
 import config from '../webpack.config'
-import passportConfig, { isAuthenticated } from './config/passport'
+import passportConfig from './config/passport'
+import { isAuthenticated } from './middleware/auth'
 import initialRender from './index'
 import { addDashboard,
          addList,

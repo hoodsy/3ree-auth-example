@@ -6,7 +6,7 @@ import { DevTools,
          DebugPanel,
          LogMonitor } from 'redux-devtools/lib/react'
 
-import routes from '../common/state/routes'
+import routes from '../common/views/routes'
 import { getDashboardData } from './api/service'
 import configureStore from '../common/state/stores/configureStore'
 
@@ -32,7 +32,6 @@ export default function initialRender(req, res) {
            <div>
              <Provider store={store}>
                <RouterContext {...renderProps}>
-                 {routes}
                </RouterContext>
              </Provider>
              <DebugPanel top right bottom>

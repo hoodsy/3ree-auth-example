@@ -5,8 +5,6 @@ import { App,
          Login,
          DashboardContainer } from '../views'
 
-// import { requireAuthentication } from 'components/authenticateComponent'
-
 export default (
   <Route component={ App }>
     <Route path="/" component={ DashboardContainer } />

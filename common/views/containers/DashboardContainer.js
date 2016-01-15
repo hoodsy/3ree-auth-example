@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 
 import { DashboardHeaderContainer,
          DashboardBodyContainer } from '../'
@@ -10,7 +10,3 @@ export const DashboardContainer = () =>
     <DashboardBodyContainer />
   </div>
 )
-
-DashboardContainer.propTypes = {
-
-}
