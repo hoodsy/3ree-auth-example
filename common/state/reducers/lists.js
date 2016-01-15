@@ -44,9 +44,10 @@ function currentList(state = '', action) {
 export default function lists(state = initialState, action) {
   switch (action.type) {
     case types.ADD_LIST_REQUEST:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: true
-      })
+      }
 
     case types.ADD_LIST_SUCCESS:
       return {
@@ -56,15 +57,17 @@ export default function lists(state = initialState, action) {
       }
 
     case types.ADD_LIST_FAILURE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: false,
         error: action.error
-      })
+      }
 
     case types.SET_CURRENT_LIST:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         currentList: currentList(state.currentList, action)
-      })
+      }
 
     default:
       return state

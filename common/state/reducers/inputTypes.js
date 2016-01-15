@@ -29,9 +29,10 @@ const initialState = {
 export default function inputTypes(state = initialState, action) {
   switch (action.type) {
     case types.SET_CURRENT_INPUT_TYPE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         currentInputType: action.inputTypeId
-      })
+      }
 
     default:
       return state

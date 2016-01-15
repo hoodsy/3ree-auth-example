@@ -44,9 +44,10 @@ function currentDashboard(state = '', action) {
 export default function dashboards(state = initialState, action) {
   switch (action.type) {
     case types.ADD_DASHBOARD_REQUEST:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: true
-      })
+      }
 
     case types.ADD_DASHBOARD_SUCCESS:
       return {
@@ -56,15 +57,17 @@ export default function dashboards(state = initialState, action) {
       }
 
     case types.ADD_DASHBOARD_FAILURE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: false,
         error: action.error
-      })
+      }
 
     case types.SET_CURRENT_DASHBOARD:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         currentDashboard: currentDashboard(state.currentDashboard, action)
-      })
+      }
 
     default:
       return state

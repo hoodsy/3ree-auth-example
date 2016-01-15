@@ -28,9 +28,10 @@ function resourcesById(state = {}, action) {
 export default function resources(state = initialState, action) {
   switch (action.type) {
     case types.ADD_RESOURCE_REQUEST:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: true
-      })
+      }
 
     case types.ADD_RESOURCE_SUCCESS:
       return {
@@ -39,10 +40,11 @@ export default function resources(state = initialState, action) {
       }
 
     case types.ADD_RESOURCE_FAILURE:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: false,
         error: action.error
-      })
+      }
 
     default:
       return state
