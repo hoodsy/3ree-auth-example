@@ -1,5 +1,5 @@
 import request from 'superagent/lib/client'
-import { pushPath } from 'redux-simple-router'
+import { push } from 'redux-simple-router'
 
 import * as types from '../constants/actionTypes'
 
@@ -29,6 +29,27 @@ function loginUserFailure(error) {
   }
 }
 
+function registerUserRequest(user) {
+  return {
+    type: types.REGISTER_USER_REQUEST,
+    user
+  }
+}
+
+function registerUserSuccess() {
+  return {
+    type: types.REGISTER_USER_SUCCESS
+  }
+}
+
+function registerUserFailure(err, status) {
+  return {
+    type: types.REGISTER_USER_FAILURE,
+    err,
+    status
+  }
+}
+
 // Public Actions
 // ==============
 export function loginUser(user) {
@@ -44,7 +65,26 @@ export function loginUser(user) {
           dispatch(loginUserFailure(err, user))
         } else {
           dispatch(loginUserSuccess(res.body))
-          dispatch(pushPath('/'))
+          dispatch(push('/'))
+        }
+      })
+  }
+}
+
+export function registerUser(user) {
+  return (dispatch) => {
+    dispatch(registerUserRequest(user))
+
+    return request
+      .post(`${apiEndpoint}/register`)
+      .send({ ...user })
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err) {
+          dispatch(registerUserFailure(err, res.status))
+        } else {
+          dispatch(registerUserSuccess(res.body))
+          dispatch(push('/'))
         }
       })
   }

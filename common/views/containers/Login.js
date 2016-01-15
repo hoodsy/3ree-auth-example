@@ -1,32 +1,60 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { loginUser } from '../../state/actions'
+import { loginUser,
+         registerUser } from '../../state/actions'
 
 class Login extends Component {
-  handleSubmit(e) {
-    const { loginUser } = this.props
-    e.preventDefault()
+  submitAction(action) {
     const nodeEmail = this.refs.email
-    const email = nodeEmail.value.trim()
+    const email = nodeEmail
     const nodePassword = this.refs.password
     const password = nodePassword.value.trim()
     if (email && password) {
-      loginUser({ email, password })
+      action({ email, password })
       nodeEmail.value = ''
       nodePassword.value = ''
     }
   }
 
+  // handleLogin(e) {
+  //   const { loginUser } = this.props
+  //   e.preventDefault()
+  //   const nodeEmail = this.refs.email
+  //   const email = nodeEmail.value.trim()
+  //   const nodePassword = this.refs.password
+  //   const password = nodePassword.value.trim()
+  //   if (email && password) {
+  //     loginUser({ email, password })
+  //     nodeEmail.value = ''
+  //     nodePassword.value = ''
+  //   }
+  // }
+
+  // handleRegister(e) {
+  //   const { registerUser } = this.props
+  //   e.preventDefault()
+  //   const nodeEmail = this.refs.email
+  //   const email = nodeEmail.value.trim()
+  //   const nodePassword = this.refs.password
+  //   const password = nodePassword.value.trim()
+  //   if (email && password) {
+  //     registerUser({ email, password })
+  //     nodeEmail.value = ''
+  //     nodePassword.value = ''
+  //   }
+  // }
+
   render() {
     const {
-      users
+      loginUser,
+      registerUser
     } = this.props
 
     return (
       <div>
         <h1>Login</h1>
-        <form onSubmit={(e) => this.handleSubmit(e)}>
+        <form>
           <input
             type="text"
             placeholder="Email"
@@ -35,8 +63,13 @@ class Login extends Component {
             type="password"
             placeholder="Password"
             ref="password" />
-          <button>
-            { `Login to Anchor` }
+          <button
+            onClick={ this.submitAction(loginUser) }>
+            { `Login` }
+          </button>
+          <button
+            onClick={ this.submitAction(registerUser) }>
+            { `Register` }
           </button>
         </form>
       </div>
@@ -45,18 +78,12 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  users: PropTypes.object.isRequired,
-  loginUser: PropTypes.func.isRequired
-}
-
-function mapStateToProps(state) {
-  return {
-    users: state.users
-  }
+  loginUser: PropTypes.func.isRequired,
+  registerUser: PropTypes.func.isRequired
 }
 
 export default connect(
-  mapStateToProps,
-  { loginUser }
+  { loginUser,
+    registerUser }
 )(Login)
 

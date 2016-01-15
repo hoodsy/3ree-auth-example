@@ -22,10 +22,11 @@ function addDashboardSuccess(dashboard) {
   }
 }
 
-function addDashboardFailure(error) {
+function addDashboardFailure(err, status) {
   return {
     type: types.ADD_DASHBOARD_FAILURE,
-    error
+    err,
+    status
   }
 }
 
@@ -40,7 +41,7 @@ export function addDashboard(title) {
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
-          dispatch(addDashboardFailure(err, title))
+          dispatch(addDashboardFailure(err, res.status))
         } else {
           dispatch(addDashboardSuccess(res.body))
         }

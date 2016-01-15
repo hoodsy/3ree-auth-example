@@ -21,10 +21,11 @@ function addResourceSuccess(resource) {
   }
 }
 
-function addResourceFailure(error) {
+function addResourceFailure(err, status) {
   return {
     type: types.ADD_RESOURCE_FAILURE,
-    error
+    err,
+    status
   }
 }
 
@@ -40,7 +41,7 @@ export function addResource(listId, url) {
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
-          dispatch(addResourceFailure(err))
+          dispatch(addResourceFailure(err, res.status))
         } else {
           dispatch(addResourceSuccess(res.body))
         }
