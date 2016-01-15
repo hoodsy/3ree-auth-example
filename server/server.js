@@ -11,14 +11,7 @@ import passport from 'passport'
 
 import config from '../webpack.config'
 import passportConfig from './config/passport'
-import { isAuthenticated } from './middleware/auth'
-import initialRender from './index'
-import { addDashboard,
-         addList,
-         addResource,
-         loginUser,
-         logoutUser,
-         registerUser } from './api/http'
+import routesConfig from './routes'
 import { catchError,
          devErrorHandler,
          prodErrorHandler } from './config/errorHandler'
@@ -60,16 +53,7 @@ passportConfig(passport)
 
 // API Endpoints
 // =============
-app.all('/api/*', isAuthenticated)
-app.post('/api/list', addList)
-app.post('/api/resource', addResource)
-app.post('/api/dashboard', addDashboard)
-app.post('/user/login', passport.authenticate('local'), loginUser)
-app.get('/user/logout', logoutUser)
-app.post('/user/register', registerUser)
-
-app.get('/', isAuthenticated, initialRender)
-app.get('*', initialRender)
+routesConfig(app, passport)
 
 // Start Server
 // ============
