@@ -23,7 +23,6 @@ export function getLists(conn, ) {
   .then(cursor => cursor.toArray())
 }
 
-// TODO: use lists to fill specific lists (not all in table)
 export function getListResources(conn, lists) { // eslint-disable-line no-unused-vars
   return r
   .table('lists')
