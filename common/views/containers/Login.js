@@ -5,7 +5,8 @@ import { loginUser,
          registerUser } from '../../state/actions'
 
 class Login extends Component {
-  submitAction(action) {
+  submitAction(action, e) {
+    e.preventDefault()
     const nodeEmail = this.refs.email
     const email = nodeEmail
     const nodePassword = this.refs.password
@@ -64,11 +65,11 @@ class Login extends Component {
             placeholder="Password"
             ref="password" />
           <button
-            onClick={ this.submitAction(loginUser) }>
+            onClick={ this.submitAction(loginUser, e) }>
             { `Login` }
           </button>
           <button
-            onClick={ this.submitAction(registerUser) }>
+            onClick={ this.submitAction(registerUser, e) }>
             { `Register` }
           </button>
         </form>
@@ -82,7 +83,14 @@ Login.propTypes = {
   registerUser: PropTypes.func.isRequired
 }
 
+function mapStateToProps(state) {
+  return {
+    users: state.users
+  }
+}
+
 export default connect(
+  mapStateToProps,
   { loginUser,
     registerUser }
 )(Login)

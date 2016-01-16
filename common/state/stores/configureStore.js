@@ -1,7 +1,12 @@
-import { compose, createStore, applyMiddleware } from 'redux'
+import { compose,
+         createStore,
+         applyMiddleware } from 'redux'
 import { devTools } from 'redux-devtools'
 import thunk from 'redux-thunk'
-import persistState, { mergePersistedState } from 'redux-localstorage'
+import { syncHistory } from 'redux-simple-router'
+import { browserHistory } from 'react-router'
+import persistState,
+     { mergePersistedState } from 'redux-localstorage'
 import adapter from 'redux-localstorage/lib/adapters/localStorage'
 import filter from 'redux-localstorage-filter'
 import debounce from 'redux-localstorage-debounce'
@@ -12,13 +17,45 @@ import { authenticationRouter } from '../middleware'
 
 // Init
 // ====
-const rootReducer = getPersistedState()
-const storage = configLocalStorage()
-const createStoreWithMiddleware = compose(
-  applyMiddleware(thunk, authenticationRouter),
-  persistState(storage, 'UID-1337'),
-  devTools(),
-)(createStore)
+let rootReducer
+let storage
+let createStoreWithMiddleware
+let middleware
+export let reduxRouterMiddleware
+
+if (typeof window !== 'undefined') {
+  reduxRouterMiddleware = syncHistory(browserHistory)
+  middleware = [
+    thunk,
+    authenticationRouter,
+    reduxRouterMiddleware
+  ]
+} else {
+  middleware = [
+    thunk,
+    authenticationRouter
+  ]
+}
+
+// Build createStoreWithMiddleware
+// ===============================
+if (typeof window !== 'undefined') {
+  // Client store config (include localStorage)
+  rootReducer = getPersistedState(anchorApp)
+  storage = configClientStorage()
+  createStoreWithMiddleware = compose(
+    applyMiddleware(...middleware),
+    persistState(storage, 'UID-1337'),
+    devTools(),
+  )(createStore)
+} else {
+  // Server store config
+  rootReducer = anchorApp
+  createStoreWithMiddleware = compose(
+    applyMiddleware(...middleware),
+    devTools(),
+  )(createStore)
+}
 
 // Export store creator
 // ====================
@@ -31,24 +68,20 @@ export default function configureStore(initialState) {
       store.replaceReducer(nextReducer)
     })
   }
-
   return store
 }
 
 // Configure localStorage
 // ======================
-function getPersistedState() {
+function getPersistedState(reducer) {
   return compose(
     mergePersistedState((initialState, persistedState) =>
       _.merge({}, initialState, persistedState)
     )
-  )(anchorApp)
+  )(reducer)
 }
 
-function configLocalStorage() {
-  const localStorage = (typeof window !== 'undefined')
-    ? window.localStorage
-    : undefined
+function configClientStorage() {
   return compose(
     debounce(500),
     filter([

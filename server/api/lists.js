@@ -1,7 +1,7 @@
 import xss from 'xss'
 import r from 'rethinkdb'
 
-import config from '../../config/dbConfig'
+import config from '../config/dbConfig'
 
 // Lists
 // =====

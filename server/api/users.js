@@ -1,7 +1,11 @@
 import xss from 'xss'
 import r from 'rethinkdb'
 
-import config from '../../config/dbConfig'
+import config from '../config/dbConfig'
+
+export function serializeUser(user, done) {
+  return done(null, user.id)
+}
 
 export function deserializeUser(userId, done) {
   return r.connect(config)

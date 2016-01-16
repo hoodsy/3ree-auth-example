@@ -1,10 +1,10 @@
 import xss from 'xss'
 import r from 'rethinkdb'
 
-import config from '../../config/dbConfig'
+import config from '../config/dbConfig'
 import { extractByType,
          merge,
-         normalize } from '../util'
+         normalize } from './util'
 
 // Dashboards
 // ==========

@@ -3,14 +3,14 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router,
          browserHistory } from 'react-router'
+
 import { DevTools,
          DebugPanel,
          LogMonitor } from 'redux-devtools/lib/react'
-import { syncReduxAndRouter } from 'redux-simple-router'
 
-import routes from '../common/state/routes'
-// import startSocketListener from './socketListener'
-import configureStore from '../common/state/stores/configureStore'
+import routes from '../common/views/routes'
+import configureStore,
+     { reduxRouterMiddleware } from '../common/state/stores/configureStore'
 
 // Init Store
 // ==========
@@ -19,7 +19,7 @@ const store = configureStore(initialState)
 
 // Init Router
 // ===========
-syncReduxAndRouter(browserHistory, store)
+reduxRouterMiddleware.listenForReplays(store)
 
 render(
   <div>

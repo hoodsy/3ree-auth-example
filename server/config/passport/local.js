@@ -4,7 +4,7 @@
  */
 
 import { Strategy } from 'passport-local'
-import { localAuthCallback } from '../../api/service'
+import { localAuthCallback } from '../../api/users'
 
 /*
  By default, LocalStrategy expects to find credentials in parameters named username and password.
