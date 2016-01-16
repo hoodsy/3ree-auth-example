@@ -1,7 +1,6 @@
 // catch 404 and forward to error handler
-export function catchError(req, res, next) {
-  const err = new Error('Not Found')
-  err.status = 404
+export function catchError(err, req, res, next) {
+  err.status = err.status || 404
   next(err)
 }
 

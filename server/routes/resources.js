@@ -1,10 +1,10 @@
 import * as service from '../api/resources'
 
-export function addResource(req, res) {
-  service.addResource(req.body)
+export function addResource(req, res, next) {
+  service.addResource(req.dbConn, req.body)
   .then((resource) => res.json(resource))
   .error(err => {
-    res.status(400)
-    res.json({ error: err, resource: req.body })
+    err.status = 400
+    next(err)
   })
 }

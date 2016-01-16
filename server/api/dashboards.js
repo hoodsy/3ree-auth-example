@@ -8,17 +8,15 @@ import { extractByType,
 
 // Dashboards
 // ==========
-export function addDashboard(dashboard) {
-  return r.connect(config)
-  .then(conn => {
-    dashboard.created = new Date().toString()
-    dashboard.title = xss(dashboard.title)
-    return r
-    .table('dashboards')
-    .insert(dashboard).run(conn)
-    .then(response => {
-      return Object.assign({}, dashboard, { id: response.generated_keys[0] })
-    })
+export function addDashboard(conn, dashboard) {
+  dashboard.created = new Date().toString()
+  dashboard.title = xss(dashboard.title)
+  return r
+  .table('dashboards')
+  .insert(dashboard)
+  .run(conn)
+  .then(response => {
+    return Object.assign({}, dashboard, { id: response.generated_keys[0] })
   })
 }
 

@@ -1,19 +1,19 @@
 import * as service from '../api/lists'
 
-export function addList(req, res) {
-  service.addList(req.body)
+export function addList(req, res, next) {
+  service.addList(req.dbConn, req.body)
   .then((list) => res.json(list))
   .error(err => {
-    res.status(400)
-    res.json({ error: err, list: req.body })
+    err.status = 400
+    next(err)
   })
 }
 
-export function getLists(req, res) {
-  service.getLists()
+export function getLists(req, res, next) {
+  service.getLists(req.dbConn)
   .then((lists) => res.json(lists))
   .error(err => {
-    res.status(400)
-    res.json({ error: err })
+    err.status = 400
+    next(err)
   })
 }

@@ -1,3 +1,5 @@
+import { Router } from 'express'
+
 import initialRender from '../index'
 import { isAuthenticated } from '../middleware/auth'
 import * as dashboards from './dashboards'
@@ -7,32 +9,40 @@ import * as users from './users'
 
 export default (app, passport) => {
 
+  // Init
+  // ====
+  const router = Router()
+
+  // Auth Middleware
+  // ===============
+  if (app.get('env') !== 'development') {
+    router.all('/api/*', isAuthenticated)
+    router.get('/', isAuthenticated, initialRender)
+  } else {
+    router.get('/', initialRender)
+  }
+
   // Dashboards
   // ==========
-  app.post('/api/dashboard', dashboards.addDashboard)
+  router.route('/api/dashboard')
+  .post(dashboards.addDashboard)
 
   // Lists
   // =====
-  app.post('/api/list', lists.addList)
+  router.route('/api/list')
+  .post(lists.addList)
 
   // Resources
   // =========
-  app.post('/api/resource', resources.addResource)
+  router.route('/api/resource')
+  .post(resources.addResource)
 
   // Users
   // =====
-  app.post('/user/login', passport.authenticate('local'), users.loginUser)
-  app.get('/user/logout', users.logoutUser)
-  app.post('/user/register', users.registerUser)
+  router.post('/user/login', passport.authenticate('local'), users.loginUser)
+  router.get('/user/logout', users.logoutUser)
+  router.post('/user/register', users.registerUser)
 
-  // Middleware / Root
-  // =================
-  if (process.NODE_ENV !== 'development') {
-    app.all('/api/*', isAuthenticated)
-    app.get('/', isAuthenticated, initialRender)
-  } else {
-    app.get('/', initialRender)
-  }
-  app.get('*', initialRender)
-
+  router.get('*', initialRender)
+  app.use(router)
 }

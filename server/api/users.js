@@ -40,30 +40,26 @@ export function localAuthCallback(email, password, done) {
   })
 }
 
-export function addUser(user) {
-  return r.connect(config)
-  .then(conn => {
-    user.created = new Date().toString()
-    user.email = xss(user.email)
-    user.password = xss(user.password)
-    return r
-    .table('users')
-    .getAll(user.email, { index: 'email' })
-    .run(conn)
-    .then(cursor => cursor.toArray())
-    .then(users => {
-      if (users.length === 0) {
-        return r
-        .table('users')
-        .insert(user)
-        .run(conn)
-        .then(response => {
-          return Object.assign({}, user, { id: response.generated_keys[0] })
-        })
-      } else {
-        return { error: 'Email already in use.'  }
-      }
-
-    })
+export function addUser(conn, user) {
+  user.created = new Date().toString()
+  user.email = xss(user.email)
+  user.password = xss(user.password)
+  return r
+  .table('users')
+  .getAll(user.email, { index: 'email' })
+  .run(conn)
+  .then(cursor => cursor.toArray())
+  .then(users => {
+    if (users.length === 0) {
+      return r
+      .table('users')
+      .insert(user)
+      .run(conn)
+      .then(response => {
+        return Object.assign({}, user, { id: response.generated_keys[0] })
+      })
+    } else {
+      return { error: 'Email already in use.'  }
+    }
   })
 }

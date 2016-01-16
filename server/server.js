@@ -1,5 +1,3 @@
-import path from 'path'
-import ejs from 'ejs'
 import express from 'express'
 import session from 'express-session'
 import bodyParser from 'body-parser'
@@ -15,7 +13,9 @@ import passportConfig from './config/passport'
 import routesConfig from './routes'
 import { catchError,
          devErrorHandler,
-         prodErrorHandler } from './config/errorHandler'
+         prodErrorHandler } from './middleware/errorHandlers'
+import { closeDbConnection,
+         createDbConnection } from './middleware/dbConnection'
 // import liveUpdates from '../config/liveUpdates'
 
 // Server Config
@@ -23,15 +23,12 @@ import { catchError,
 const app = express()
 const port = 3000
 
-app.engine('html', ejs.renderFile)
-app.set('view engine', 'html')
-app.set('views', path.join(__dirname, 'views'))
-
 // Server Middleware
 // =================
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(morgan('dev'))
+app.use(createDbConnection)
 
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config)
@@ -53,18 +50,17 @@ app.use(passport.initialize())
 app.use(passport.session())
 passportConfig(passport)
 
-// API Endpoints
+// Routes Config
 // =============
 routesConfig(app, passport)
 
 // Start Server
 // ============
-const server = app.listen(port, function (error) {
-  if (error) {
+const server = app.listen(port, (error) => {
+  if (error)
     console.error(error) // eslint-disable-line no-console
-  } else {
+  else
     console.info(`==> 🌎  Server listening on port ${port}.`) // eslint-disable-line no-console
-  }
 })
 
 // const io = SocketIO.listen(server)
@@ -76,3 +72,7 @@ app.use(catchError)
 app.get('env') === 'development'
   ? app.use(devErrorHandler)
   : app.use(prodErrorHandler)
+
+// Close Connection
+// ================
+app.use(closeDbConnection)

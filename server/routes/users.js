@@ -10,7 +10,7 @@ export function logoutUser(req, res) {
 }
 
 export function registerUser(req, res, next) {
-  service.addUser(req.body)
+  service.addUser(req.dbConn, req.body)
   .then((user) => {
     if (user.error) next(user.error)
     // Begin user session
@@ -21,6 +21,7 @@ export function registerUser(req, res, next) {
     })
   })
   .error(err => {
-    res.status(500).send(err.message)
+    err.status = 500
+    next(err)
   })
 }
