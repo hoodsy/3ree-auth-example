@@ -1,9 +1,7 @@
-import passport from 'passport'
-
 import * as service from '../api/users'
 
 export function loginUser(req, res) {
-  res.status(200).send('OK')
+  res.status(200).send('Login User: Success')
 }
 
 export function logoutUser(req, res) {
@@ -15,7 +13,12 @@ export function registerUser(req, res, next) {
   service.addUser(req.body)
   .then((user) => {
     if (user.error) next(user.error)
-    passport.authenticate('local')(req, res, next, loginUser)
+    // Begin user session
+    // via Passport
+    req.logIn(user, err => {
+      if (err) next(err)
+      res.status(200).send('Register User: Success')
+    })
   })
   .error(err => {
     res.status(500).send(err.message)

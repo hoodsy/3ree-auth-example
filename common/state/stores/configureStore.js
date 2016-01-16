@@ -23,23 +23,16 @@ let createStoreWithMiddleware
 let middleware
 export let reduxRouterMiddleware
 
+// Build createStoreWithMiddleware
+// ===============================
 if (typeof window !== 'undefined') {
+  // Client middleware
   reduxRouterMiddleware = syncHistory(browserHistory)
   middleware = [
     thunk,
     authenticationRouter,
     reduxRouterMiddleware
   ]
-} else {
-  middleware = [
-    thunk,
-    authenticationRouter
-  ]
-}
-
-// Build createStoreWithMiddleware
-// ===============================
-if (typeof window !== 'undefined') {
   // Client store config (include localStorage)
   rootReducer = getPersistedState(anchorApp)
   storage = configClientStorage()
@@ -48,7 +41,13 @@ if (typeof window !== 'undefined') {
     persistState(storage, 'UID-1337'),
     devTools(),
   )(createStore)
+
 } else {
+  // Server middleware
+  middleware = [
+    thunk,
+    authenticationRouter
+  ]
   // Server store config
   rootReducer = anchorApp
   createStoreWithMiddleware = compose(

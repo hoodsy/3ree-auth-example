@@ -5,46 +5,19 @@ import { loginUser,
          registerUser } from '../../state/actions'
 
 class Login extends Component {
-  submitAction(action, e) {
+  submitAction(e) {
     e.preventDefault()
-    const nodeEmail = this.refs.email
-    const email = nodeEmail
-    const nodePassword = this.refs.password
-    const password = nodePassword.value.trim()
+    let email = this.emailInput.value
+    let password = this.passwordInput.value
     if (email && password) {
-      action({ email, password })
-      nodeEmail.value = ''
-      nodePassword.value = ''
+      this.action({
+        email: email.trim(),
+        password: password.trim()
+      })
+      email = ''
+      password = ''
     }
   }
-
-  // handleLogin(e) {
-  //   const { loginUser } = this.props
-  //   e.preventDefault()
-  //   const nodeEmail = this.refs.email
-  //   const email = nodeEmail.value.trim()
-  //   const nodePassword = this.refs.password
-  //   const password = nodePassword.value.trim()
-  //   if (email && password) {
-  //     loginUser({ email, password })
-  //     nodeEmail.value = ''
-  //     nodePassword.value = ''
-  //   }
-  // }
-
-  // handleRegister(e) {
-  //   const { registerUser } = this.props
-  //   e.preventDefault()
-  //   const nodeEmail = this.refs.email
-  //   const email = nodeEmail.value.trim()
-  //   const nodePassword = this.refs.password
-  //   const password = nodePassword.value.trim()
-  //   if (email && password) {
-  //     registerUser({ email, password })
-  //     nodeEmail.value = ''
-  //     nodePassword.value = ''
-  //   }
-  // }
 
   render() {
     const {
@@ -55,21 +28,23 @@ class Login extends Component {
     return (
       <div>
         <h1>Login</h1>
-        <form>
+        <form onSubmit={ (e) => this.submitAction(e) }>
           <input
             type="text"
             placeholder="Email"
-            ref="email" />
+            ref={ (ref) => this.emailInput = ref } />
           <input
             type="password"
             placeholder="Password"
-            ref="password" />
+            ref={ (ref) => this.passwordInput = ref } />
           <button
-            onClick={ this.submitAction(loginUser, e) }>
+            type="submit"
+            onClick={ () => this.action = loginUser }>
             { `Login` }
           </button>
           <button
-            onClick={ this.submitAction(registerUser, e) }>
+            type="submit"
+            onClick={ () => this.action = registerUser }>
             { `Register` }
           </button>
         </form>
@@ -85,7 +60,7 @@ Login.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    users: state.users
+    // users: state.users
   }
 }
 

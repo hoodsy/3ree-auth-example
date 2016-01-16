@@ -30,12 +30,12 @@ export function localAuthCallback(email, password, done) {
     .then(cursor => cursor.toArray())
     .then(user => {
       if (!user[0])
-        return done(null, false, { message: `Email ${email} not found` })
-      if (user[0]['password'] === password) {
+        done(null, false, { message: `Email ${email} not found` })
+      else if (user[0]['password'] === password)
         done(null, user[0])
-      } else {
+      else
         done(null, false, { message: 'Invalid email or password' })
-      }
+
     })
   })
 }
@@ -43,7 +43,7 @@ export function localAuthCallback(email, password, done) {
 export function addUser(user) {
   return r.connect(config)
   .then(conn => {
-    user.created = new Date()
+    user.created = new Date().toString()
     user.email = xss(user.email)
     user.password = xss(user.password)
     return r

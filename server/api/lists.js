@@ -8,7 +8,7 @@ import config from '../config/dbConfig'
 export function addList(list) {
   return r.connect(config)
   .then(conn => {
-    list.created = new Date()
+    list.created = new Date().toString()
     list.title = xss(list.title)
     return r
     .table('lists')

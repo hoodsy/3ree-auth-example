@@ -27,8 +27,12 @@ export default (app, passport) => {
 
   // Middleware / Root
   // =================
-  app.all('/api/*', isAuthenticated)
-  app.get('/', isAuthenticated, initialRender)
+  if (process.NODE_ENV !== 'development') {
+    app.all('/api/*', isAuthenticated)
+    app.get('/', isAuthenticated, initialRender)
+  } else {
+    app.get('/', initialRender)
+  }
   app.get('*', initialRender)
 
 }

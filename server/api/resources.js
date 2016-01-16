@@ -8,7 +8,7 @@ import config from '../config/dbConfig'
 export function addResource(resource) {
   return r.connect(config)
   .then(conn => {
-    resource.created = new Date()
+    resource.created = new Date().toString()
     resource.url = xss(resource.url)
     return r
     .table('resources')

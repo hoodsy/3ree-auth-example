@@ -11,7 +11,7 @@ import { extractByType,
 export function addDashboard(dashboard) {
   return r.connect(config)
   .then(conn => {
-    dashboard.created = new Date()
+    dashboard.created = new Date().toString()
     dashboard.title = xss(dashboard.title)
     return r
     .table('dashboards')

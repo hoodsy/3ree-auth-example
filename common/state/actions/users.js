@@ -1,5 +1,5 @@
 import request from 'superagent/lib/client'
-import { push } from 'redux-simple-router'
+import { routeActions } from 'redux-simple-router'
 
 import * as types from '../constants/actionTypes'
 
@@ -65,7 +65,7 @@ export function loginUser(user) {
           dispatch(loginUserFailure(err, user))
         } else {
           dispatch(loginUserSuccess(res.body))
-          dispatch(push('/'))
+          dispatch(routeActions.push('/'))
         }
       })
   }
@@ -84,7 +84,7 @@ export function registerUser(user) {
           dispatch(registerUserFailure(err, res.status))
         } else {
           dispatch(registerUserSuccess(res.body))
-          dispatch(push('/'))
+          dispatch(routeActions.push('/'))
         }
       })
   }

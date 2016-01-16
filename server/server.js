@@ -3,6 +3,7 @@ import ejs from 'ejs'
 import express from 'express'
 import session from 'express-session'
 import bodyParser from 'body-parser'
+import morgan from 'morgan'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
@@ -30,6 +31,7 @@ app.set('views', path.join(__dirname, 'views'))
 // =================
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(morgan('dev'))
 
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config)
