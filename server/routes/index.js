@@ -40,16 +40,22 @@ export default (app, passport) => {
   router.route('/api/resource')
   .post(resources.addResource)
 
-  // Users
-  // =====
-  router.post('/user/login', passport.authenticate('local'), users.loginUser)
-  router.get('/user/logout', users.logoutUser)
-  router.post('/user/register', users.registerUser)
+  // Auth
+  // ====
+  // Local
+  // -----
+  router.post('/auth/login', passport.authenticate('local'), users.loginUser)
+  router.get('/auth/logout', users.logoutUser)
+  router.post('/auth/register', users.registerUser)
+  // Facebook
+  // --------
   router.get('/auth/facebook', passport.authenticate('facebook'))
   router.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/',
     failureRedirect: '/login'
   }))
+  // Google
+  // ------
   router.get('/auth/google', passport.authenticate('google', {
     scope: [
       'https://www.googleapis.com/auth/userinfo.profile',

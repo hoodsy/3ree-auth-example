@@ -13,7 +13,11 @@ export default new FacebookStrategy({
   r.connect(config, (err, conn) => {
     addUser(conn, {
       email: profile.email || '',
-      name: profile.name,
+      name: {
+        displayName: profile.displayName || '',
+        familyName: profile.name.familyName || '',
+        givenName: profile.name.givenName || ''
+      },
       auth: {
         id: profile.id || '',
         type: 'facebook',

@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
 
 import { DashboardPicker,
-         GlobalInput } from '../../'
+         GlobalInput,
+         User } from '../../'
 
 export const DashboardHeader = (
   { dashboards,
@@ -12,12 +13,15 @@ export const DashboardHeader = (
     inputTypes,
     setCurrentInputType,
     currentList,
-    listsById }) =>
+    listsById,
+    user }) =>
 (
   <div>
     <DashboardPicker
       { ...dashboards }
       setCurrentDashboard={ setCurrentDashboard } />
+    <User
+      { ...user } />
     <GlobalInput
       { ...inputTypes }
       addDashboard={ addDashboard }

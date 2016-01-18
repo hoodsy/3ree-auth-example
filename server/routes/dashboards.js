@@ -4,8 +4,6 @@ export function addDashboard(req, res, next) {
   service.addDashboard(req.dbConn, req.body)
   .then((dashboard) => res.json(dashboard))
   .error(err => {
-    // res.status(400)
-    // res.json({ error: err, dashboard: req.body })
     err.status = 400
     next(err)
   })

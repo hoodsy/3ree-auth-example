@@ -15,7 +15,8 @@ class DashboardHeaderContainer extends Component {
       addResource,
       setCurrentInputType,
       currentList,
-      listsById
+      listsById,
+      user
     } = this.props
 
     return (
@@ -28,7 +29,8 @@ class DashboardHeaderContainer extends Component {
         addList={ addList }
         addResource={ addResource }
         currentList={ currentList }
-        listsById={ listsById } />
+        listsById={ listsById }
+        user={ user } />
     )
   }
 }
@@ -63,6 +65,15 @@ DashboardHeaderContainer.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     created: PropTypes.string.isRequired
+  })).isRequired,
+  user: PropTypes.objectOf(PropTypes.shape({
+    name: PropTypes.objectOf(PropTypes.shape({
+      displayName: PropTypes.string.isRequired,
+      givenName: PropTypes.string.isRequired,
+      familyName: PropTypes.string.isRequired
+    })).isRequired,
+    email: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired
   })).isRequired
 }
 
@@ -71,7 +82,8 @@ function mapStateToProps(state) {
     dashboards: state.dashboards,
     inputTypes: state.inputTypes,
     currentList: state.lists.currentList,
-    listsById: state.lists.listsById
+    listsById: state.lists.listsById,
+    user: state.users.user
   }
 }
 

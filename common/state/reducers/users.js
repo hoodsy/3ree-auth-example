@@ -3,8 +3,7 @@ import * as types from '../constants/actionTypes'
 // State Shape
 // ===========
 const initialState = {
-  isFetching: false,
-  isAuthenticated: false
+  isFetching: false
 }
 
 // Private Sub-Reducers
@@ -28,8 +27,8 @@ export default function users(state = initialState, action) {
     case types.REGISTER_USER_SUCCESS:
       return {
         ...state,
-        isFetching: false,
-        isAuthenticated: true
+        user: action.user,
+        isFetching: false
       }
 
     case types.LOGIN_USER_FAILURE:

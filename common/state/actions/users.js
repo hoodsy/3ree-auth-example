@@ -5,19 +5,22 @@ import * as types from '../constants/actionTypes'
 
 // API Endpoint
 // ============
-const apiEndpoint = '/user'
+const apiEndpoint = '/auth'
 
 // Private Actions
 // ===============
+// Login
+// -----
 function loginUserRequest(user) {
   return {
     type: types.LOGIN_USER_REQUEST,
     user
   }
 }
-function loginUserSuccess() {
+function loginUserSuccess(user) {
   return {
-    type: types.LOGIN_USER_SUCCESS
+    type: types.LOGIN_USER_SUCCESS,
+    user
   }
 }
 function loginUserFailure(err, status) {
@@ -27,16 +30,18 @@ function loginUserFailure(err, status) {
     status
   }
 }
-
+// Register
+// --------
 function registerUserRequest(user) {
   return {
     type: types.REGISTER_USER_REQUEST,
     user
   }
 }
-function registerUserSuccess() {
+function registerUserSuccess(user) {
   return {
-    type: types.REGISTER_USER_SUCCESS
+    type: types.REGISTER_USER_SUCCESS,
+    user
   }
 }
 function registerUserFailure(err, status) {

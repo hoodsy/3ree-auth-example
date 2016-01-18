@@ -1,7 +1,11 @@
 import * as service from '../api/users'
 
 export function loginUser(req, res) {
-  res.status(200).send('Login User: Success')
+  res.status(200).json({
+    name: req.user.name,
+    email: req.user.email,
+    picture: req.user.picture
+  })
 }
 
 export function logoutUser(req, res) {
@@ -17,7 +21,11 @@ export function registerUser(req, res, next) {
     // via Passport
     req.logIn(user, err => {
       if (err) next(err)
-      res.status(200).send('Register User: Success')
+      res.status(200).json({
+        name: user.name,
+        email: user.email,
+        picture: user.picture
+      })
     })
   })
   .error(err => {

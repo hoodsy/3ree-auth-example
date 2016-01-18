@@ -15,6 +15,7 @@ export * from './components/DashboardHeader/DashboardPicker'
 export * from './components/DashboardHeader/GlobalInput'
 export * from './components/DashboardHeader/InputType'
 export * from './components/DashboardHeader/InputTypesPicker'
+export * from './components/DashboardHeader/User'
 
 // Dashboard Body
 // ==============

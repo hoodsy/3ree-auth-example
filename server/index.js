@@ -20,7 +20,7 @@ export default function initialRender(req, res) {
 
       // Initial Data
       // ============
-        const store = initializeStore(data)
+        const store = initializeStore(data, req.user)
         const initialState = store.getState()
 
         // Initial Render
@@ -44,7 +44,7 @@ export default function initialRender(req, res) {
   })
 }
 
-function initializeStore(data) {
+function initializeStore(data, user = {}) {
   return configureStore({
     dashboards: {
       dashboardsById: data.dashboardsById,
@@ -59,7 +59,16 @@ function initializeStore(data) {
     resources: {
       resourcesById: data.resourcesById,
       isFetching: false
+    },
+    users: {
+      user: {
+        name: user.name,
+        email: user.email,
+        picture: user.picture
+      },
+      isFetching: false
     }
+
   })
 }
 
