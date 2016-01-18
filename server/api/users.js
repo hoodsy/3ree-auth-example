@@ -4,6 +4,7 @@ import r from 'rethinkdb'
 import config from '../config/dbConfig'
 
 export function serializeUser(user, done) {
+  console.log(user);
   return done(null, user.id)
 }
 
@@ -40,10 +41,13 @@ export function localAuthCallback(email, password, done) {
   })
 }
 
-export function addUser(conn, user) {
-  user.created = new Date().toString()
-  user.email = xss(user.email)
-  user.password = xss(user.password)
+// Add User
+// ========
+// Adds existing user if provided
+// email doesn't already exist
+// --------
+export function addUser(conn, user, fields = {}) {
+  user = addUserProperties(user, fields)
   return r
   .table('users')
   .getAll(user.email, { index: 'email' })
@@ -59,7 +63,17 @@ export function addUser(conn, user) {
         return Object.assign({}, user, { id: response.generated_keys[0] })
       })
     } else {
-      return { error: 'Email already in use.'  }
+      return { err: 'Email already in use.'  }
     }
   })
+}
+
+export function addUserProperties(user, fields) {
+  user.created = new Date().toString()
+  user.email = xss(user.email)
+  user.password = xss(user.password)
+  for (let field in fields) {
+    user[field] = fields[field]
+  }
+  return user
 }

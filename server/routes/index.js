@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import initialRender from '../index'
-import { isAuthenticated } from '../middleware/auth'
+import { requireAuthenticated } from '../middleware/auth'
 import * as dashboards from './dashboards'
 import * as lists from './lists'
 import * as resources from './resources'
@@ -16,8 +16,8 @@ export default (app, passport) => {
   // Auth Middleware
   // ===============
   if (app.get('env') !== 'development') {
-    router.all('/api/*', isAuthenticated)
-    router.get('/', isAuthenticated, initialRender)
+    router.all('/api/*', requireAuthenticated)
+    router.get('/', requireAuthenticated, initialRender)
   } else {
     router.get('/', initialRender)
   }
@@ -42,6 +42,23 @@ export default (app, passport) => {
   router.post('/user/login', passport.authenticate('local'), users.loginUser)
   router.get('/user/logout', users.logoutUser)
   router.post('/user/register', users.registerUser)
+  router.get('/auth/facebook', passport.authenticate('facebook'), (req, res) => {})
+  router.get('/auth/facebook/callback', passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  }))
+  router.get('/auth/google', passport.authenticate('google', {
+    scope: [
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'https://www.googleapis.com/auth/userinfo.email'
+    ]
+  }))
+  // router.get('/auth/google/*', (req, res) => {console.log(res);})
+  router.get('/auth/google/*', passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/login'
+  }))
+
 
   router.get('*', initialRender)
   app.use(router)

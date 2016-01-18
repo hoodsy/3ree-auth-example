@@ -1,7 +1,9 @@
-var mongoose = require('mongoose');
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var User = require('../../models/user');
-var secrets = require('../secrets');
+import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
+import r from 'rethinkdb'
+
+import config from '../../config/dbConfig'
+import { google } from './keys'
+import { addUser } from '../../api/users'
 
 /*
  * OAuth Strategy taken modified from https://github.com/sahat/hackathon-starter/blob/master/config/passport.js
@@ -17,51 +19,92 @@ var secrets = require('../secrets');
  *       - If there is, return an error message.
  *       - Else create a new account.
  *
- * The Google OAuth 2.0 authentication strategy authenticates users using a Google account and OAuth 2.0 tokens. 
+ * The Google OAuth 2.0 authentication strategy authenticates users using a Google account and OAuth 2.0 tokens.
  * The strategy requires a verify callback, which accepts these credentials and calls done providing a user, as well
  * as options specifying a client ID, client secret, and callback URL.
  */
 module.exports = new GoogleStrategy({
-	clientID: secrets.google.clientID,
-	clientSecret: secrets.google.clientSecret,
-	callbackURL: secrets.google.callbackURL
-},  function(req, accessToken, refreshToken, profile, done) {
-	if (req.user) {
-		User.findOne({ google: profile.id }, function(err, existingUser) {
-			if (existingUser) {
-				return done(null, false, { message: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.'})
-			} else {
-				User.findById(req.user.id, function(err, user) {
-					user.google = profile.id;
-					user.tokens.push({ kind: 'google', accessToken: accessToken});
-					user.profile.name = user.profile.name || profile.displayName;
-          user.profile.gender = user.profile.gender || profile._json.gender;
-          user.profile.picture = user.profile.picture || profile._json.picture;
-          user.save(function(err) {
-            done(err, user, { message: 'Google account has been linked.' });
-          });
-				})
-			}
-		});
-	} else {
-		User.findOne({ google: profile.id }, function(err, existingUser) {
-      if (existingUser) return done(null, existingUser);
-      User.findOne({ email: profile._json.emails[0].value }, function(err, existingEmailUser) {
-        if (existingEmailUser) {
-          return done(null, false, { message: 'There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.'});
-        } else {
-          var user = new User();
-          user.email = profile._json.emails[0].value;
-          user.google = profile.id;
-          user.tokens.push({ kind: 'google', accessToken: accessToken });
-          user.profile.name = profile.displayName;
-          user.profile.gender = profile._json.gender;
-          user.profile.picture = profile._json.picture;
-          user.save(function(err) {
-            done(err, user);
-          });
+  clientID: google.clientID,
+  clientSecret: google.clientSecret,
+  callbackURL: google.callbackURL
+}, (req, accessToken, refreshToken, profile, done) => {
+  console.log(profile);
+  console.log('===========');
+  if (req.user) {
+    console.log('req.user exists');
+    console.log('===========');
+    const user = addUser(req.dbConn, { email: profile.email }, {
+      auth: {
+        type: 'google',
+        token: profile._json.token
+      },
+      gender: profile.gender,
+      picture: profile.photos[0].url
+    })
+    if (user.err)
+      done({}, user, { message: user.err })
+    else
+      done({}, user, { message: 'Account created with Google.' })
+	// User.findOne({ google: profile.id }, function(err, existingUser) {
+	// 	if (existingUser) {
+	// 		return done(null, false, { message: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.'})
+	// 	} else {
+	// 		User.findById(req.user.id, function(err, user) {
+	// 			user.google = profile.id
+	// 			user.tokens.push({ kind: 'google', accessToken: accessToken})
+	// 			user.profile.name = user.profile.name || profile.displayName
+ //        user.profile.gender = user.profile.gender || profile._json.gender
+ //        user.profile.picture = user.profile.picture || profile._json.picture
+ //        user.save(function(err) {
+ //          done(err, user, { message: 'Google account has been linked.' })
+ //        })
+	// 		})
+	// 	}
+	// })
+  } else {
+    console.log('creating user');
+    console.log('===========');
+    r.connect(config, (err, conn) => {
+      addUser(conn, {
+        email: profile.email || '',
+        firstName: profile.name.givenName || '',
+        lastName: profile.name.familyName || '',
+        auth: {
+          type: 'google',
+          token: profile._json.token || ''
+        },
+        gender: profile.gender || '',
+        picture: profile._json.image.url || ''
+      })
+      .then(user => {
+        console.log(user.err, 'in err');
+        if (user.err) {
+          done(null, false, { message: user.err })
         }
-      });
-    });
-	}
-});
+        else {
+          done(null, user, { message: 'Account created with Google.' })
+        }
+      })
+    })
+    // done({}, profile, { message: 'test' })
+	// User.findOne({ google: profile.id }, function(err, existingUser) {
+ //    if (existingUser) return done(null, existingUser)
+ //    User.findOne({ email: profile._json.emails[0].value }, function(err, existingEmailUser) {
+ //      if (existingEmailUser) {
+ //        return done(null, false, { message: 'There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.'})
+ //      } else {
+ //        var user = new User()
+ //        user.email = profile._json.emails[0].value
+ //        user.google = profile.id
+ //        user.tokens.push({ kind: 'google', accessToken: accessToken })
+ //        user.profile.name = profile.displayName
+ //        user.profile.gender = profile._json.gender
+ //        user.profile.picture = profile._json.picture
+ //        user.save(function(err) {
+ //          done(err, user)
+ //        })
+ //      }
+ //    })
+ //  })
+  }
+})

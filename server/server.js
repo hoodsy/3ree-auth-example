@@ -30,7 +30,7 @@ app.use(bodyParser.json())
 app.use(morgan('dev'))
 app.use(createDbConnection)
 
-if (process.env.NODE_ENV === 'development') {
+if (app.get('env') === 'development') {
   const compiler = webpack(config)
   app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
   app.use(webpackHotMiddleware(compiler))

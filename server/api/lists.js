@@ -15,7 +15,7 @@ export function addList(conn, list) {
   })
 }
 
-export function getLists(conn, ) {
+export function getLists(conn) {
   return r
   .table('lists')
   .orderBy('id')

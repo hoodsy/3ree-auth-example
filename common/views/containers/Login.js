@@ -48,6 +48,7 @@ class Login extends Component {
             { `Register` }
           </button>
         </form>
+        <a href="/auth/google">Sign in with Google</a>
       </div>
     )
   }
