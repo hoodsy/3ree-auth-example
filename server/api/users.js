@@ -4,7 +4,6 @@ import r from 'rethinkdb'
 import config from '../config/dbConfig'
 
 export function serializeUser(user, done) {
-  console.log(user);
   return done(null, user.id)
 }
 

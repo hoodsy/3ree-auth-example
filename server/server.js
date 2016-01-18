@@ -11,9 +11,6 @@ import passport from 'passport'
 import config from '../webpack.config'
 import passportConfig from './config/passport'
 import routesConfig from './routes'
-import { catchError,
-         devErrorHandler,
-         prodErrorHandler } from './middleware/errorHandlers'
 import { closeDbConnection,
          createDbConnection } from './middleware/dbConnection'
 // import liveUpdates from '../config/liveUpdates'
@@ -65,13 +62,6 @@ const server = app.listen(port, (error) => {
 
 // const io = SocketIO.listen(server)
 // liveUpdates(io)
-
-// Error Handler
-// =============
-app.use(catchError)
-app.get('env') === 'development'
-  ? app.use(devErrorHandler)
-  : app.use(prodErrorHandler)
 
 // Close Connection
 // ================

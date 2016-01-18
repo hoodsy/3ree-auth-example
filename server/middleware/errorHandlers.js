@@ -23,3 +23,10 @@ export function prodErrorHandler(err, req, res) {
     error: {}
   })
 }
+
+// export function passportErrorHandler(err, user, info) {
+//   if (err)
+//     return err
+//   if(!user)
+//     return { err: info.message }
+// }

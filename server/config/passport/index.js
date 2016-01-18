@@ -1,6 +1,6 @@
 import local from './local'
 import google from './google'
-// import facebook from './facebook'
+import facebook from './facebook'
 import { serializeUser,
          deserializeUser } from '../../api/users'
 
@@ -19,5 +19,5 @@ export default function (passport) {
   // ==========
   passport.use(local)
   passport.use(google)
-  // passport.use(facebook)
+  passport.use(facebook)
 }
