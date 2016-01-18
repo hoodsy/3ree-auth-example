@@ -1,7 +1,6 @@
 import { compose,
          createStore,
          applyMiddleware } from 'redux'
-import { devTools } from 'redux-devtools'
 import thunk from 'redux-thunk'
 import { syncHistory } from 'redux-simple-router'
 import { browserHistory } from 'react-router'
@@ -10,8 +9,10 @@ import persistState,
 import adapter from 'redux-localstorage/lib/adapters/localStorage'
 import filter from 'redux-localstorage-filter'
 import debounce from 'redux-localstorage-debounce'
-import _ from 'lodash'
+// import merge from 'lodash/lang/merge'
+// import merge from 'lodash.merge'
 
+import { DevTools } from '../../views'
 import anchorApp from '../reducers'
 import { authenticationRouter } from '../middleware'
 
@@ -39,7 +40,7 @@ if (typeof window !== 'undefined') {
   createStoreWithMiddleware = compose(
     applyMiddleware(...middleware),
     persistState(storage, 'UID-1337'),
-    devTools(),
+    DevTools.instrument(),
   )(createStore)
 
 } else {
@@ -52,7 +53,7 @@ if (typeof window !== 'undefined') {
   rootReducer = anchorApp
   createStoreWithMiddleware = compose(
     applyMiddleware(...middleware),
-    devTools(),
+    DevTools.instrument(),
   )(createStore)
 }
 
@@ -74,9 +75,19 @@ export default function configureStore(initialState) {
 // ======================
 function getPersistedState(reducer) {
   return compose(
-    mergePersistedState((initialState, persistedState) =>
-      _.merge({}, initialState, persistedState)
-    )
+    mergePersistedState((initialState, persistedState) => {
+      return initialState
+      // merge({}, initialState, persistedState)
+      // if (Object.keys(persistedState).length !== 0) {
+      //   const { currentDashboard } = persistedState.dashboards
+      //   const { currentList } = persistedState.lists
+      //   if (currentDashboard)
+      //     initialState.dashboards.currentDashboard = currentDashboard
+      //   if (currentList)
+      //     initialState.dashboards.currentList = currentList
+      // }
+      // return initialState
+    })
   )(reducer)
 }
 

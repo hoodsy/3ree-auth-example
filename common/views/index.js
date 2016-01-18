@@ -1,5 +1,6 @@
 // Containers
 // ==========
+export { default as DevTools } from './containers/DevTools'
 export * from './containers/App'
 export { default as Login } from './containers/Login'
 export * from './containers/DashboardContainer'

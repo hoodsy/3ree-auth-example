@@ -4,10 +4,7 @@ import { Provider } from 'react-redux'
 import { Router,
          browserHistory } from 'react-router'
 
-import { DevTools,
-         DebugPanel,
-         LogMonitor } from 'redux-devtools/lib/react'
-
+import { DevTools } from '../common/views'
 import routes from '../common/views/routes'
 import configureStore,
      { reduxRouterMiddleware } from '../common/state/stores/configureStore'
@@ -24,15 +21,18 @@ reduxRouterMiddleware.listenForReplays(store)
 render(
   <div>
     <Provider store={ store }>
-      <Router history={ browserHistory }>
-        { routes }
-      </Router>
+      <div>
+        <Router history={ browserHistory }>
+          { routes }
+        </Router>
+        <DevTools />
+      </div>
     </Provider>
-    <DebugPanel top right bottom>
-      <DevTools store={ store } monitor={ LogMonitor } />
-    </DebugPanel>
   </div>,
   document.getElementById('root')
 )
 
+/*    <DebugPanel top right bottom>
+      <DevTools store={ store } monitor={ LogMonitor } />
+    </DebugPanel> */
 // startSocketListener(store, actions)

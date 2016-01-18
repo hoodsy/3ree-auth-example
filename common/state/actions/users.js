@@ -15,17 +15,16 @@ function loginUserRequest(user) {
     user
   }
 }
-
 function loginUserSuccess() {
   return {
     type: types.LOGIN_USER_SUCCESS
   }
 }
-
-function loginUserFailure(error) {
+function loginUserFailure(err, status) {
   return {
     type: types.LOGIN_USER_FAILURE,
-    error
+    err,
+    status
   }
 }
 
@@ -35,13 +34,11 @@ function registerUserRequest(user) {
     user
   }
 }
-
 function registerUserSuccess() {
   return {
     type: types.REGISTER_USER_SUCCESS
   }
 }
-
 function registerUserFailure(err, status) {
   return {
     type: types.REGISTER_USER_FAILURE,
@@ -55,14 +52,13 @@ function registerUserFailure(err, status) {
 export function loginUser(user) {
   return (dispatch) => {
     dispatch(loginUserRequest(user))
-
     return request
       .post(`${apiEndpoint}/login`)
       .send({ ...user })
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) {
-          dispatch(loginUserFailure(err, user))
+          dispatch(loginUserFailure(err, res.status))
         } else {
           dispatch(loginUserSuccess(res.body))
           dispatch(routeActions.push('/'))
@@ -74,7 +70,6 @@ export function loginUser(user) {
 export function registerUser(user) {
   return (dispatch) => {
     dispatch(registerUserRequest(user))
-
     return request
       .post(`${apiEndpoint}/register`)
       .send({ ...user })

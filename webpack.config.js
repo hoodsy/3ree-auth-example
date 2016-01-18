@@ -14,20 +14,20 @@ var config = {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    // new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin(
-      {
+    new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"development"',
-        'global.GENTLY': false
-      }
-    ),
+        'global': {}, // bizarre lodash(?) webpack workaround
+        'global.GENTLY': false // superagent client fix
+    })
   ],
   module: {
     loaders: [
       { test: /\.json$/, loaders: ['json'], },
-      { test: /\.js$/, exlude: /node_modules/, loaders: ['babel', 'eslint'], },
+      { test: /\.js$/,  loader: 'babel', exclude: /node_modules/ },
+      { test: /\.js$/,  loader: 'eslint', exclude: /node_modules/ },
     ]
   },
   // build breaks on eslint without this workaround
@@ -36,13 +36,8 @@ var config = {
     emitWarning: true
   },
   node: {
-    __dirname: true,
+    __dirname: true, // superagent client fix
   },
-  // resolve: {
-  //   alias: {
-  //     'superagent': path.join(__dirname, 'node_modules/superagent/lib/client')
-  //   }
-  // }
 }
 
 module.exports = config;
