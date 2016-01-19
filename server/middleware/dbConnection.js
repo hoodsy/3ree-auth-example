@@ -1,6 +1,6 @@
 import r from 'rethinkdb'
 
-import config from '../config/dbConfig'
+import config from '../config/rethinkDb/dbConfig'
 
 export function createDbConnection(req, res, next) {
   r.connect(config, (err, conn) => {

@@ -1,7 +1,7 @@
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth'
 import r from 'rethinkdb'
 
-import config from '../../config/dbConfig'
+import config from '../../config/rethinkDb/dbConfig'
 import { google } from './keys'
 import { addUser } from '../../api/users'
 

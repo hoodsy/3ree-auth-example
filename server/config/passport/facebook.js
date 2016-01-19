@@ -1,7 +1,7 @@
 import { Strategy as FacebookStrategy } from 'passport-facebook'
 import r from 'rethinkdb'
 
-import config from '../../config/dbConfig'
+import config from '../../config/rethinkDb/dbConfig'
 import { facebook } from './keys'
 import { addUser } from '../../api/users'
 
