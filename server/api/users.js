@@ -62,9 +62,10 @@ export function addUser(conn, user, fields = {}) {
         return Object.assign({}, user, { id: response.generated_keys[0] })
       })
     } else {
-      return { err: 'Email already in use.'  }
+      return Object.assign({}, users[0], { err: 'Email already in use.' })
     }
   })
+  .error((err) => { err })
 }
 
 export function addUserProperties(user, fields) {

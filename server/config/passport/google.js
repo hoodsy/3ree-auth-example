@@ -28,7 +28,9 @@ export default new GoogleStrategy({
       picture: profile._json.image.url || ''
     })
     .then(user => {
-      if (user.err) {
+      if (user.err && user.name)
+        done(null, user, { message: user.err })
+      else if (user.err) {
         console.error(`Authentication Error: ${user.err}`) // eslint-disable-line no-console
         done(null, false, { message: user.err })
       } else

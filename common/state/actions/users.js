@@ -105,7 +105,7 @@ export function logoutUser(user) {
           dispatch(logoutUserFailure(err, res.status))
         } else {
           dispatch(logoutUserSuccess(res.body))
-          dispatch(routeActions.push('/'))
+          dispatch(routeActions.push('/login'))
         }
       })
   }
