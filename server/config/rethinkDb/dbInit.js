@@ -41,7 +41,8 @@ function createIndex(target, next) {
 function createIndexes(next) {
   async.map([
     { table: 'lists', index: 'dashboardId' },
-    { table: 'resources', index: 'listId' }
+    { table: 'resources', index: 'listId' },
+    { table: 'users', index: 'email' }
   ], createIndex, next)
 }
 

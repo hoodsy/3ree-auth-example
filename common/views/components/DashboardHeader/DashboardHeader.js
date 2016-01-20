@@ -14,14 +14,16 @@ export const DashboardHeader = (
     setCurrentInputType,
     currentList,
     listsById,
-    user }) =>
+    user,
+    logoutUser }) =>
 (
   <div>
     <DashboardPicker
       { ...dashboards }
       setCurrentDashboard={ setCurrentDashboard } />
     <User
-      { ...user } />
+      { ...user }
+      logoutUser={ logoutUser } />
     <GlobalInput
       { ...inputTypes }
       addDashboard={ addDashboard }
@@ -43,5 +45,6 @@ DashboardHeader.propTypes = {
   addResource: PropTypes.func.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,
   currentList: PropTypes.string.isRequired,
-  listsById: PropTypes.object.isRequired
+  listsById: PropTypes.object.isRequired,
+  logoutUser: PropTypes.func.isRequired
 }

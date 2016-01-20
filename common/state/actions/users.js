@@ -30,6 +30,27 @@ function loginUserFailure(err, status) {
     status
   }
 }
+// Logout
+// ------
+function logoutUserRequest(user) {
+  return {
+    type: types.LOGOUT_USER_REQUEST,
+    user
+  }
+}
+function logoutUserSuccess(user) {
+  return {
+    type: types.LOGOUT_USER_SUCCESS,
+    user
+  }
+}
+function logoutUserFailure(err, status) {
+  return {
+    type: types.LOGOUT_USER_FAILURE,
+    err,
+    status
+  }
+}
 // Register
 // --------
 function registerUserRequest(user) {
@@ -66,6 +87,24 @@ export function loginUser(user) {
           dispatch(loginUserFailure(err, res.status))
         } else {
           dispatch(loginUserSuccess(res.body))
+          dispatch(routeActions.push('/'))
+        }
+      })
+  }
+}
+
+export function logoutUser(user) {
+  return (dispatch) => {
+    dispatch(logoutUserRequest(user))
+    return request
+      .get(`${apiEndpoint}/logout`)
+      .send()
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err) {
+          dispatch(logoutUserFailure(err, res.status))
+        } else {
+          dispatch(logoutUserSuccess(res.body))
           dispatch(routeActions.push('/'))
         }
       })

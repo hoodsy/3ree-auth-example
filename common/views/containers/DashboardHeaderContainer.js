@@ -16,7 +16,8 @@ class DashboardHeaderContainer extends Component {
       setCurrentInputType,
       currentList,
       listsById,
-      user
+      user,
+      logoutUser
     } = this.props
 
     return (
@@ -30,7 +31,8 @@ class DashboardHeaderContainer extends Component {
         addResource={ addResource }
         currentList={ currentList }
         listsById={ listsById }
-        user={ user } />
+        user={ user }
+        logoutUser={ logoutUser } />
     )
   }
 }
@@ -74,7 +76,8 @@ DashboardHeaderContainer.propTypes = {
     })).isRequired,
     email: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired
-  })).isRequired
+  })).isRequired,
+  logoutUser: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
