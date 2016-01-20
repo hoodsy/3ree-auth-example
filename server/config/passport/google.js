@@ -28,12 +28,12 @@ export default new GoogleStrategy({
       picture: profile._json.image.url || ''
     })
     .then(user => {
-      if (user.err && user.name)
+      if (user.err && user.name) // User already exists
         done(null, user, { message: user.err })
-      else if (user.err) {
+      else if (user.err) { // User creation error
         console.error(`Authentication Error: ${user.err}`) // eslint-disable-line no-console
         done(null, false, { message: user.err })
-      } else
+      } else // User created
         done(null, user, { message: 'Account created with Google.' })
     })
   })
