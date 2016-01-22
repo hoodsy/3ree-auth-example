@@ -15,36 +15,54 @@ export default function initialRender(req, res) {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      getDashboardData()
-      .then(data => {
-
-      // Initial Data
-      // ============
-        const store = initializeStore(data, req.user)
-        const initialState = store.getState()
-
-        // Initial Render
-        // ==============
-        const html = renderToString(
-          <div>
-            <Provider store={store}>
-              <div>
-               <RouterContext {...renderProps} />
-               <DevTools />
-              </div>
-            </Provider>
-          </div>
-        )
-        const renderedTemplate = renderTemplate(html, initialState)
-        res.status(200).send(renderedTemplate)
-      })
+      // No user
+      // =======
+      if (!req.user || req.user.dashboards.length === 0) {
+        const defaultDashboard = 'b838af6f-baaa-471b-8a16-f7203df44562'
+        getDashboardData(defaultDashboard)
+        .then(data => {
+          const renderedTemplate = initApp(data, req.user, renderProps)
+          res.status(200).send(renderedTemplate)
+        })
+      // User logged in
+      // ==============
+      } else {
+        // getDashboardData()
+        getDashboardData(req.user.dashboards)
+        .then(data => {
+          if (data.err) data = {}
+          const renderedTemplate = initApp(data, req.user, renderProps)
+          res.status(200).send(renderedTemplate)
+        })
+      }
     } else {
       res.status(404).send('Not Found')
     }
   })
 }
 
-function initializeStore(data, user = {}) {
+function initApp(data, user, renderProps) {
+  // Initial Data
+  // ============
+  const store = initializeStore(data, user)
+  const initialState = store.getState()
+
+  // Initial Render
+  // ==============
+  const html = renderToString(
+    <div>
+      <Provider store={store}>
+        <div>
+         <RouterContext {...renderProps} />
+         <DevTools />
+        </div>
+      </Provider>
+    </div>
+  )
+  return renderTemplate(html, initialState)
+}
+
+function initializeStore(data = {}, user = {}) {
   return configureStore({
     dashboards: {
       dashboardsById: data.dashboardsById,
@@ -62,9 +80,11 @@ function initializeStore(data, user = {}) {
     },
     users: {
       user: {
+        id: user.id,
         name: user.name,
         email: user.email,
-        picture: user.picture
+        picture: user.picture,
+        dashboards: user.dashboards
       },
       isFetching: false
     }

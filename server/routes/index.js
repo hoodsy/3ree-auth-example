@@ -22,8 +22,10 @@ export default (app, passport) => {
     router.all('/api/*', requireAuthenticated)
     router.get('/', requireAuthenticated, initialRender)
   } else {
-    router.get('/', initialRender)
+    // router.get('/', initialRender)
   }
+  router.all('/api/*', requireAuthenticated)
+  router.get('/', requireAuthenticated, initialRender)
 
   // Dashboards
   // ==========
@@ -39,6 +41,11 @@ export default (app, passport) => {
   // =========
   router.route('/api/resource')
   .post(resources.addResource)
+
+  // Users
+  // =====
+  router.route('/api/user/dashboard')
+  .post(users.addDashboardToUser)
 
   // Auth
   // ====

@@ -69,6 +69,7 @@ DashboardHeaderContainer.propTypes = {
     created: PropTypes.string.isRequired
   })).isRequired,
   user: PropTypes.objectOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
     name: PropTypes.objectOf(PropTypes.shape({
       displayName: PropTypes.string.isRequired,
       givenName: PropTypes.string.isRequired,

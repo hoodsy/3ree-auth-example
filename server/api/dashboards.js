@@ -6,8 +6,8 @@ import { extractByType,
          merge,
          normalize } from './util'
 
-// Dashboards
-// ==========
+// Add Dashboard
+// =============
 export function addDashboard(conn, dashboard) {
   dashboard.created = new Date().toString()
   dashboard.title = xss(dashboard.title)
@@ -20,22 +20,13 @@ export function addDashboard(conn, dashboard) {
   })
 }
 
-export function getDashboards() {
-  return r.connect(config)
-  .then(conn => {
-    return r
-    .table('dashboards')
-    .orderBy('id').run(conn)
-    .then(cursor => cursor.toArray())
-    .then(cursor => normalize(cursor))
-    // .then(dashboards => getLists(dashboards, conn))
-  })
-}
-
-export function getDashboardData() {
+// Get Dashboard w/ Data
+// =====================
+export function getDashboardData(dashboards) {
   return r.connect(config)
     .then(conn => {
       return r.table('dashboards')
+      .getAll(...dashboards)
       .map(dashboard => {
         const lists = r.table('lists')
         .getAll(dashboard('id'), { index: 'dashboardId' })
@@ -50,9 +41,12 @@ export function getDashboardData() {
       })
       .run(conn)
       .then(formatDashboardData)
+      .error((err) => { err })
     })
 }
 
+// Utility
+// =======
 function formatDashboardData(cursor) {
   return (
     cursor.toArray()

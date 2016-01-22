@@ -14,12 +14,12 @@ var config = {
     publicPath: '/static/'
   },
   plugins: [
-    // new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"development"',
-        'global': {}, // bizarre lodash(?) webpack workaround
+        'global': {}, // WORKAROUND
         'global.GENTLY': false // superagent client fix
     })
   ],

@@ -1,6 +1,7 @@
 import request from 'superagent/lib/client'
 
 import * as types from '../constants/actionTypes'
+import { addDashboardToUser } from '../actions'
 
 // API Endpoint
 // ============
@@ -32,7 +33,7 @@ function addDashboardFailure(err, status) {
 
 // Public Actions
 // ==============
-export function addDashboard(title) {
+export function addDashboard(title, userId) {
   return (dispatch) => {
     dispatch(addDashboardRequest(title))
     return request
@@ -44,6 +45,7 @@ export function addDashboard(title) {
           dispatch(addDashboardFailure(err, res.status))
         } else {
           dispatch(addDashboardSuccess(res.body))
+          dispatch(addDashboardToUser(res.body.id, userId))
         }
       })
   }

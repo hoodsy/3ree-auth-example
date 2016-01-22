@@ -18,6 +18,7 @@ export const User = (
 )
 
 User.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.object.isRequired,
   email: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,

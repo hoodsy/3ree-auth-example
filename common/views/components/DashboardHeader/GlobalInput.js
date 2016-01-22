@@ -45,14 +45,15 @@ export class GlobalInput extends Component {
       addList,
       addResource,
       currentDashboard,
-      currentList
+      currentList,
+      userId
     } = this.props
     const inputType = this.getInputType()
 
     switch(inputType) {
       case 'Search':
       case 'Dashboard':
-        return addDashboard(inputText)
+        return addDashboard(inputText, userId)
       case 'List':
         return addList(currentDashboard, inputText)
       case 'Resource':
@@ -113,5 +114,6 @@ GlobalInput.propTypes = {
   currentList: PropTypes.string.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,
   addDashboard: PropTypes.func.isRequired,
-  addList: PropTypes.func.isRequired
+  addList: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired
 }

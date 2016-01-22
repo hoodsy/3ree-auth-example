@@ -18,12 +18,12 @@ export const DashboardHeader = (
     logoutUser }) =>
 (
   <div>
-    <DashboardPicker
-      { ...dashboards }
-      setCurrentDashboard={ setCurrentDashboard } />
     <User
       { ...user }
       logoutUser={ logoutUser } />
+    <DashboardPicker
+      { ...dashboards }
+      setCurrentDashboard={ setCurrentDashboard } />
     <GlobalInput
       { ...inputTypes }
       addDashboard={ addDashboard }
@@ -32,7 +32,8 @@ export const DashboardHeader = (
       currentDashboard={ dashboards.currentDashboard }
       currentList={ currentList }
       listsById={ listsById }
-      setCurrentInputType={ setCurrentInputType } />
+      setCurrentInputType={ setCurrentInputType }
+      userId={ user ? user.id : '' } />
   </div>
 )
 

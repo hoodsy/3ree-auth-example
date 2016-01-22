@@ -72,8 +72,33 @@ export function addUserProperties(user, fields) {
   user.created = new Date().toString()
   user.email = xss(user.email)
   user.password = xss(user.password)
+  user.dashboards = []
   for (let field in fields) {
     user[field] = fields[field]
   }
   return user
 }
+
+// Add Dashboard to User
+// =====================
+// Adds data to existing user
+// ---------------------
+export function addDashboardToUser(conn, dashboardId, userId) {
+  return r
+  .table('users')
+  .get(userId)
+  .update({ dashboards: r.row('dashboards').append(dashboardId) })
+  .run(conn)
+  .error((err) => { err })
+}
+
+// Get User
+// ========
+export function getUser(conn, userId) {
+  return r
+  .table('users')
+  .get(userId)
+  .run(conn)
+  .error((err) => { err })
+}
+

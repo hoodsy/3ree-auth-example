@@ -26,15 +26,15 @@ export let reduxRouterMiddleware
 
 // Build createStoreWithMiddleware
 // ===============================
+// Client
+// ------
 if (typeof window !== 'undefined') {
-  // Client middleware
   reduxRouterMiddleware = syncHistory(browserHistory)
   middleware = [
     thunk,
     authenticationRouter,
     reduxRouterMiddleware
   ]
-  // Client store config (include localStorage)
   rootReducer = getPersistedState(anchorApp)
   storage = configClientStorage()
   createStoreWithMiddleware = compose(
@@ -42,14 +42,13 @@ if (typeof window !== 'undefined') {
     persistState(storage, 'UID-1337'),
     DevTools.instrument(),
   )(createStore)
-
+// Server
+// ------
 } else {
-  // Server middleware
   middleware = [
     thunk,
     authenticationRouter
   ]
-  // Server store config
   rootReducer = anchorApp
   createStoreWithMiddleware = compose(
     applyMiddleware(...middleware),
@@ -77,16 +76,11 @@ function getPersistedState(reducer) {
   return compose(
     mergePersistedState((initialState, persistedState) => {
       return initialState
-      // merge({}, initialState, persistedState)
-      // if (Object.keys(persistedState).length !== 0) {
-      //   const { currentDashboard } = persistedState.dashboards
-      //   const { currentList } = persistedState.lists
-      //   if (currentDashboard)
-      //     initialState.dashboards.currentDashboard = currentDashboard
-      //   if (currentList)
-      //     initialState.dashboards.currentList = currentList
-      // }
+      // initialState['dashboards']['currentDashboard'] = persistedState['dashboards']['currentDashboard'] || ''
+      // initialState['lists']['currentList'] = persistedState['lists']['currentList'] || ''
+      // initialState['users']['user'] = persistedState['users']['user'] || {}
       // return initialState
+      // _.merge({}, initialState, persistedState)
     })
   )(reducer)
 }
@@ -96,7 +90,8 @@ function configClientStorage() {
     debounce(500),
     filter([
       'dashboards.currentDashboard',
-      'lists.currentList'
+      'lists.currentList',
+      'users.user'
     ])
   )(adapter(localStorage))
 }
