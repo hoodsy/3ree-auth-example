@@ -23,8 +23,17 @@ export default function users(state = initialState, action) {
         isFetching: true
       }
 
-    case types.LOGIN_USER_SUCCESS:
     case types.LOGOUT_USER_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...action.user,
+          isAuthenticated: false
+        },
+        isFetching: false
+      }
+
+    case types.LOGIN_USER_SUCCESS:
     case types.REGISTER_USER_SUCCESS:
     case types.ADD_DASHBOARD_TO_USER_SUCCESS:
       return {

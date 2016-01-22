@@ -111,6 +111,7 @@ export function loginUser(user) {
         } else {
           dispatch(loginUserSuccess(res.body))
           dispatch(routeActions.push('/'))
+          window.location.reload()
         }
       })
   }

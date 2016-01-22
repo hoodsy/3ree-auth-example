@@ -18,14 +18,14 @@ export default (app, passport) => {
 
   // Auth Middleware
   // ===============
+  router.all('/api/*', requireAuthenticated)
   if (app.get('env') !== 'development') {
-    router.all('/api/*', requireAuthenticated)
     router.get('/', requireAuthenticated, initialRender)
   } else {
-    // router.get('/', initialRender)
+    router.get('/', initialRender)
   }
-  router.all('/api/*', requireAuthenticated)
-  router.get('/', requireAuthenticated, initialRender)
+  // router.all('/api/*', requireAuthenticated)
+  // router.get('/', requireAuthenticated, initialRender)
 
   // Dashboards
   // ==========
