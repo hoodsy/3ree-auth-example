@@ -3,7 +3,7 @@ var webpack = require('webpack')
 
 var config = {
   devtool: 'cheap-module-eval-source-map',
-  target: 'node',
+  // target: 'node',
   entry: [
     'webpack-hot-middleware/client',
     './client/index'
@@ -14,6 +14,8 @@ var config = {
     publicPath: '/static/'
   },
   plugins: [
+    new webpack.IgnorePlugin(/vertx/), // Isomorphic fetch workaround
+    new webpack.IgnorePlugin(/iconv.*/), // Isomorphic fetch workaround
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
@@ -25,7 +27,7 @@ var config = {
   ],
   module: {
     loaders: [
-      { test: /\.json$/, loaders: ['json'], },
+      { test: /\.json$/, loaders: ['json'], exclude: /node_modules/ },
       { test: /\.js$/,  loader: 'babel', exclude: /node_modules/ },
       { test: /\.js$/,  loader: 'eslint', exclude: /node_modules/ },
     ]
@@ -35,9 +37,9 @@ var config = {
   eslint: {
     emitWarning: true
   },
-  node: {
-    __dirname: true, // superagent client fix
-  },
+  // node: {
+  //   __dirname: true, // superagent client fix
+  // },
 }
 
 module.exports = config;

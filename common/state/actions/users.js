@@ -1,6 +1,6 @@
-import request from 'superagent/lib/client'
 import { routeActions } from 'redux-simple-router'
 
+import request from './util/request'
 import * as types from '../constants/actionTypes'
 
 // API Endpoints
@@ -101,52 +101,42 @@ function addDashboardToUserFailure(err, status) {
 export function loginUser(user) {
   return (dispatch) => {
     dispatch(loginUserRequest(user))
-    return request
-      .post(`${authEndpoint}/login`)
-      .send({ ...user })
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err) {
-          dispatch(loginUserFailure(err, res.status))
-        } else {
-          dispatch(loginUserSuccess(res.body))
-          dispatch(routeActions.push('/'))
-        }
-      })
+    return request('post', { ...user }, `${authEndpoint}/login`)
+    .then(res => {
+      dispatch(loginUserSuccess(res))
+      dispatch(routeActions.push('/'))
+    })
+    .catch(err => {
+      dispatch(loginUserFailure(err, err.status))
+    })
   }
 }
 export function logoutUser() {
   return (dispatch) => {
     dispatch(logoutUserRequest())
-    return request
-      .get(`${authEndpoint}/logout`)
-      .send()
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err) {
-          dispatch(logoutUserFailure(err, res.status))
-        } else {
-          dispatch(logoutUserSuccess(res.body))
-          dispatch(routeActions.replace('/login'))
-        }
-      })
+    return request('get', {}, `${authEndpoint}/logout`)
+    .then(res => {
+      // console.log(res);
+      // console.log('in res');
+      dispatch(logoutUserSuccess(res))
+      dispatch(routeActions.push('/login'))
+    })
+    .catch(err => {
+      dispatch(logoutUserFailure(err, err.status))
+    })
   }
 }
 export function registerUser(user) {
   return (dispatch) => {
     dispatch(registerUserRequest(user))
-    return request
-      .post(`${authEndpoint}/register`)
-      .send({ ...user })
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err) {
-          dispatch(registerUserFailure(err, res.status))
-        } else {
-          dispatch(registerUserSuccess(res.body))
-          dispatch(routeActions.push('/'))
-        }
-      })
+    return request('post', { ...user }, `${authEndpoint}/register`)
+    .then(res => {
+      dispatch(registerUserSuccess(res))
+      dispatch(routeActions.push('/'))
+    })
+    .catch(err => {
+      dispatch(registerUserFailure(err, err.status))
+    })
   }
 }
 // Dashboards
@@ -154,15 +144,12 @@ export function registerUser(user) {
 export function addDashboardToUser(dashboardId, userId) {
   return (dispatch) => {
     dispatch(addDashboardToUserRequest(dashboardId))
-    return request
-      .post(`${apiEndpoint}/dashboard`)
-      .send({ dashboardId, userId })
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err)
-          dispatch(addDashboardToUserFailure(err, res.status))
-        else
-          dispatch(addDashboardToUserSuccess(res.body))
-      })
+    return request('post', { dashboardId, userId }, `${apiEndpoint}/dashboard`)
+    .then(res => {
+      dispatch(addDashboardToUserSuccess(res))
+    })
+    .catch(err => {
+      dispatch(addDashboardToUserFailure(err, err.status))
+    })
   }
 }
