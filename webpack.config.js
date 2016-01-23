@@ -3,7 +3,6 @@ var webpack = require('webpack')
 
 var config = {
   devtool: 'cheap-module-eval-source-map',
-  // target: 'node',
   entry: [
     'webpack-hot-middleware/client',
     './client/index'
@@ -22,7 +21,6 @@ var config = {
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"development"',
         'global': {}, // WORKAROUND
-        'global.GENTLY': false // superagent client fix
     })
   ],
   module: {
@@ -37,9 +35,6 @@ var config = {
   eslint: {
     emitWarning: true
   },
-  // node: {
-  //   __dirname: true, // superagent client fix
-  // },
 }
 
 module.exports = config;
