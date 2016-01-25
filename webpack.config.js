@@ -3,7 +3,6 @@ var webpack = require('webpack')
 
 var config = {
   devtool: 'cheap-module-eval-source-map',
-  target: 'node',
   entry: [
     'webpack-hot-middleware/client',
     './client/index'
@@ -14,18 +13,19 @@ var config = {
     publicPath: '/static/'
   },
   plugins: [
+    new webpack.IgnorePlugin(/vertx/), // Isomorphic fetch workaround
+    new webpack.IgnorePlugin(/iconv.*/), // Isomorphic fetch workaround
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"development"',
         'global': {}, // WORKAROUND
-        'global.GENTLY': false // superagent client fix
     })
   ],
   module: {
     loaders: [
-      { test: /\.json$/, loaders: ['json'], },
+      { test: /\.json$/, loaders: ['json'], exclude: /node_modules/ },
       { test: /\.js$/,  loader: 'babel', exclude: /node_modules/ },
       { test: /\.js$/,  loader: 'eslint', exclude: /node_modules/ },
     ]
@@ -34,9 +34,6 @@ var config = {
   // https://github.com/MoOx/eslint-loader/issues/23
   eslint: {
     emitWarning: true
-  },
-  node: {
-    __dirname: true, // superagent client fix
   },
 }
 

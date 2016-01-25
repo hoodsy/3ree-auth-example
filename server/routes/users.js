@@ -7,7 +7,7 @@ export function loginUser(req, res) {
 
 export function logoutUser(req, res) {
   req.logout()
-  res.redirect('/')
+  res.status(200).send('OK')
 }
 
 export function registerUser(req, res, next) {

@@ -1,5 +1,4 @@
-import request from 'superagent/lib/client'
-
+import request from './util/request'
 import * as types from '../constants/actionTypes'
 import { addDashboardToUser } from '../actions'
 
@@ -15,14 +14,12 @@ function addDashboardRequest(title) {
     title
   }
 }
-
 function addDashboardSuccess(dashboard) {
   return {
     type: types.ADD_DASHBOARD_SUCCESS,
     dashboard
   }
 }
-
 function addDashboardFailure(err, status) {
   return {
     type: types.ADD_DASHBOARD_FAILURE,
@@ -36,18 +33,14 @@ function addDashboardFailure(err, status) {
 export function addDashboard(title, userId) {
   return (dispatch) => {
     dispatch(addDashboardRequest(title))
-    return request
-      .post(apiEndpoint)
-      .send({ title })
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err) {
-          dispatch(addDashboardFailure(err, res.status))
-        } else {
-          dispatch(addDashboardSuccess(res.body))
-          dispatch(addDashboardToUser(res.body.id, userId))
-        }
-      })
+    return request('post', { title }, apiEndpoint)
+    .then(res => {
+      dispatch(addDashboardSuccess(res))
+      dispatch(addDashboardToUser(res.id, userId))
+    })
+    .catch(err => {
+      dispatch(addDashboardFailure(err, err.status))
+    })
   }
 }
 

@@ -35,7 +35,6 @@ export function localAuthCallback(email, password, done) {
         done(null, user[0])
       else
         done(null, false, { message: 'Invalid email or password' })
-
     })
   })
 }
@@ -65,7 +64,7 @@ export function addUser(conn, user, fields = {}) {
       return Object.assign({}, users[0], { err: 'Email already in use.' })
     }
   })
-  .error((err) => { err })
+  .error(err => err)
 }
 
 export function addUserProperties(user, fields) {
@@ -89,7 +88,7 @@ export function addDashboardToUser(conn, dashboardId, userId) {
   .get(userId)
   .update({ dashboards: r.row('dashboards').append(dashboardId) })
   .run(conn)
-  .error((err) => { err })
+  .error(err => err)
 }
 
 // Get User
@@ -99,6 +98,6 @@ export function getUser(conn, userId) {
   .table('users')
   .get(userId)
   .run(conn)
-  .error((err) => { err })
+  .error(err => err)
 }
 

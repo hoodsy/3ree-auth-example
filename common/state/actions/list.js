@@ -1,5 +1,5 @@
+import request from './util/request'
 import * as types from '../constants/actionTypes'
-import request from 'superagent/lib/client'
 
 // API Endpoint
 // ============
@@ -34,18 +34,13 @@ function addListFailure(err, status) {
 export function addList(dashboardId, title) {
   return (dispatch) => {
     dispatch(addListRequest(title))
-
-    return request
-      .post(apiEndpoint)
-      .send({ dashboardId, title })
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-        if (err) {
-          dispatch(addListFailure(err, res.status))
-        } else {
-          dispatch(addListSuccess(res.body))
-        }
-      })
+    return request('post', { dashboardId, title }, apiEndpoint)
+    .then(res => {
+      dispatch(addListSuccess(res))
+    })
+    .catch(err => {
+      dispatch(addListFailure(err, err.status))
+    })
   }
 }
 
