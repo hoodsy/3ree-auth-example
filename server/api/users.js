@@ -3,11 +3,11 @@ import r from 'rethinkdb'
 
 import config from '../config/rethinkDb/dbConfig'
 
-export function serializeUser(user, done) {
+export function intoSession(user, done) {
   return done(null, user.id)
 }
 
-export function deserializeUser(userId, done) {
+export function outOfSession(userId, done) {
   return r.connect(config)
   .then(conn => {
     return r
