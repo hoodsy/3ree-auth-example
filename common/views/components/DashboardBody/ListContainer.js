@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { ResourceList } from '../../'
+import { List } from '../../'
 
 export class ListContainer extends Component {
 
@@ -7,7 +7,7 @@ export class ListContainer extends Component {
     return (
       <div>
         { this.props.lists.map((list, listIndex) =>
-          <ResourceList
+          <List
             { ...list }
             key={ listIndex }
             onAddSubmit={ this.props.onAddSubmit }

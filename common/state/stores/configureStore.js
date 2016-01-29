@@ -4,11 +4,11 @@ import { compose,
 import thunk from 'redux-thunk'
 import { syncHistory } from 'redux-simple-router'
 import { browserHistory } from 'react-router'
-import persistState,
-     { mergePersistedState } from 'redux-localstorage'
-import adapter from 'redux-localstorage/lib/adapters/localStorage'
-import filter from 'redux-localstorage-filter'
-import debounce from 'redux-localstorage-debounce'
+// import persistState,
+     // { mergePersistedState } from 'redux-localstorage'
+// import adapter from 'redux-localstorage/lib/adapters/localStorage'
+// import filter from 'redux-localstorage-filter'
+// import debounce from 'redux-localstorage-debounce'
 // import merge from 'lodash/lang/merge'
 // import merge from 'lodash.merge'
 
@@ -35,11 +35,12 @@ if (typeof window !== 'undefined') {
     authenticationRouter,
     reduxRouterMiddleware
   ]
-  rootReducer = getPersistedState(anchorApp)
-  storage = configClientStorage()
+  // rootReducer = getPersistedState(anchorApp)
+  rootReducer = anchorApp
+  // storage = configClientStorage()
   createStoreWithMiddleware = compose(
     applyMiddleware(...middleware),
-    persistState(storage, 'UID-1337'),
+    // persistState(storage, 'UID-1337'),
     DevTools.instrument(),
   )(createStore)
 // Server
@@ -72,26 +73,26 @@ export default function configureStore(initialState) {
 
 // Configure localStorage
 // ======================
-function getPersistedState(reducer) {
-  return compose(
-    mergePersistedState((initialState, persistedState) => {
-      return initialState
-      // initialState['dashboards']['currentDashboard'] = persistedState['dashboards']['currentDashboard'] || ''
-      // initialState['lists']['currentList'] = persistedState['lists']['currentList'] || ''
-      // initialState['users']['user'] = persistedState['users']['user'] || {}
-      // return initialState
-      // _.merge({}, initialState, persistedState)
-    })
-  )(reducer)
-}
+// function getPersistedState(reducer) {
+//   return compose(
+//     mergePersistedState((initialState, persistedState) => {
+//       return initialState
+//       // initialState['dashboards']['currentDashboard'] = persistedState['dashboards']['currentDashboard'] || ''
+//       // initialState['lists']['currentList'] = persistedState['lists']['currentList'] || ''
+//       // initialState['users']['user'] = persistedState['users']['user'] || {}
+//       // return initialState
+//       // _.merge({}, initialState, persistedState)
+//     })
+//   )(reducer)
+// }
 
-function configClientStorage() {
-  return compose(
-    debounce(500),
-    filter([
-      'dashboards.currentDashboard',
-      'lists.currentList',
-      'users.user'
-    ])
-  )(adapter(localStorage))
-}
+// function configClientStorage() {
+//   return compose(
+//     debounce(500),
+//     filter([
+//       'dashboards.currentDashboard',
+//       'lists.currentList',
+//       'users.user'
+//     ])
+//   )(adapter(localStorage))
+// }
