@@ -5,7 +5,8 @@ import { Router,
          browserHistory } from 'react-router'
 
 import { DevTools } from '../common/views'
-import routes from '../common/views/routes'
+// import routes from '../common/views/routes'
+import createRoutes from '../common/views/routes'
 import configureStore,
      { reduxRouterMiddleware } from '../common/state/stores/configureStore'
 
@@ -17,6 +18,7 @@ const store = configureStore(initialState)
 // Init Router
 // ===========
 reduxRouterMiddleware.listenForReplays(store)
+const routes = createRoutes(store)
 
 render(
   <div>
@@ -32,7 +34,4 @@ render(
   document.getElementById('root')
 )
 
-/*    <DebugPanel top right bottom>
-      <DevTools store={ store } monitor={ LogMonitor } />
-    </DebugPanel> */
 // startSocketListener(store, actions)

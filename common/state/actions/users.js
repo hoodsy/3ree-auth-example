@@ -116,8 +116,6 @@ export function logoutUser() {
     dispatch(logoutUserRequest())
     return request('get', {}, `${authEndpoint}/logout`)
     .then(res => {
-      // console.log(res);
-      // console.log('in res');
       dispatch(logoutUserSuccess(res))
       dispatch(routeActions.push('/login'))
     })
