@@ -34,7 +34,7 @@ export class GlobalInput extends Component {
       case 'Resource':
         return {
           type: 'url',
-          placeholder: `Add a ${inputType}${this.getCurrentListTitle()}`
+          placeholder: `Create a ${inputType}${this.getCurrentListTitle()}`
         }
     }
   }
@@ -98,7 +98,7 @@ export class GlobalInput extends Component {
             placeholder={ placeholder }
             ref="input" />
           <button>
-            { 'Add ' + this.getInputType() }
+            { 'Create ' + this.getInputType() }
           </button>
         </form>
       </div>

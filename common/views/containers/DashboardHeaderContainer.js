@@ -11,6 +11,7 @@ class DashboardHeaderContainer extends Component {
       setCurrentDashboard,
       inputTypes,
       createDashboard,
+      deleteDashboard,
       createList,
       createResource,
       setCurrentInputType,
@@ -27,6 +28,7 @@ class DashboardHeaderContainer extends Component {
         inputTypes={ inputTypes }
         setCurrentInputType={ setCurrentInputType }
         createDashboard={ createDashboard }
+        deleteDashboard={ deleteDashboard }
         createList={ createList }
         createResource={ createResource }
         currentList={ currentList }
@@ -59,6 +61,7 @@ DashboardHeaderContainer.propTypes = {
     currentInputType: PropTypes.string.isRequired
   }).isRequired,
   createDashboard: PropTypes.func.isRequired,
+  deleteDashboard: PropTypes.func.isRequired,
   createList: PropTypes.func.isRequired,
   createResource: PropTypes.func.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,

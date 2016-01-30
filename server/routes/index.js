@@ -24,13 +24,13 @@ export default (app, passport) => {
   } else {
     router.get('/', initialRender)
   }
-  // router.all('/api/*', requireAuthenticated)
-  // router.get('/', requireAuthenticated, initialRender)
 
   // Dashboards
   // ==========
   router.route('/api/dashboard')
   .post(dashboards.createDashboard)
+  .delete(dashboards.deleteDashboard)
+  // router.post('/api/dashboard/delete', dashboards.deleteDashboard)
 
   // Lists
   // =====
@@ -44,8 +44,8 @@ export default (app, passport) => {
 
   // Users
   // =====
-  router.route('/api/user/dashboard')
-  .post(users.addDashboardToUser)
+  router.post('/api/user/dashboard/add', users.addDashboardToUser)
+  router.post('/api/user/dashboard/remove', users.removeDashboardFromUser)
 
   // Auth
   // ====

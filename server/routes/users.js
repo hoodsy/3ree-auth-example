@@ -45,6 +45,23 @@ export function addDashboardToUser(req, res, next) {
   })
 }
 
+export function removeDashboardFromUser(req, res, next) {
+  const {
+    dashboardId,
+    userId
+  } = req.body
+  service.removeDashboardFromUser(req.dbConn, dashboardId, userId)
+  .then(results => {
+    if (results.err) next(results.err)
+    service.getUser(req.dbConn, userId)
+    .then(user => {
+      if (user.err) next(user.err)
+      res.status(200)
+      .json(filterUserProperties(user))
+    })
+  })
+}
+
 function filterUserProperties(user) {
   return {
     id: user.id,

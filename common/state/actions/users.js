@@ -71,8 +71,8 @@ function registerUserFailure(err, status) {
     status
   }
 }
-// Dashboard -> User
-// -----------------
+// Dashboards
+// ---------
 function addDashboardToUserRequest(dashboardId) {
   return {
     type: types.ADD_DASHBOARD_TO_USER_REQUEST,
@@ -88,6 +88,25 @@ function addDashboardToUserSuccess(user) {
 function addDashboardToUserFailure(err, status) {
   return {
     type: types.ADD_DASHBOARD_TO_USER_FAILURE,
+    err,
+    status
+  }
+}
+function removeDashboardFromUserRequest(dashboardId) {
+  return {
+    type: types.REMOVE_DASHBOARD_FROM_USER_REQUEST,
+    dashboardId
+  }
+}
+function removeDashboardFromUserSuccess(user) {
+  return {
+    type: types.REMOVE_DASHBOARD_FROM_USER_SUCCESS,
+    user
+  }
+}
+function removeDashboardFromUserFailure(err, status) {
+  return {
+    type: types.REMOVE_DASHBOARD_FROM_USER_FAILURE,
     err,
     status
   }
@@ -143,12 +162,24 @@ export function registerUser(user) {
 export function addDashboardToUser(dashboardId, userId) {
   return (dispatch) => {
     dispatch(addDashboardToUserRequest(dashboardId))
-    return request('post', { dashboardId, userId }, `${apiEndpoint}/dashboard`)
+    return request('post', { dashboardId, userId }, `${apiEndpoint}/dashboard/add`)
     .then(res => {
       dispatch(addDashboardToUserSuccess(res))
     })
     .catch(err => {
       dispatch(addDashboardToUserFailure(err, err.status))
+    })
+  }
+}
+export function removeDashboardFromUser(dashboardId, userId) {
+  return (dispatch) => {
+    dispatch(removeDashboardFromUserRequest(dashboardId))
+    return request('post', { dashboardId, userId }, `${apiEndpoint}/dashboard/remove`)
+    .then(res => {
+      dispatch(removeDashboardFromUserSuccess(res))
+    })
+    .catch(err => {
+      dispatch(removeDashboardFromUserFailure(err, err.status))
     })
   }
 }

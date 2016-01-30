@@ -7,6 +7,7 @@ import { DashboardPicker,
 export const DashboardHeader = (
   { dashboards,
     createDashboard,
+    deleteDashboard,
     createList,
     createResource,
     setCurrentDashboard,
@@ -23,6 +24,8 @@ export const DashboardHeader = (
       logoutUser={ logoutUser } />
     <DashboardPicker
       { ...dashboards }
+      userId={ user ? user.id : '' }
+      deleteDashboard={ deleteDashboard }
       setCurrentDashboard={ setCurrentDashboard } />
     <GlobalInput
       { ...inputTypes }
@@ -42,6 +45,7 @@ DashboardHeader.propTypes = {
   setCurrentDashboard: PropTypes.func.isRequired,
   inputTypes: PropTypes.object.isRequired,
   createDashboard: PropTypes.func.isRequired,
+  deleteDashboard: PropTypes.func.isRequired,
   createList: PropTypes.func.isRequired,
   createResource: PropTypes.func.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,

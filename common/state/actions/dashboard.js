@@ -1,6 +1,7 @@
 import request from './util/request'
 import * as types from '../constants/actionTypes'
-import { addDashboardToUser } from '../actions'
+import { addDashboardToUser,
+         removeDashboardFromUser } from '../actions'
 
 // API Endpoint
 // ============
@@ -8,6 +9,8 @@ const apiEndpoint = '/api/dashboard'
 
 // Private Actions
 // ===============
+// Create
+// ------
 function createDashboardRequest(title) {
   return {
     type: types.CREATE_DASHBOARD_REQUEST,
@@ -27,6 +30,27 @@ function createDashboardFailure(err, status) {
     status
   }
 }
+// Delete
+// ------
+function deleteDashboardRequest(dashboardId) {
+  return {
+    type: types.DELETE_DASHBOARD_REQUEST,
+    dashboardId
+  }
+}
+function deleteDashboardSuccess(dashboardId) {
+  return {
+    type: types.DELETE_DASHBOARD_SUCCESS,
+    dashboardId
+  }
+}
+function deleteDashboardFailure(err, status) {
+  return {
+    type: types.DELETE_DASHBOARD_FAILURE,
+    err,
+    status
+  }
+}
 
 // Public Actions
 // ==============
@@ -40,6 +64,19 @@ export function createDashboard(title, userId) {
     })
     .catch(err => {
       dispatch(createDashboardFailure(err, err.status))
+    })
+  }
+}
+export function deleteDashboard(dashboardId, userId) {
+  return (dispatch) => {
+    dispatch(deleteDashboardRequest(dashboardId))
+    return request('delete', { dashboardId }, apiEndpoint)
+    .then(res => {
+      dispatch(deleteDashboardSuccess(dashboardId))
+      dispatch(removeDashboardFromUser(dashboardId, userId))
+    })
+    .catch(err => {
+      dispatch(deleteDashboardFailure(err, err.status))
     })
   }
 }

@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 import * as types from '../constants/actionTypes'
 
 // State Shape
@@ -18,6 +20,14 @@ function dashboardsById(state = {}, action) {
         ...state,
         [dashboard.id]: dashboard
       }
+
+    case types.DELETE_DASHBOARD_SUCCESS:
+      console.log(state);
+      console.log('========');
+      const { dashboardId } = action
+      console.log(_.omit(state, dashboardId));
+      console.log(dashboardId);
+      return _.omit(state, dashboardId)
 
     default:
       return state
@@ -44,12 +54,14 @@ function currentDashboard(state = '', action) {
 export default function dashboards(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_DASHBOARD_REQUEST:
+    case types.DELETE_DASHBOARD_REQUEST:
       return {
         ...state,
         isFetching: true
       }
 
     case types.CREATE_DASHBOARD_SUCCESS:
+    case types.DELETE_DASHBOARD_SUCCESS:
       return {
         dashboardsById: dashboardsById(state.dashboardsById, action),
         currentDashboard: currentDashboard(state.currentDashboard, action),

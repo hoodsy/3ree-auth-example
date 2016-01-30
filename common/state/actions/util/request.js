@@ -2,7 +2,7 @@ import 'es6-promise'
 import fetch from 'isomorphic-fetch'
 
 export default function createRequestPromise(method, data, endpoint) {
-  const isPostRequest = (method === 'post')
+  const requestHasData = method === 'post' || method === 'delete'
   const props = {
     method,
     credentials: 'same-origin',
@@ -11,11 +11,11 @@ export default function createRequestPromise(method, data, endpoint) {
       'Content-Type': 'application/json'
     }
   }
-  if (isPostRequest)
+  if (requestHasData)
     props['body'] = JSON.stringify(data)
   return fetch(endpoint, props)
   .then(checkStatus)
-  .then(res => (isPostRequest) ? res.json() : res.text())
+  .then(res => (requestHasData) ? res.json() : res.text())
 }
 
 function checkStatus(res) {

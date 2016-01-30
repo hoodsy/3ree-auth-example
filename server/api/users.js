@@ -39,9 +39,9 @@ export function localAuthCallback(email, password, done) {
   })
 }
 
-// Add User
+// Create User
 // ========
-// Adds existing user if provided
+// Creates existing user if provided
 // email doesn't already exist
 // --------
 export function createUser(conn, user, fields = {}) {
@@ -78,19 +78,6 @@ export function createUserProperties(user, fields) {
   return user
 }
 
-// Add Dashboard to User
-// =====================
-// Adds data to existing user
-// ---------------------
-export function addDashboardToUser(conn, dashboardId, userId) {
-  return r
-  .table('users')
-  .get(userId)
-  .update({ dashboards: r.row('dashboards').append(dashboardId) })
-  .run(conn)
-  .error(err => err)
-}
-
 // Get User
 // ========
 export function getUser(conn, userId) {
@@ -101,3 +88,27 @@ export function getUser(conn, userId) {
   .error(err => err)
 }
 
+// Create Dashboard to User
+// =====================
+// Creates data to existing user
+// ---------------------
+export function addDashboardToUser(conn, dashboardId, userId) {
+  return r
+  .table('users')
+  .get(userId)
+  .update({ dashboards: r.row('dashboards').append(dashboardId) })
+  .run(conn)
+  .error(err => err)
+}
+
+// Remove Dashboard
+// =====================
+export function removeDashboardFromUser(conn, dashboardId, userId) {
+  console.log(dashboardId);
+  return r
+  .table('users')
+  .get(userId)
+  .update({ dashboards: r.row('dashboards').difference([dashboardId]) })
+  .run(conn)
+  .error(err => err)
+}

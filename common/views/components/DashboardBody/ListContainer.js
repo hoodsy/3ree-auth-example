@@ -10,7 +10,7 @@ export class ListContainer extends Component {
           <List
             { ...list }
             key={ listIndex }
-            onAddSubmit={ this.props.onAddSubmit }
+            onCreateSubmit={ this.props.onCreateSubmit }
           />
         )}
       </div>
@@ -20,6 +20,6 @@ export class ListContainer extends Component {
 }
 
 ListContainer.propTypes = {
-  onAddSubmit: PropTypes.func.isRequired,
-  lists: PropTypes.array.isRequired,
+  onCreateSubmit: PropTypes.func.isRequired,
+  lists: PropTypes.array.isRequired
 }

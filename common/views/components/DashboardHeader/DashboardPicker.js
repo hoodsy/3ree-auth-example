@@ -6,7 +6,9 @@ import { Dashboard } from '../../'
 export const DashboardPicker = (
   { dashboardsById,
     currentDashboard,
-    setCurrentDashboard }) =>
+    setCurrentDashboard,
+    userId,
+    deleteDashboard }) =>
 (
   <div>
     { _.keys(dashboardsById).map((id, index) =>
@@ -14,7 +16,9 @@ export const DashboardPicker = (
           { ...dashboardsById[id] }
           key={ index }
           currentDashboard={ currentDashboard }
-          onClick={ setCurrentDashboard } />
+          onClick={ setCurrentDashboard }
+          userId={ userId }
+          deleteDashboard={ deleteDashboard } />
     )}
   </div>
 )
@@ -23,5 +27,7 @@ DashboardPicker.propTypes = {
   dashboardsById: PropTypes.object.isRequired,
   currentDashboard: PropTypes.string.isRequired,
   setCurrentDashboard: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
+  deleteDashboard: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired
 }

@@ -6,7 +6,7 @@ import { extractByType,
          merge,
          normalize } from './util'
 
-// Add Dashboard
+// Create Dashboard
 // =============
 export function createDashboard(conn, dashboard) {
   dashboard.created = new Date().toString()
@@ -18,6 +18,16 @@ export function createDashboard(conn, dashboard) {
   .then(response => {
     return Object.assign({}, dashboard, { id: response.generated_keys[0] })
   })
+}
+
+// Delete Dashboard
+// =============
+export function deleteDashboard(conn, dashboardId) {
+  return r
+  .table('dashboards')
+  .get(dashboardId['dashboardId'])
+  .delete()
+  .run(conn)
 }
 
 // Get Dashboard w/ Data
