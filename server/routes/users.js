@@ -48,9 +48,9 @@ export function addDashboardToUser(req, res, next) {
 function filterUserProperties(user) {
   return {
     id: user.id,
-    name: user.name,
+    name: user.name || '',
     email: user.email,
-    picture: user.picture,
+    picture: user.picture || '',
     dashboards: user.dashboards,
     isAuthenticated: true
   }

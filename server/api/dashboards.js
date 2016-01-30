@@ -23,6 +23,9 @@ export function addDashboard(conn, dashboard) {
 // Get Dashboard w/ Data
 // =====================
 export function getDashboardData(dashboards) {
+  if (!dashboards)
+    return new Promise((resolve) => resolve({}))
+
   return r.connect(config)
   .then(conn => {
     return r.table('dashboards')

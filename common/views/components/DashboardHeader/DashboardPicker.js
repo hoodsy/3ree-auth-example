@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import _ from 'lodash'
 
 import { Dashboard } from '../../'
 
@@ -8,7 +9,7 @@ export const DashboardPicker = (
     setCurrentDashboard }) =>
 (
   <div>
-    { Object.keys(dashboardsById).map((id, index) =>
+    { _.keys(dashboardsById).map((id, index) =>
         <Dashboard
           { ...dashboardsById[id] }
           key={ index }
