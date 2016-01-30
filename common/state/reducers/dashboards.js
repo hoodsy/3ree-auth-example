@@ -61,14 +61,21 @@ export default function dashboards(state = initialState, action) {
       }
 
     case types.CREATE_DASHBOARD_SUCCESS:
-    case types.DELETE_DASHBOARD_SUCCESS:
       return {
         dashboardsById: dashboardsById(state.dashboardsById, action),
         currentDashboard: currentDashboard(state.currentDashboard, action),
         isFetching: false
       }
 
+    case types.DELETE_DASHBOARD_SUCCESS:
+      return {
+        ...state,
+        dashboardsById: dashboardsById(state.dashboardsById, action),
+        isFetching: false
+      }
+
     case types.CREATE_DASHBOARD_FAILURE:
+    case types.DELETE_DASHBOARD_FAILURE:
       return {
         ...state,
         isFetching: false,

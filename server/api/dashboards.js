@@ -25,7 +25,7 @@ export function createDashboard(conn, dashboard) {
 export function deleteDashboard(conn, dashboardId) {
   return r
   .table('dashboards')
-  .get(dashboardId['dashboardId'])
+  .get(dashboardId['id'])
   .delete()
   .run(conn)
 }

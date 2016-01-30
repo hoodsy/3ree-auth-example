@@ -67,13 +67,13 @@ export function createDashboard(title, userId) {
     })
   }
 }
-export function deleteDashboard(dashboardId, userId) {
+export function deleteDashboard(id, userId) {
   return (dispatch) => {
-    dispatch(deleteDashboardRequest(dashboardId))
-    return request('delete', { dashboardId }, apiEndpoint)
+    dispatch(deleteDashboardRequest(id))
+    return request('delete', { id }, apiEndpoint)
     .then(res => {
-      dispatch(deleteDashboardSuccess(dashboardId))
-      dispatch(removeDashboardFromUser(dashboardId, userId))
+      dispatch(deleteDashboardSuccess(id))
+      dispatch(removeDashboardFromUser(id, userId))
     })
     .catch(err => {
       dispatch(deleteDashboardFailure(err, err.status))
