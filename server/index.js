@@ -10,7 +10,10 @@ import { getDashboardData } from './api/dashboards'
 import configureStore from '../common/state/stores/configureStore'
 
 export default function initialRender(req, res) {
-  const dashboards  = (req.user) ? req['user']['dashboards'] : 'b838af6f-baaa-471b-8a16-f7203df44562'
+  const dashboards  = (req['user']) ? req['user']['dashboards'] : 'b838af6f-baaa-471b-8a16-f7203df44562'
+  // const dashboards  = (req['user'])
+  //   ? req['user']['dashboards']
+  //   : null
   getDashboardData(dashboards)
   .then(data => {
 
@@ -19,8 +22,9 @@ export default function initialRender(req, res) {
     const store = initializeStore(data, req.user)
     const initialState = store.getState()
     const routes = createRoutes(store)
-    // const renderedTemplate = initApp(data, req.user, renderProps)
 
+    // Initial Router Config
+    // =====================
     match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
       if (error) {
         res.status(500).send(error.message)

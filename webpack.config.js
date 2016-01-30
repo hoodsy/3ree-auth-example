@@ -20,9 +20,14 @@ var config = {
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"development"',
-        'global': {}, // WORKAROUND
     })
   ],
+  resolve: {
+    alias: {
+      'redux-devtools': path.join(__dirname, 'node_modules', 'redux-devtools'),
+      'react': path.join(__dirname, 'node_modules', 'react')
+    }
+  },
   module: {
     loaders: [
       { test: /\.json$/, loaders: ['json'], exclude: /node_modules/ },

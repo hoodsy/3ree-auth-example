@@ -1,3 +1,8 @@
+// Utility
+// =======
+export const LOAD_DATA = 'LOAD_DATA'
+export const CLEAR_DATA = 'CLEAR_DATA'
+
 // Dashboards
 // ==========
 export const ADD_DASHBOARD = 'ADD_DASHBOARD'

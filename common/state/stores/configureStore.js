@@ -9,7 +9,7 @@ import { browserHistory } from 'react-router'
 // import adapter from 'redux-localstorage/lib/adapters/localStorage'
 // import filter from 'redux-localstorage-filter'
 // import debounce from 'redux-localstorage-debounce'
-// import merge from 'lodash/lang/merge'
+// import _ from 'lodash'
 // import merge from 'lodash.merge'
 
 import { DevTools } from '../../views'

@@ -27,7 +27,6 @@ export default function users(state = initialState, action) {
       return {
         ...state,
         user: {
-          ...action.user,
           isAuthenticated: false
         },
         isFetching: false

@@ -38,10 +38,9 @@ function logoutUserRequest() {
     type: types.LOGOUT_USER_REQUEST
   }
 }
-function logoutUserSuccess(user) {
+function logoutUserSuccess() {
   return {
-    type: types.LOGOUT_USER_SUCCESS,
-    user
+    type: types.LOGOUT_USER_SUCCESS
   }
 }
 function logoutUserFailure(err, status) {
@@ -116,7 +115,7 @@ export function logoutUser() {
     dispatch(logoutUserRequest())
     return request('get', {}, `${authEndpoint}/logout`)
     .then(res => {
-      dispatch(logoutUserSuccess(res))
+      dispatch(logoutUserSuccess())
       dispatch(routeActions.push('/login'))
     })
     .catch(err => {

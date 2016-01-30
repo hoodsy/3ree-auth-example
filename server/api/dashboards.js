@@ -24,25 +24,25 @@ export function addDashboard(conn, dashboard) {
 // =====================
 export function getDashboardData(dashboards) {
   return r.connect(config)
-    .then(conn => {
-      return r.table('dashboards')
-      .getAll(...dashboards)
-      .map(dashboard => {
-        const lists = r.table('lists')
-        .getAll(dashboard('id'), { index: 'dashboardId' })
+  .then(conn => {
+    return r.table('dashboards')
+    .getAll(...dashboards)
+    .map(dashboard => {
+      const lists = r.table('lists')
+      .getAll(dashboard('id'), { index: 'dashboardId' })
+      .coerceTo('array')
+      .map(list => {
+        const resources = r.table('resources')
+        .getAll(list('id'), { index: 'listId' })
         .coerceTo('array')
-        .map(list => {
-          const resources = r.table('resources')
-          .getAll(list('id'), { index: 'listId' })
-          .coerceTo('array')
-          return { list, resources }
-        })
-        return { dashboard, lists }
+        return { list, resources }
       })
-      .run(conn)
-      .then(formatDashboardData)
-      .error((err) => { err })
+      return { dashboard, lists }
     })
+    .run(conn)
+    .then(formatDashboardData)
+    .error((err) => { err })
+  })
 }
 
 // Utility
