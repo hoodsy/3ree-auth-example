@@ -7,21 +7,21 @@ const apiEndpoint = '/api/resource'
 
 // Private Actions
 // ===============
-function addResourceRequest(url) {
+function createResourceRequest(url) {
   return {
-    type: types.ADD_RESOURCE_REQUEST,
+    type: types.CREATE_RESOURCE_REQUEST,
     url
   }
 }
-function addResourceSuccess(resource) {
+function createResourceSuccess(resource) {
   return {
-    type: types.ADD_RESOURCE_SUCCESS,
+    type: types.CREATE_RESOURCE_SUCCESS,
     resource
   }
 }
-function addResourceFailure(err, status) {
+function createResourceFailure(err, status) {
   return {
-    type: types.ADD_RESOURCE_FAILURE,
+    type: types.CREATE_RESOURCE_FAILURE,
     err,
     status
   }
@@ -29,15 +29,15 @@ function addResourceFailure(err, status) {
 
 // Public Actions
 // ==============
-export function addResource(listId, url) {
+export function createResource(listId, url) {
   return (dispatch) => {
-    dispatch(addResourceRequest(url))
+    dispatch(createResourceRequest(url))
     return request('post', { listId, url }, apiEndpoint)
     .then(res => {
-      dispatch(addResourceSuccess(res))
+      dispatch(createResourceSuccess(res))
     })
     .catch(err => {
-      dispatch(addResourceFailure(err, err.status))
+      dispatch(createResourceFailure(err, err.status))
     })
   }
 }

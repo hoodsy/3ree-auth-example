@@ -3,7 +3,7 @@ import r from 'rethinkdb'
 
 import config from '../../config/rethinkDb/dbConfig'
 import { facebook } from './keys'
-import { addUser } from '../../api/users'
+import { createUser } from '../../api/users'
 
 export default new FacebookStrategy({
   clientID: facebook.clientID,
@@ -11,7 +11,7 @@ export default new FacebookStrategy({
   callbackURL: facebook.callbackURL
 }, (accessToken = '', refreshToken = '', profile, done) => {
   r.connect(config, (err, conn) => {
-    addUser(conn, {
+    createUser(conn, {
       email: profile.email || '',
       name: {
         displayName: profile.displayName || '',

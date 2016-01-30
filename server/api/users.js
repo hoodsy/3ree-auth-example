@@ -44,8 +44,8 @@ export function localAuthCallback(email, password, done) {
 // Adds existing user if provided
 // email doesn't already exist
 // --------
-export function addUser(conn, user, fields = {}) {
-  user = addUserProperties(user, fields)
+export function createUser(conn, user, fields = {}) {
+  user = createUserProperties(user, fields)
   return r
   .table('users')
   .getAll(user.email, { index: 'email' })
@@ -67,7 +67,7 @@ export function addUser(conn, user, fields = {}) {
   .error(err => err)
 }
 
-export function addUserProperties(user, fields) {
+export function createUserProperties(user, fields) {
   user.created = new Date().toString()
   user.email = xss(user.email)
   user.password = xss(user.password)

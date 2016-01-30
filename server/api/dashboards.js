@@ -8,7 +8,7 @@ import { extractByType,
 
 // Add Dashboard
 // =============
-export function addDashboard(conn, dashboard) {
+export function createDashboard(conn, dashboard) {
   dashboard.created = new Date().toString()
   dashboard.title = xss(dashboard.title)
   return r

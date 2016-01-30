@@ -6,9 +6,9 @@ import { DashboardPicker,
 
 export const DashboardHeader = (
   { dashboards,
-    addDashboard,
-    addList,
-    addResource,
+    createDashboard,
+    createList,
+    createResource,
     setCurrentDashboard,
     inputTypes,
     setCurrentInputType,
@@ -26,9 +26,9 @@ export const DashboardHeader = (
       setCurrentDashboard={ setCurrentDashboard } />
     <GlobalInput
       { ...inputTypes }
-      addDashboard={ addDashboard }
-      addList={ addList }
-      addResource={ addResource }
+      createDashboard={ createDashboard }
+      createList={ createList }
+      createResource={ createResource }
       currentDashboard={ dashboards.currentDashboard }
       currentList={ currentList }
       listsById={ listsById }
@@ -41,9 +41,9 @@ DashboardHeader.propTypes = {
   dashboards: PropTypes.object.isRequired,
   setCurrentDashboard: PropTypes.func.isRequired,
   inputTypes: PropTypes.object.isRequired,
-  addDashboard: PropTypes.func.isRequired,
-  addList: PropTypes.func.isRequired,
-  addResource: PropTypes.func.isRequired,
+  createDashboard: PropTypes.func.isRequired,
+  createList: PropTypes.func.isRequired,
+  createResource: PropTypes.func.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,
   currentList: PropTypes.string.isRequired,
   listsById: PropTypes.object.isRequired,

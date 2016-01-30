@@ -12,7 +12,7 @@ const initialState = {
 // ====================
 function listsById(state = {}, action) {
   switch(action.type) {
-    case types.ADD_LIST_SUCCESS:
+    case types.CREATE_LIST_SUCCESS:
       const { list } = action
       return {
         ...state,
@@ -26,7 +26,7 @@ function listsById(state = {}, action) {
 
 function currentList(state = '', action) {
   switch(action.type) {
-    case types.ADD_LIST_SUCCESS:
+    case types.CREATE_LIST_SUCCESS:
       const { list } = action
       if (!state) return list.id
       return state
@@ -43,20 +43,20 @@ function currentList(state = '', action) {
 // ==============
 export default function lists(state = initialState, action) {
   switch (action.type) {
-    case types.ADD_LIST_REQUEST:
+    case types.CREATE_LIST_REQUEST:
       return {
         ...state,
         isFetching: true
       }
 
-    case types.ADD_LIST_SUCCESS:
+    case types.CREATE_LIST_SUCCESS:
       return {
         listsById: listsById(state.listsById, action),
         currentList: currentList(state.currentList, action),
         isFetching: false
       }
 
-    case types.ADD_LIST_FAILURE:
+    case types.CREATE_LIST_FAILURE:
       return {
         ...state,
         isFetching: false,

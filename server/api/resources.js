@@ -3,7 +3,7 @@ import r from 'rethinkdb'
 
 // Resources
 // =========
-export function addResource(conn, resource) {
+export function createResource(conn, resource) {
   resource.created = new Date().toString()
   resource.url = xss(resource.url)
   return r

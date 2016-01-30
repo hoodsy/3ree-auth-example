@@ -1,7 +1,7 @@
 import * as service from '../api/lists'
 
-export function addList(req, res, next) {
-  service.addList(req.dbConn, req.body)
+export function createList(req, res, next) {
+  service.createList(req.dbConn, req.body)
   .then((list) => res.json(list))
   .error(err => {
     err.status = 400

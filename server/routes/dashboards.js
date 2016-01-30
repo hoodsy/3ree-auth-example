@@ -1,7 +1,7 @@
 import * as service from '../api/dashboards'
 
-export function addDashboard(req, res, next) {
-  service.addDashboard(req.dbConn, req.body)
+export function createDashboard(req, res, next) {
+  service.createDashboard(req.dbConn, req.body)
   .then((dashboard) => res.json(dashboard))
   .error(err => {
     err.status = 400

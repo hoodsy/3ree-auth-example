@@ -12,7 +12,7 @@ const initialState = {
 // ====================
 function dashboardsById(state = {}, action) {
   switch(action.type) {
-    case types.ADD_DASHBOARD_SUCCESS:
+    case types.CREATE_DASHBOARD_SUCCESS:
       const { dashboard } = action
       return {
         ...state,
@@ -26,7 +26,7 @@ function dashboardsById(state = {}, action) {
 
 function currentDashboard(state = '', action) {
   switch(action.type) {
-    case types.ADD_DASHBOARD_SUCCESS:
+    case types.CREATE_DASHBOARD_SUCCESS:
       const { dashboard } = action
       if (!state) return dashboard.id
       return state
@@ -43,20 +43,20 @@ function currentDashboard(state = '', action) {
 // ==============
 export default function dashboards(state = initialState, action) {
   switch (action.type) {
-    case types.ADD_DASHBOARD_REQUEST:
+    case types.CREATE_DASHBOARD_REQUEST:
       return {
         ...state,
         isFetching: true
       }
 
-    case types.ADD_DASHBOARD_SUCCESS:
+    case types.CREATE_DASHBOARD_SUCCESS:
       return {
         dashboardsById: dashboardsById(state.dashboardsById, action),
         currentDashboard: currentDashboard(state.currentDashboard, action),
         isFetching: false
       }
 
-    case types.ADD_DASHBOARD_FAILURE:
+    case types.CREATE_DASHBOARD_FAILURE:
       return {
         ...state,
         isFetching: false,

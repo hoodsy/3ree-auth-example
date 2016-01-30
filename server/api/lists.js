@@ -3,7 +3,7 @@ import r from 'rethinkdb'
 
 // Lists
 // =====
-export function addList(conn, list) {
+export function createList(conn, list) {
   list.created = new Date().toString()
   list.title = xss(list.title)
   return r

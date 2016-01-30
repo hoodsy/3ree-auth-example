@@ -103,6 +103,7 @@ export function loginUser(user) {
     return request('post', { ...user }, `${authEndpoint}/login`)
     .then(res => {
       dispatch(loginUserSuccess(res))
+      location.reload()
       dispatch(routeActions.push('/'))
     })
     .catch(err => {
@@ -114,8 +115,9 @@ export function logoutUser() {
   return (dispatch) => {
     dispatch(logoutUserRequest())
     return request('get', {}, `${authEndpoint}/logout`)
-    .then(res => {
+    .then(res => { // eslint-disable-line no-unused-vars
       dispatch(logoutUserSuccess())
+      location.reload()
       dispatch(routeActions.push('/login'))
     })
     .catch(err => {

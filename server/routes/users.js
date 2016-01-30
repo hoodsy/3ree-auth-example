@@ -11,7 +11,7 @@ export function logoutUser(req, res) {
 }
 
 export function registerUser(req, res, next) {
-  service.addUser(req.dbConn, req.body)
+  service.createUser(req.dbConn, req.body)
   .then(user => {
     if (user.err) next(user.err)
     // Begin user session

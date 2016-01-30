@@ -11,7 +11,7 @@ const initialState = {
 // ====================
 function resourcesById(state = {}, action) {
   switch(action.type) {
-    case types.ADD_RESOURCE_SUCCESS:
+    case types.CREATE_RESOURCE_SUCCESS:
       const { resource } = action
       return {
         ...state,
@@ -27,19 +27,19 @@ function resourcesById(state = {}, action) {
 // ==============
 export default function resources(state = initialState, action) {
   switch (action.type) {
-    case types.ADD_RESOURCE_REQUEST:
+    case types.CREATE_RESOURCE_REQUEST:
       return {
         ...state,
         isFetching: true
       }
 
-    case types.ADD_RESOURCE_SUCCESS:
+    case types.CREATE_RESOURCE_SUCCESS:
       return {
         resourcesById: resourcesById(state.resourcesById, action),
         isFetching: false
       }
 
-    case types.ADD_RESOURCE_FAILURE:
+    case types.CREATE_RESOURCE_FAILURE:
       return {
         ...state,
         isFetching: false,

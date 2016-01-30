@@ -8,21 +8,21 @@ const apiEndpoint = '/api/dashboard'
 
 // Private Actions
 // ===============
-function addDashboardRequest(title) {
+function createDashboardRequest(title) {
   return {
-    type: types.ADD_DASHBOARD_REQUEST,
+    type: types.CREATE_DASHBOARD_REQUEST,
     title
   }
 }
-function addDashboardSuccess(dashboard) {
+function createDashboardSuccess(dashboard) {
   return {
-    type: types.ADD_DASHBOARD_SUCCESS,
+    type: types.CREATE_DASHBOARD_SUCCESS,
     dashboard
   }
 }
-function addDashboardFailure(err, status) {
+function createDashboardFailure(err, status) {
   return {
-    type: types.ADD_DASHBOARD_FAILURE,
+    type: types.CREATE_DASHBOARD_FAILURE,
     err,
     status
   }
@@ -30,16 +30,16 @@ function addDashboardFailure(err, status) {
 
 // Public Actions
 // ==============
-export function addDashboard(title, userId) {
+export function createDashboard(title, userId) {
   return (dispatch) => {
-    dispatch(addDashboardRequest(title))
+    dispatch(createDashboardRequest(title))
     return request('post', { title }, apiEndpoint)
     .then(res => {
-      dispatch(addDashboardSuccess(res))
+      dispatch(createDashboardSuccess(res))
       dispatch(addDashboardToUser(res.id, userId))
     })
     .catch(err => {
-      dispatch(addDashboardFailure(err, err.status))
+      dispatch(createDashboardFailure(err, err.status))
     })
   }
 }

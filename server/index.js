@@ -17,14 +17,10 @@ export default function initialRender(req, res) {
   getDashboardData(dashboards)
   .then(data => {
 
-    console.log(data);
-
-
     // Initial Data
     // ============
     const store = initializeStore(data, req.user)
     const initialState = store.getState()
-    console.log(initialState);
     const routes = createRoutes(store)
 
     // Initial Router Config

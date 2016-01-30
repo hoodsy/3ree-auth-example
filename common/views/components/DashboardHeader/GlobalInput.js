@@ -41,9 +41,9 @@ export class GlobalInput extends Component {
 
   mapInputToHandler(inputText) {
     const {
-      addDashboard,
-      addList,
-      addResource,
+      createDashboard,
+      createList,
+      createResource,
       currentDashboard,
       currentList,
       userId
@@ -53,11 +53,11 @@ export class GlobalInput extends Component {
     switch(inputType) {
       case 'Search':
       case 'Dashboard':
-        return addDashboard(inputText, userId)
+        return createDashboard(inputText, userId)
       case 'List':
-        return addList(currentDashboard, inputText)
+        return createList(currentDashboard, inputText)
       case 'Resource':
-        return addResource(currentList, inputText)
+        return createResource(currentList, inputText)
     }
   }
 
@@ -113,7 +113,7 @@ GlobalInput.propTypes = {
   currentDashboard: PropTypes.string.isRequired,
   currentList: PropTypes.string.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,
-  addDashboard: PropTypes.func.isRequired,
-  addList: PropTypes.func.isRequired,
+  createDashboard: PropTypes.func.isRequired,
+  createList: PropTypes.func.isRequired,
   userId: PropTypes.string.isRequired
 }

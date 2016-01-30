@@ -10,9 +10,9 @@ class DashboardHeaderContainer extends Component {
       dashboards,
       setCurrentDashboard,
       inputTypes,
-      addDashboard,
-      addList,
-      addResource,
+      createDashboard,
+      createList,
+      createResource,
       setCurrentInputType,
       currentList,
       listsById,
@@ -26,9 +26,9 @@ class DashboardHeaderContainer extends Component {
         setCurrentDashboard={ setCurrentDashboard }
         inputTypes={ inputTypes }
         setCurrentInputType={ setCurrentInputType }
-        addDashboard={ addDashboard }
-        addList={ addList }
-        addResource={ addResource }
+        createDashboard={ createDashboard }
+        createList={ createList }
+        createResource={ createResource }
         currentList={ currentList }
         listsById={ listsById }
         user={ user }
@@ -58,9 +58,9 @@ DashboardHeaderContainer.propTypes = {
     })).isRequired,
     currentInputType: PropTypes.string.isRequired
   }).isRequired,
-  addDashboard: PropTypes.func.isRequired,
-  addList: PropTypes.func.isRequired,
-  addResource: PropTypes.func.isRequired,
+  createDashboard: PropTypes.func.isRequired,
+  createList: PropTypes.func.isRequired,
+  createResource: PropTypes.func.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,
   currentList: PropTypes.string.isRequired,
   listsById: PropTypes.objectOf(PropTypes.shape({

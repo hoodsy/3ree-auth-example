@@ -30,17 +30,17 @@ export default (app, passport) => {
   // Dashboards
   // ==========
   router.route('/api/dashboard')
-  .post(dashboards.addDashboard)
+  .post(dashboards.createDashboard)
 
   // Lists
   // =====
   router.route('/api/list')
-  .post(lists.addList)
+  .post(lists.createList)
 
   // Resources
   // =========
   router.route('/api/resource')
-  .post(resources.addResource)
+  .post(resources.createResource)
 
   // Users
   // =====

@@ -3,7 +3,7 @@ import r from 'rethinkdb'
 
 import config from '../../config/rethinkDb/dbConfig'
 import { google } from './keys'
-import { addUser } from '../../api/users'
+import { createUser } from '../../api/users'
 
 export default new GoogleStrategy({
   clientID: google.clientID,
@@ -11,7 +11,7 @@ export default new GoogleStrategy({
   callbackURL: google.callbackURL
 }, (accessToken = '', refreshToken = '', profile, done) => {
   r.connect(config, (err, conn) => {
-    addUser(conn, {
+    createUser(conn, {
       email: profile.email || '',
       name: {
         displayName: profile.displayName || '',

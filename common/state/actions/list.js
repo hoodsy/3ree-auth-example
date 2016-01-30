@@ -7,23 +7,23 @@ const apiEndpoint = '/api/list'
 
 // Private Actions
 // ===============
-function addListRequest(title) {
+function createListRequest(title) {
   return {
-    type: types.ADD_LIST_REQUEST,
+    type: types.CREATE_LIST_REQUEST,
     title
   }
 }
 
-function addListSuccess(list) {
+function createListSuccess(list) {
   return {
-    type: types.ADD_LIST_SUCCESS,
+    type: types.CREATE_LIST_SUCCESS,
     list
   }
 }
 
-function addListFailure(err, status) {
+function createListFailure(err, status) {
   return {
-    type: types.ADD_LIST_FAILURE,
+    type: types.CREATE_LIST_FAILURE,
     err,
     status
   }
@@ -31,15 +31,15 @@ function addListFailure(err, status) {
 
 // Public Actions
 // ==============
-export function addList(dashboardId, title) {
+export function createList(dashboardId, title) {
   return (dispatch) => {
-    dispatch(addListRequest(title))
+    dispatch(createListRequest(title))
     return request('post', { dashboardId, title }, apiEndpoint)
     .then(res => {
-      dispatch(addListSuccess(res))
+      dispatch(createListSuccess(res))
     })
     .catch(err => {
-      dispatch(addListFailure(err, err.status))
+      dispatch(createListFailure(err, err.status))
     })
   }
 }
