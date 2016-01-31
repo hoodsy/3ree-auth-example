@@ -2,6 +2,7 @@ import xss from 'xss'
 import r from 'rethinkdb'
 
 import config from '../config/rethinkDb/dbConfig'
+import { SOFT_DURABILITY } from './util'
 
 export function intoSession(user, done) {
   return done(null, user.id)
@@ -40,10 +41,10 @@ export function localAuthCallback(email, password, done) {
 }
 
 // Create User
-// ========
+// ===========
 // Creates existing user if provided
 // email doesn't already exist
-// --------
+// -----------
 export function createUser(conn, user, fields = {}) {
   user = createUserProperties(user, fields)
   return r
@@ -56,7 +57,7 @@ export function createUser(conn, user, fields = {}) {
       return r
       .table('users')
       .insert(user)
-      .run(conn)
+      .run(conn, SOFT_DURABILITY)
       .then(response => {
         return Object.assign({}, user, { id: response.generated_keys[0] })
       })
@@ -97,18 +98,19 @@ export function addDashboardToUser(conn, dashboardId, userId) {
   .table('users')
   .get(userId)
   .update({ dashboards: r.row('dashboards').append(dashboardId) })
-  .run(conn)
+  .run(conn, SOFT_DURABILITY)
   .error(err => err)
 }
 
 // Remove Dashboard
 // =====================
 export function removeDashboardFromUser(conn, dashboardId, userId) {
-  console.log(dashboardId);
   return r
   .table('users')
   .get(userId)
-  .update({ dashboards: r.row('dashboards').difference([dashboardId]) })
+  .update({
+    dashboards: r.row('dashboards').difference([ dashboardId ])
+  })
   .run(conn)
   .error(err => err)
 }

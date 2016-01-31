@@ -1,6 +1,8 @@
 import xss from 'xss'
 import r from 'rethinkdb'
 
+import { SOFT_DURABILITY } from './util'
+
 // Create
 // ======
 export function createList(conn, list) {
@@ -9,7 +11,7 @@ export function createList(conn, list) {
   return r
   .table('lists')
   .insert(list)
-  .run(conn)
+  .run(conn, SOFT_DURABILITY)
   .then(response => {
     return Object.assign({}, list, { id: response.generated_keys[0] })
   })

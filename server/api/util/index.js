@@ -1,5 +1,7 @@
 import _ from 'lodash'
 
+export const SOFT_DURABILITY = { durability: 'soft' }
+
 // Normalize
 // ==========
 // Takes an array of items and

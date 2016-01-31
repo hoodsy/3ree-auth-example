@@ -1,15 +1,16 @@
 import xss from 'xss'
 import r from 'rethinkdb'
-import _ from 'lodash'
 
 import config from '../config/rethinkDb/dbConfig'
 import { extractByType,
          merge,
          normalize,
-         extractIds } from './util'
+         extractIds,
+         SOFT_DURABILITY } from './util'
 import { getDashboardLists,
          deleteDashboardLists } from './lists'
 import { deleteListResources } from './resources'
+
 
 // Create Dashboard
 // =============
@@ -19,7 +20,7 @@ export function createDashboard(conn, dashboard) {
   return r
   .table('dashboards')
   .insert(dashboard)
-  .run(conn)
+  .run(conn, SOFT_DURABILITY)
   .then(response => {
     return Object.assign({}, dashboard, { id: response.generated_keys[0] })
   })
