@@ -22,10 +22,7 @@ export function registerUser(req, res, next) {
       .json(filterUserProperties(user))
     })
   })
-  .error(err => {
-    err.status = 500
-    next(err)
-  })
+  .error(next)
 }
 
 export function addDashboardToUser(req, res, next) {

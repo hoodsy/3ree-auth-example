@@ -8,7 +8,7 @@ export function catchError(err, req, res, next) {
 // will print stacktrace
 export function devErrorHandler(err, req, res) {
   res.status(err.status || 500)
-  res.render('error', {
+  res.json({
     message: err.message,
     error: err
   })
@@ -23,10 +23,3 @@ export function prodErrorHandler(err, req, res) {
     error: {}
   })
 }
-
-// export function passportErrorHandler(err, user, info) {
-//   if (err)
-//     return err
-//   if(!user)
-//     return { err: info.message }
-// }

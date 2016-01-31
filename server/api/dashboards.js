@@ -76,7 +76,7 @@ export function getDashboardData(dashboards) {
     })
     .run(conn)
     .then(formatDashboardData)
-    .error((err) => { err })
+    .error(err => err)
   })
 }
 

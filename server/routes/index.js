@@ -19,18 +19,15 @@ export default (app, passport) => {
   // Auth Middleware
   // ===============
   router.all('/api/*', requireAuthenticated)
-  if (app.get('env') !== 'development') {
-    router.get('/', requireAuthenticated, initialRender)
-  } else {
-    router.get('/', initialRender)
-  }
+  app.get('env') === 'development'
+    ? router.get('/', initialRender)
+    : router.get('/', requireAuthenticated, initialRender)
 
   // Dashboards
   // ==========
   router.route('/api/dashboard')
   .post(dashboards.createDashboard)
   .delete(dashboards.deleteDashboard)
-  // router.post('/api/dashboard/delete', dashboards.deleteDashboard)
 
   // Lists
   // =====
