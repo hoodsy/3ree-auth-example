@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import _ from 'lodash'
 
 import { InputType } from '../../'
 
@@ -8,10 +9,10 @@ export const InputTypesPicker = (
     setCurrentInputType }) =>
 (
   <div>
-    { Object.keys(inputTypesById).map((id, index) =>
+    { _.keys(inputTypesById).map(id =>
         <InputType
           { ...inputTypesById[id] }
-          key={ index }
+          key={ id }
           currentInputType={ currentInputType }
           onClick={ setCurrentInputType } />
     )}

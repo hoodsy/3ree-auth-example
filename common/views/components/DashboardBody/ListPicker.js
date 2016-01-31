@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import _ from 'lodash'
 
 import { List, Resource } from '../../'
 
@@ -10,23 +11,23 @@ export const ListPicker = (
     setCurrentList }) =>
 (
   <div>
-    { Object.keys(listsById)
+    { _.keys(listsById)
       .filter(id =>
         listsById[id]['dashboardId'] === currentDashboard) // only display lists of currentDashboard
-      .map((listId, index) =>
+      .map(listId =>
         <List
           { ...listsById[listId] }
-          key={ index }
+          key={ listId }
           currentList={ currentList }
           onClick={ setCurrentList }>
 
-          { Object.keys(resourcesById)
+          { _.keys(resourcesById)
             .filter(id =>
               resourcesById[id]['listId'] === listId)
-            .map((resourceId, resourceIndex) =>
+            .map(resourceId =>
               <Resource
                 { ...resourcesById[resourceId] }
-                key={ resourceIndex } />
+                key={ resourceId } />
           )}
 
         </List>

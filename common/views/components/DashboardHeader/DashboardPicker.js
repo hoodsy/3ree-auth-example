@@ -11,10 +11,10 @@ export const DashboardPicker = (
     deleteDashboard }) =>
 (
   <div>
-    { _.keys(dashboardsById).map((id, index) =>
+    { _.keys(dashboardsById).map(id =>
         <Dashboard
           { ...dashboardsById[id] }
-          key={ index }
+          key={ id }
           currentDashboard={ currentDashboard }
           onClick={ setCurrentDashboard }
           userId={ userId }
