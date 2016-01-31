@@ -1,5 +1,4 @@
 import * as service from '../api/dashboards'
-import { deleteListsAndResources } from '../api/lists'
 
 export function createDashboard(req, res, next) {
   service.createDashboard(req.dbConn, req.body)
@@ -11,17 +10,8 @@ export function createDashboard(req, res, next) {
 }
 
 export function deleteDashboard(req, res, next) {
-  service.deleteDashboard(req.dbConn, req.body)
-  .then(dashboardResult => { // eslint-disable-line no-unused-vars
-    console.log(dashboardResult);
-    return res.status(200).json(dashboardResult)
-    // deleteListsAndResources(req.dbConn, req.body)
-    // .then(listResult => res.status(200).json(listResult))
-    // .error(err => {
-    //   err.status = 400
-    //   next(err)
-    // })
-  })
+  service.deleteDashboardData(req.dbConn, req.body)
+  .then(dashboardResult => res.json(dashboardResult))
   .error(err => {
     err.status = 400
     next(err)

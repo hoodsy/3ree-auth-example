@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 // Normalize
 // ==========
 // Takes an array of items and
@@ -64,4 +66,8 @@ export function group(items) {
       ]
     }
   }, { left: [], right: [] })
+}
+
+export function extractIds(arr) {
+  return _.map(arr, _.property('id'))
 }

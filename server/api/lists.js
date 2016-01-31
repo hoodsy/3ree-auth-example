@@ -1,8 +1,6 @@
 import xss from 'xss'
 import r from 'rethinkdb'
 
-import { deleteResources } from './resources'
-
 // Create
 // ======
 export function createList(conn, list) {
@@ -17,23 +15,22 @@ export function createList(conn, list) {
   })
 }
 
-// Delete Lists
-// ============
-export function deleteListsAndResources(conn, dashboard) {
+// Get Lists
+// =========
+export function getDashboardLists(conn, dashboard) {
   return r
   .table('lists')
   .getAll(dashboard['id'], { index: 'dashboardId' })
-  .map(list => {
-    // deleteResources(conn, list)
-    r
-    .table('resources')
-    .getAll(list('id'), { index: 'listId' })
-    .delete()
-    .run(conn)
-
-    return list
-  })
   .run(conn)
-  // .coerceTo('array')
-  // .delete()
+}
+
+
+// Delete Lists
+// ============
+export function deleteDashboardLists(conn, dashboard) {
+  return r
+  .table('lists')
+  .getAll(dashboard['id'], { index: 'dashboardId' })
+  .delete()
+  .run(conn)
 }

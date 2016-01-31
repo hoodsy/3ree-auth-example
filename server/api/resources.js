@@ -17,13 +17,10 @@ export function createResource(conn, resource) {
 
 // Delete Resources
 // ================
-export function deleteResources(conn, list) {
-  console.log(list('id'));
-  console.log('list');
-  console.log('=========');
+export function deleteListResources(conn, lists) {
   return r
   .table('resources')
-  .getAll(list('id'), { index: 'listId' })
+  .getAll(...lists, { index: 'listId' })
   .delete()
   .run(conn)
 }

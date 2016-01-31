@@ -22,11 +22,7 @@ function dashboardsById(state = {}, action) {
       }
 
     case types.DELETE_DASHBOARD_SUCCESS:
-      console.log(state);
-      console.log('========');
       const { dashboardId } = action
-      console.log(_.omit(state, dashboardId));
-      console.log(dashboardId);
       return _.omit(state, dashboardId)
 
     default:
@@ -69,8 +65,8 @@ export default function dashboards(state = initialState, action) {
 
     case types.DELETE_DASHBOARD_SUCCESS:
       return {
-        ...state,
         dashboardsById: dashboardsById(state.dashboardsById, action),
+        currentDashboard: _.omit(state.dashboardsById, action.dashboardId)[0] || '',
         isFetching: false
       }
 

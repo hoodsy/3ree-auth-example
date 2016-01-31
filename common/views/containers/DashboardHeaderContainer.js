@@ -73,11 +73,11 @@ DashboardHeaderContainer.propTypes = {
   })).isRequired,
   user: PropTypes.objectOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    name: PropTypes.objectOf(PropTypes.shape({
-      displayName: PropTypes.string.isRequired,
-      givenName: PropTypes.string.isRequired,
-      familyName: PropTypes.string.isRequired
-    })).isRequired,
+    // name: PropTypes.objectOf(PropTypes.shape({
+    //   displayName: PropTypes.string.isRequired,
+    //   givenName: PropTypes.string.isRequired,
+    //   familyName: PropTypes.string.isRequired
+    // })).isRequired,
     email: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired
   })).isRequired,

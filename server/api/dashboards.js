@@ -1,10 +1,15 @@
 import xss from 'xss'
 import r from 'rethinkdb'
+import _ from 'lodash'
 
 import config from '../config/rethinkDb/dbConfig'
 import { extractByType,
          merge,
-         normalize } from './util'
+         normalize,
+         extractIds } from './util'
+import { getDashboardLists,
+         deleteDashboardLists } from './lists'
+import { deleteListResources } from './resources'
 
 // Create Dashboard
 // =============
@@ -21,14 +26,30 @@ export function createDashboard(conn, dashboard) {
 }
 
 // Delete Dashboard
-// =============
-export function deleteDashboard(conn, dashboardId) {
+// ================
+export function deleteDashboard(conn, dashboard) {
   return r
   .table('dashboards')
-  .get(dashboardId['id'])
+  .get(dashboard['id'])
   .delete()
   .run(conn)
 }
+
+// Delete Dashboard Data
+// =====================
+export function deleteDashboardData(conn, dashboard) {
+  deleteDashboard(conn, dashboard)
+  .error(err => err)
+  getDashboardLists(conn, dashboard)
+  .then(cursor => cursor.toArray())
+  .then(lists => extractIds(lists))
+  .then(listIds => {
+    deleteListResources(conn, listIds)
+    .error(err => err)
+  })
+  return deleteDashboardLists(conn, dashboard)
+}
+
 
 // Get Dashboard w/ Data
 // =====================
