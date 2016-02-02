@@ -30,6 +30,8 @@ export function addUserToDashboard(req, res, next) {
   } = req.body
   getUserByEmail(req.dbConn, email)
   .then(user => {
+    if (!user)
+      return next(new Error(`User at "${email}" doesn't exist.`))
     service.addUserToDashboard(req.dbConn, dashboardId, user['id'])
     .then(result => { // eslint-disable-line no-unused-vars
       service.getDashboard(req.dbConn, dashboardId)

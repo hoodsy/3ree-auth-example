@@ -96,7 +96,10 @@ export function getUserByEmail(conn, email) {
   .run(conn)
   .then(cursor => cursor.toArray())
   .then(user => user[0])
-  .error(err => err)
+  .error(err => {
+    console.log('err:', err)
+    console.log('============')
+    return err})
 }
 
 // Create Dashboard to User
