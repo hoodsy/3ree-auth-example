@@ -39,7 +39,9 @@ export function addDashboardToUser(req, res, next) {
       res.status(200)
       .json(filterUserProperties(user))
     })
+    .error(next)
   })
+  .error(next)
 }
 
 export function removeDashboardFromUser(req, res, next) {

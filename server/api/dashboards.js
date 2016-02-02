@@ -13,17 +13,19 @@ import { deleteListResources } from './resources'
 
 
 // Create Dashboard
-// =============
-export function createDashboard(conn, dashboard) {
-  dashboard.created = new Date().toString()
-  dashboard.title = xss(dashboard.title)
+// ================
+export function createDashboard(conn, title, userId) {
+  const dashboard = {
+    created: new Date().toString(),
+    title: xss(title),
+    users: [ xss(userId) ]
+  }
   return r
   .table('dashboards')
   .insert(dashboard)
   .run(conn, SOFT_DURABILITY)
-  .then(response => {
-    return Object.assign({}, dashboard, { id: response.generated_keys[0] })
-  })
+  .then(res => ({ ...dashboard, id: res.generated_keys[0] }))
+  .error(err => err)
 }
 
 // Delete Dashboard
@@ -34,6 +36,28 @@ export function deleteDashboard(conn, dashboard) {
   .get(dashboard['id'])
   .delete()
   .run(conn)
+  .error(err => err)
+}
+
+// Get Dashboard
+// =============
+export function getDashboard(conn, dashboardId) {
+  return r
+  .table('dashboards')
+  .get(dashboardId)
+  .run(conn)
+  .error(err => err)
+}
+
+// Add User
+// ========
+export function addUserToDashboard(conn, dashboardId, userId) {
+  return r
+  .table('dashboards')
+  .get(dashboardId)
+  .update({ users: r.row('users').append(userId) })
+  .run(conn, SOFT_DURABILITY)
+  .error(err => err)
 }
 
 // Delete Dashboard Data

@@ -29,6 +29,9 @@ export default (app, passport) => {
   .post(dashboards.createDashboard)
   .delete(dashboards.deleteDashboard)
 
+  router.route('/api/dashboard/add/user')
+  .post(dashboards.addUserToDashboard)
+
   // Lists
   // =====
   router.route('/api/list')

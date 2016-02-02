@@ -24,7 +24,12 @@ function createTable(name, next) {
 }
 
 function createTables(next) {
-  async.map([ 'dashboards', 'lists', 'resources', 'users' ], createTable, next)
+  async.map([
+    'dashboards',
+    'lists',
+    'resources',
+    'users'
+  ], createTable, next)
 }
 
 function createIndex(target, next) {
@@ -50,6 +55,6 @@ async.series({
   created : createDb,
   tables : createTables,
   indexes : createIndexes
-}, (err,res) => {
+}, (err, res) => {
   console.log(res)
 })

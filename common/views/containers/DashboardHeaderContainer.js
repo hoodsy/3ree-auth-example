@@ -8,15 +8,16 @@ class DashboardHeaderContainer extends Component {
   render() {
     const {
       dashboards,
-      setCurrentDashboard,
-      inputTypes,
       createDashboard,
       deleteDashboard,
+      addUserToDashboard,
+      setCurrentDashboard,
+      inputTypes,
+      setCurrentInputType,
+      listsById,
+      currentList,
       createList,
       createResource,
-      setCurrentInputType,
-      currentList,
-      listsById,
       user,
       logoutUser
     } = this.props
@@ -24,15 +25,16 @@ class DashboardHeaderContainer extends Component {
     return (
       <DashboardHeader
         dashboards={ dashboards }
+        createDashboard={ createDashboard }
+        deleteDashboard={ deleteDashboard }
+        addUserToDashboard={ addUserToDashboard }
         setCurrentDashboard={ setCurrentDashboard }
         inputTypes={ inputTypes }
         setCurrentInputType={ setCurrentInputType }
-        createDashboard={ createDashboard }
-        deleteDashboard={ deleteDashboard }
-        createList={ createList }
-        createResource={ createResource }
-        currentList={ currentList }
         listsById={ listsById }
+        createList={ createList }
+        currentList={ currentList }
+        createResource={ createResource }
         user={ user }
         logoutUser={ logoutUser } />
     )
@@ -52,6 +54,7 @@ DashboardHeaderContainer.propTypes = {
     currentDashboard: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired
   }).isRequired,
+  addUserToDashboard: PropTypes.func.isRequired,
   setCurrentDashboard: PropTypes.func.isRequired,
   inputTypes: PropTypes.shape({
     inputTypesById: PropTypes.objectOf(PropTypes.shape({

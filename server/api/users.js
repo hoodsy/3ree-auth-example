@@ -89,6 +89,16 @@ export function getUser(conn, userId) {
   .error(err => err)
 }
 
+export function getUserByEmail(conn, email) {
+  return r
+  .table('users')
+  .getAll(email, { index: 'email' })
+  .run(conn)
+  .then(cursor => cursor.toArray())
+  .then(user => user[0])
+  .error(err => err)
+}
+
 // Create Dashboard to User
 // =====================
 // Creates data to existing user

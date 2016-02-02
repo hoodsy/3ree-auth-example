@@ -51,13 +51,37 @@ function deleteDashboardFailure(err, status) {
     status
   }
 }
+// Add User
+// --------
+function addUserToDashboardRequest(dashboardId, email) {
+  return {
+    type: types.ADD_USER_TO_DASHBOARD_REQUEST,
+    dashboardId,
+    email
+  }
+}
+function addUserToDashboardSuccess(dashboard) {
+  return {
+    type: types.ADD_USER_TO_DASHBOARD_SUCCESS,
+    dashboard
+  }
+}
+function addUserToDashboardFailure(err, status) {
+  return {
+    type: types.ADD_USER_TO_DASHBOARD_FAILURE,
+    err,
+    status
+  }
+}
 
 // Public Actions
 // ==============
+// Create
+// ------
 export function createDashboard(title, userId) {
   return (dispatch) => {
     dispatch(createDashboardRequest(title))
-    return request('post', { title }, apiEndpoint)
+    return request('post', { title, userId }, apiEndpoint)
     .then(res => {
       dispatch(createDashboardSuccess(res))
       dispatch(addDashboardToUser(res.id, userId))
@@ -67,6 +91,8 @@ export function createDashboard(title, userId) {
     })
   }
 }
+// Delete
+// ------
 export function deleteDashboard(id, userId) {
   return (dispatch) => {
     dispatch(deleteDashboardRequest(id))
@@ -80,7 +106,22 @@ export function deleteDashboard(id, userId) {
     })
   }
 }
-
+// Add User
+// --------
+export function addUserToDashboard(dashboardId, email) {
+  return (dispatch) => {
+    dispatch(addUserToDashboardRequest(dashboardId, email))
+    return request('post', { dashboardId, email }, `${apiEndpoint}/add/user`)
+    .then(res => {
+      dispatch(addUserToDashboardSuccess(res))
+    })
+    .catch(err => {
+      dispatch(addUserToDashboardFailure(err, err.status))
+    })
+  }
+}
+// Set Current
+// -----------
 export function setCurrentDashboard(dashboardId) {
   return {
     type: types.SET_CURRENT_DASHBOARD,

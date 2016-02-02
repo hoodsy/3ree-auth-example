@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 
 import { DashboardPicker,
+         DashboardSettings,
          GlobalInput,
          User } from '../../'
 
@@ -8,13 +9,14 @@ export const DashboardHeader = (
   { dashboards,
     createDashboard,
     deleteDashboard,
-    createList,
-    createResource,
+    addUserToDashboard,
     setCurrentDashboard,
     inputTypes,
     setCurrentInputType,
-    currentList,
     listsById,
+    currentList,
+    createList,
+    createResource,
     user,
     logoutUser }) =>
 (
@@ -22,6 +24,9 @@ export const DashboardHeader = (
     <User
       { ...user }
       logoutUser={ logoutUser } />
+    <DashboardSettings
+      currentDashboard={ dashboards.currentDashboard }
+      addUserToDashboard={ addUserToDashboard } />
     <DashboardPicker
       { ...dashboards }
       userId={ user ? user.id : '' }
@@ -42,14 +47,16 @@ export const DashboardHeader = (
 
 DashboardHeader.propTypes = {
   dashboards: PropTypes.object.isRequired,
-  setCurrentDashboard: PropTypes.func.isRequired,
-  inputTypes: PropTypes.object.isRequired,
   createDashboard: PropTypes.func.isRequired,
   deleteDashboard: PropTypes.func.isRequired,
+  addUserToDashboard: PropTypes.func.isRequired,
+  setCurrentDashboard: PropTypes.func.isRequired,
+  inputTypes: PropTypes.object.isRequired,
+  setCurrentInputType: PropTypes.func.isRequired,
+  listsById: PropTypes.object.isRequired,
+  currentList: PropTypes.string.isRequired,
   createList: PropTypes.func.isRequired,
   createResource: PropTypes.func.isRequired,
-  setCurrentInputType: PropTypes.func.isRequired,
-  currentList: PropTypes.string.isRequired,
-  listsById: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired
 }

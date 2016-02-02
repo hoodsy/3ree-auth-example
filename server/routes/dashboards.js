@@ -1,7 +1,12 @@
 import * as service from '../api/dashboards'
+import { getUserByEmail } from '../api/users'
 
 export function createDashboard(req, res, next) {
-  service.createDashboard(req.dbConn, req.body)
+  const {
+    title,
+    userId
+  } = req.body
+  service.createDashboard(req.dbConn, title, userId)
   .then(dashboard => res.json(dashboard))
   .error(next)
 }
@@ -15,5 +20,23 @@ export function deleteDashboard(req, res, next) {
 export function getDashboards(req, res, next) {
   service.getDashboards(req.dbConn)
   .then(dashboards => res.json(dashboards))
+  .error(next)
+}
+
+export function addUserToDashboard(req, res, next) {
+  const {
+    dashboardId,
+    email
+  } = req.body
+  getUserByEmail(req.dbConn, email)
+  .then(user => {
+    service.addUserToDashboard(req.dbConn, dashboardId, user['id'])
+    .then(result => { // eslint-disable-line no-unused-vars
+      service.getDashboard(req.dbConn, dashboardId)
+      .then(dashboard => res.json(dashboard))
+      .error(next)
+    })
+    .error(next)
+  })
   .error(next)
 }
