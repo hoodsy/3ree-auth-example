@@ -17,19 +17,22 @@ export const DashboardHeader = (
     currentList,
     createList,
     createResource,
-    user,
+    usersById,
+    currentUser,
     logoutUser }) =>
 (
   <div>
     <User
-      { ...user }
+      { ...usersById[currentUser] }
       logoutUser={ logoutUser } />
     <DashboardSettings
+      usersById={ usersById }
+      currentUser={ currentUser }
       currentDashboard={ dashboards.currentDashboard }
       addUserToDashboard={ addUserToDashboard } />
     <DashboardPicker
       { ...dashboards }
-      userId={ user ? user.id : '' }
+      userId={ currentUser }
       deleteDashboard={ deleteDashboard }
       setCurrentDashboard={ setCurrentDashboard } />
     <GlobalInput
@@ -41,7 +44,7 @@ export const DashboardHeader = (
       currentList={ currentList }
       listsById={ listsById }
       setCurrentInputType={ setCurrentInputType }
-      userId={ user ? user.id : '' } />
+      userId={ currentUser } />
   </div>
 )
 
@@ -57,6 +60,7 @@ DashboardHeader.propTypes = {
   currentList: PropTypes.string.isRequired,
   createList: PropTypes.func.isRequired,
   createResource: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  usersById: PropTypes.object.isRequired,
+  currentUser: PropTypes.string.isRequired,
   logoutUser: PropTypes.func.isRequired
 }

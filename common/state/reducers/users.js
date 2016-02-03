@@ -3,12 +3,39 @@ import * as types from '../constants/actionTypes'
 // State Shape
 // ===========
 const initialState = {
+  usersById: {},
+  currentUser: '',
+  isAuthenticated: false,
   isFetching: false
 }
 
 // Private Sub-Reducers
 // ====================
+function usersById(state = {}, action) {
+  switch(action.type) {
+    case types.LOGIN_USER_SUCCESS:
+    case types.REGISTER_USER_SUCCESS:
+      const { user } = action
+      return {
+        [user.id]: user
+      }
 
+    default:
+      return state
+  }
+}
+
+function currentUser(state = '', action) {
+  switch(action.type) {
+    case types.LOGIN_USER_SUCCESS:
+    case types.REGISTER_USER_SUCCESS:
+      const { user } = action
+      return user.id
+
+    default:
+      return state
+  }
+}
 
 // Public Reducer
 // ==============
@@ -27,7 +54,7 @@ export default function users(state = initialState, action) {
     case types.LOGOUT_USER_SUCCESS:
       return {
         ...state,
-        user: {
+        currentUser: {
           isAuthenticated: false
         },
         isFetching: false
@@ -39,7 +66,8 @@ export default function users(state = initialState, action) {
     case types.REMOVE_DASHBOARD_FROM_USER_SUCCESS:
       return {
         ...state,
-        user: action.user,
+        usersById: usersById(state.usersById, action),
+        currentUser: currentUser(state.currentUser, action),
         isFetching: false
       }
 

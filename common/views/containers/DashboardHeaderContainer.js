@@ -18,7 +18,8 @@ class DashboardHeaderContainer extends Component {
       currentList,
       createList,
       createResource,
-      user,
+      usersById,
+      currentUser,
       logoutUser
     } = this.props
 
@@ -35,7 +36,8 @@ class DashboardHeaderContainer extends Component {
         createList={ createList }
         currentList={ currentList }
         createResource={ createResource }
-        user={ user }
+        usersById={ usersById }
+        currentUser={ currentUser }
         logoutUser={ logoutUser } />
     )
   }
@@ -68,22 +70,23 @@ DashboardHeaderContainer.propTypes = {
   createList: PropTypes.func.isRequired,
   createResource: PropTypes.func.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,
-  currentList: PropTypes.string.isRequired,
   listsById: PropTypes.objectOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     created: PropTypes.string.isRequired
   })).isRequired,
-  user: PropTypes.objectOf(PropTypes.shape({
+  currentList: PropTypes.string.isRequired,
+  usersById: PropTypes.objectOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    name: PropTypes.objectOf(PropTypes.shape({
+    name: PropTypes.shape({
       displayName: PropTypes.string.isRequired,
       givenName: PropTypes.string.isRequired,
       familyName: PropTypes.string.isRequired
-    })).isRequired,
+    }).isRequired,
     email: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired
   })).isRequired,
+  currentUser: PropTypes.string.isRequired,
   logoutUser: PropTypes.func.isRequired
 }
 
@@ -91,9 +94,10 @@ function mapStateToProps(state) {
   return {
     dashboards: state.dashboards,
     inputTypes: state.inputTypes,
-    currentList: state.lists.currentList,
     listsById: state.lists.listsById,
-    user: state.users.user
+    currentList: state.lists.currentList,
+    usersById: state.users.usersById,
+    currentUser: state.users.currentUser
   }
 }
 

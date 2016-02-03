@@ -10,7 +10,6 @@ import { getDashboardData } from './api/dashboards'
 import configureStore from '../common/state/stores/configureStore'
 
 export default function initialRender(req, res) {
-  // const dashboards  = (req['user']) ? req['user']['dashboards'] : 'b838af6f-baaa-471b-8a16-f7203df44562'
   const dashboards  = (req['user'] && req['user']['dashboards'].length)
     ? req['user']['dashboards']
     : null
@@ -70,14 +69,17 @@ function initializeStore(data = {}, user = {}) {
       isFetching: false
     },
     users: {
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        picture: user.picture,
-        dashboards: user.dashboards,
-        isAuthenticated
+      usersById: {
+        [user.id]: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          picture: user.picture,
+          dashboards: user.dashboards
+        }
       },
+      currentUser: user.id || '',
+      isAuthenticated,
       isFetching: false
     }
 
