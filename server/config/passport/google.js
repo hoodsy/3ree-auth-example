@@ -12,7 +12,7 @@ export default new GoogleStrategy({
 }, (accessToken = '', refreshToken = '', profile, done) => {
   r.connect(config, (err, conn) => {
     createUser(conn, {
-      email: profile.email || '',
+      email: profile.emails[0].value || '',
       name: {
         displayName: profile.displayName || '',
         familyName: profile.name.familyName || '',
