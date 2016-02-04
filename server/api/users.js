@@ -99,6 +99,14 @@ export function getUserByEmail(conn, email) {
   .error(err => err)
 }
 
+export function getUsers(conn, users) {
+  return r
+  .table('users')
+  .getAll(...users)
+  .run(conn)
+  .error(err => err)
+}
+
 // Create Dashboard to User
 // =====================
 // Creates data to existing user

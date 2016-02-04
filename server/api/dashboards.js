@@ -10,6 +10,7 @@ import { extractByType,
 import { getDashboardLists,
          deleteDashboardLists } from './lists'
 import { deleteListResources } from './resources'
+import { getUsers } from './users'
 
 
 // Create Dashboard

@@ -27,19 +27,17 @@ export class DashboardSettings extends Component {
       currentDashboard
     } = this.props
 
-    function renderUsers() {
-      const dashboardUsers = dashboardsById[currentDashboard]['users']
-      const userIds = _.intersection(_.keys(usersById), dashboardUsers)
-      console.log(userIds)
-      console.log('============')
-      return _.keys(userIds).map(id =>
-        <User
-          { ...usersById[id] }
-          key={ id }
-          logoutUser={ logoutUser }
-          isCurrentUser={ (currentUser === id) ? true : false } />
-      )
-    }
+    // function renderUsers() {
+    //   const dashboardUsers = dashboardsById[currentDashboard]['users']
+    //   const userIds = _.intersection(_.keys(usersById), dashboardUsers)
+    //   return _.keys(userIds).map(id =>
+    //     <User
+    //       { ...usersById[id] }
+    //       key={ id }
+    //       logoutUser={ logoutUser }
+    //       isCurrentUser={ (currentUser === id) ? true : false } />
+    //   )
+    // }
 
     return (
       <div>
@@ -67,5 +65,9 @@ export class DashboardSettings extends Component {
 }
 
 DashboardSettings.propTypes = {
-
+  usersById: PropTypes.object.isRequired,
+  currentUser: PropTypes.string.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  dashboardsById: PropTypes.object.isRequired,
+  currentDashboard: PropTypes.string.isRequired
 }
