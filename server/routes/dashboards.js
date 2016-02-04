@@ -35,7 +35,7 @@ export function addUserToDashboard(req, res, next) {
     service.addUserToDashboard(req.dbConn, dashboardId, user['id'])
     .then(result => { // eslint-disable-line no-unused-vars
       service.getDashboard(req.dbConn, dashboardId)
-      .then(dashboard => res.json(dashboard))
+      .then(dashboard => res.json({ dashboard, user }))
       .error(next)
     })
     .error(next)

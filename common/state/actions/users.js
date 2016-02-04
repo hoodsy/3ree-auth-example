@@ -111,6 +111,27 @@ function removeDashboardFromUserFailure(err, status) {
     status
   }
 }
+// Utility
+// -------
+function getUserRequest(userId) {
+  return {
+    type: types.GET_USER_REQUEST,
+    userId
+  }
+}
+function getUserSuccess(user) {
+  return {
+    type: types.GET_USER_SUCCESS,
+    user
+  }
+}
+function getUserFailure(err, status) {
+  return {
+    type: types.GET_USER_FAILURE,
+    err,
+    status
+  }
+}
 
 // Public Actions
 // ==============
@@ -181,5 +202,25 @@ export function removeDashboardFromUser(dashboardId, userId) {
     .catch(err => {
       dispatch(removeDashboardFromUserFailure(err, err.status))
     })
+  }
+}
+// Utility
+// -------
+export function getUser(userId) {
+  return (dispatch) => {
+    dispatch(getUserRequest(userId))
+    return request('get', { userId }, apiEndpoint)
+    .then(res => {
+      dispatch(getUserSuccess(res))
+    })
+    .catch(err => {
+      dispatch(getUserFailure(err, err.status))
+    })
+  }
+}
+export function addUser(user) {
+  return {
+    type: types.ADD_USER,
+    user
   }
 }

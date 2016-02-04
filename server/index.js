@@ -2,9 +2,9 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { RouterContext, match } from 'react-router'
 import { Provider } from 'react-redux'
+import _ from 'lodash'
 
 import { DevTools } from '../common/views/index'
-// import routes from '../common/views/routes'
 import createRoutes from '../common/views/routes'
 import { getDashboardData } from './api/dashboards'
 import configureStore from '../common/state/stores/configureStore'
@@ -53,10 +53,13 @@ export default function initialRender(req, res) {
 
 function initializeStore(data = {}, user = {}) {
   const isAuthenticated = (user.id) ? true : false
+  const initDashboard = (data.dashboardsById)
+    ? _.keys(data.dashboardsById)[0]
+    : ''
   return configureStore({
     dashboards: {
       dashboardsById: data.dashboardsById || {},
-      currentDashboard: '',
+      currentDashboard: initDashboard,
       isFetching: false
     },
     lists: {

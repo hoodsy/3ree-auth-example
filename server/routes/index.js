@@ -44,6 +44,8 @@ export default (app, passport) => {
 
   // Users
   // =====
+  router.route('/api/user')
+  .get(users.getUser)
   router.post('/api/user/dashboard/add', users.addDashboardToUser)
   router.post('/api/user/dashboard/remove', users.removeDashboardFromUser)
 

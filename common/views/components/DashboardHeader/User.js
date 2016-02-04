@@ -4,16 +4,22 @@ export const User = (
   { name,
     email,
     picture,
-    logoutUser }) =>
+    logoutUser,
+    isCurrentUser }) =>
 (
   <div>
     <img src={ picture } />
     <h4>{ (name) ? name.displayName : '' }</h4>
     <h4>{ email }</h4>
-    <h4
-      onClick={ logoutUser }>
-      Logout
-    </h4>
+    { (isCurrentUser)
+        ?
+        <h4
+          onClick={ logoutUser }>
+          Logout
+        </h4>
+        :
+        ''
+    }
   </div>
 )
 

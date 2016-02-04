@@ -1,5 +1,16 @@
 import * as service from '../api/users'
 
+export function getUser(req, res, next) {
+  const { userId } = req.body
+  service.getUser(req.dbConn, userId)
+  .then(user => {
+    if (user.err) next(user.err)
+    res.status(200)
+    .json(filterUserProperties(user))
+  })
+  .error(next)
+}
+
 export function loginUser(req, res) {
   res.status(200)
   .json(filterUserProperties(req.user))
@@ -67,7 +78,6 @@ function filterUserProperties(user) {
     name: user.name || '',
     email: user.email,
     picture: user.picture || '',
-    dashboards: user.dashboards,
-    isAuthenticated: true
+    dashboards: user.dashboards
   }
 }

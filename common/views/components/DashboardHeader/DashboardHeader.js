@@ -2,8 +2,10 @@ import React, { PropTypes } from 'react'
 
 import { DashboardPicker,
          DashboardSettings,
-         GlobalInput,
-         User } from '../../'
+         GlobalInput } from '../../'
+  //  <User
+    //  { ...usersById[currentUser] }
+     // logoutUser={ logoutUser } />
 
 export const DashboardHeader = (
   { dashboards,
@@ -22,12 +24,11 @@ export const DashboardHeader = (
     logoutUser }) =>
 (
   <div>
-    <User
-      { ...usersById[currentUser] }
-      logoutUser={ logoutUser } />
     <DashboardSettings
       usersById={ usersById }
       currentUser={ currentUser }
+      logoutUser={ logoutUser }
+      dashboardsById={ dashboards.dashboardsById }
       currentDashboard={ dashboards.currentDashboard }
       addUserToDashboard={ addUserToDashboard } />
     <DashboardPicker

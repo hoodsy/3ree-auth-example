@@ -15,6 +15,7 @@ const initialState = {
 function dashboardsById(state = {}, action) {
   switch(action.type) {
     case types.CREATE_DASHBOARD_SUCCESS:
+    case types.ADD_USER_TO_DASHBOARD_SUCCESS:
       const { dashboard } = action
       return {
         ...state,
@@ -37,6 +38,10 @@ function currentDashboard(state = '', action) {
       if (!state) return dashboard.id
       return state
 
+    case types.DELETE_DASHBOARD_SUCCESS:
+      const { dashboardId } = action
+      return _.omit(state, dashboardId)[0] || ''
+
     case types.SET_CURRENT_DASHBOARD:
       return action.dashboardId
 
@@ -51,27 +56,24 @@ export default function dashboards(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_DASHBOARD_REQUEST:
     case types.DELETE_DASHBOARD_REQUEST:
+    case types.ADD_USER_TO_DASHBOARD_REQUEST:
       return {
         ...state,
         isFetching: true
       }
 
     case types.CREATE_DASHBOARD_SUCCESS:
+    case types.DELETE_DASHBOARD_SUCCESS:
+    case types.ADD_USER_TO_DASHBOARD_SUCCESS:
       return {
         dashboardsById: dashboardsById(state.dashboardsById, action),
         currentDashboard: currentDashboard(state.currentDashboard, action),
         isFetching: false
       }
 
-    case types.DELETE_DASHBOARD_SUCCESS:
-      return {
-        dashboardsById: dashboardsById(state.dashboardsById, action),
-        currentDashboard: _.omit(state.dashboardsById, action.dashboardId)[0] || '',
-        isFetching: false
-      }
-
     case types.CREATE_DASHBOARD_FAILURE:
     case types.DELETE_DASHBOARD_FAILURE:
+    case types.ADD_USER_TO_DASHBOARD_FAILURE:
       return {
         ...state,
         isFetching: false,

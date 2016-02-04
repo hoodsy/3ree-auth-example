@@ -1,6 +1,7 @@
 import request from './util/request'
 import * as types from '../constants/actionTypes'
-import { addDashboardToUser,
+import { addUser,
+         addDashboardToUser,
          removeDashboardFromUser } from '../actions'
 
 // API Endpoint
@@ -113,7 +114,9 @@ export function addUserToDashboard(dashboardId, email) {
     dispatch(addUserToDashboardRequest(dashboardId, email))
     return request('post', { dashboardId, email }, `${apiEndpoint}/add/user`)
     .then(res => {
-      dispatch(addUserToDashboardSuccess(res))
+      const { dashboard, user } = res
+      dispatch(addUserToDashboardSuccess(dashboard))
+      dispatch(addUser(user))
     })
     .catch(err => {
       dispatch(addUserToDashboardFailure(err, err.status))

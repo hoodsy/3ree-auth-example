@@ -12,11 +12,20 @@ const initialState = {
 // Private Sub-Reducers
 // ====================
 function usersById(state = {}, action) {
+  const { user } = action
   switch(action.type) {
     case types.LOGIN_USER_SUCCESS:
     case types.REGISTER_USER_SUCCESS:
-      const { user } = action
+    case types.ADD_DASHBOARD_TO_USER_SUCCESS:
+    case types.REMOVE_DASHBOARD_FROM_USER_SUCCESS:
       return {
+        [user.id]: user
+      }
+
+    case types.GET_USER_SUCCESS:
+    case types.ADD_USER:
+      return {
+        ...state,
         [user.id]: user
       }
 
@@ -41,6 +50,7 @@ function currentUser(state = '', action) {
 // ==============
 export default function users(state = initialState, action) {
   switch (action.type) {
+    case types.GET_USER_REQUEST:
     case types.LOGIN_USER_REQUEST:
     case types.LOGOUT_USER_REQUEST:
     case types.REGISTER_USER_REQUEST:
@@ -51,26 +61,38 @@ export default function users(state = initialState, action) {
         isFetching: true
       }
 
-    case types.LOGOUT_USER_SUCCESS:
-      return {
-        ...state,
-        currentUser: {
-          isAuthenticated: false
-        },
-        isFetching: false
-      }
-
     case types.LOGIN_USER_SUCCESS:
     case types.REGISTER_USER_SUCCESS:
     case types.ADD_DASHBOARD_TO_USER_SUCCESS:
     case types.REMOVE_DASHBOARD_FROM_USER_SUCCESS:
       return {
-        ...state,
         usersById: usersById(state.usersById, action),
         currentUser: currentUser(state.currentUser, action),
+        isAuthenticated: true,
         isFetching: false
       }
 
+    case types.LOGOUT_USER_SUCCESS:
+      return {
+        ...state,
+        currentUser: '',
+        isFetching: false
+      }
+
+    case types.GET_USER_SUCCESS:
+      return {
+        ...state,
+        usersById: usersById(state.usersById, action),
+        isFetching: false
+      }
+
+    case types.ADD_USER:
+      return {
+        ...state,
+        usersById: usersById(state.usersById, action)
+      }
+
+    case types.GET_USER_FAILURE:
     case types.LOGIN_USER_FAILURE:
     case types.LOGOUT_USER_FAILURE:
     case types.REGISTER_USER_FAILURE:
