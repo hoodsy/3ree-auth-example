@@ -5,10 +5,10 @@ import { Router,
          browserHistory } from 'react-router'
 
 import { DevTools } from '../common/views'
-// import routes from '../common/views/routes'
 import createRoutes from '../common/views/routes'
 import configureStore,
      { reduxRouterMiddleware } from '../common/state/stores/configureStore'
+import startSocketListener from './socketListener'
 
 // Init Store
 // ==========
@@ -34,4 +34,4 @@ render(
   document.getElementById('root')
 )
 
-// startSocketListener(store, actions)
+startSocketListener(store)

@@ -1,24 +1,28 @@
 import express from 'express'
 import session from 'express-session'
+import { Server } from 'http'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import passport from 'passport'
-// import SocketIO from 'socket.io'
+import SocketIO from 'socket.io'
 
 import config from '../webpack.config'
 import passportConfig from './config/passport'
 import routesConfig from './routes'
 import { closeDbConnection,
          createDbConnection } from './middleware/dbConnection'
+import changeFeedConfig from './config/rethinkDb/changeFeedConfig'
 // import liveUpdates from '../config/liveUpdates'
 
 // Server Config
 // =============
 const app = express()
+const server = Server(app)
 const port = 3000
+const io = SocketIO(server)
 
 // Server Middleware
 // =================
@@ -51,17 +55,25 @@ passportConfig(passport)
 // =============
 routesConfig(app, passport)
 
+// Changefeed Config
+// =================
+changeFeedConfig(io)
+
 // Start Server
 // ============
-const server = app.listen(port, (error) => {
+// app.listen(port, (error) => {
+//   if (error)
+//     console.error(error) // eslint-disable-line no-console
+//   else
+//     console.info(`==> 🌎  Server listening on port ${port}.`) // eslint-disable-line no-console
+// })
+server.listen(port, (error) => {
   if (error)
     console.error(error) // eslint-disable-line no-console
   else
     console.info(`==> 🌎  Server listening on port ${port}.`) // eslint-disable-line no-console
 })
 
-// const io = SocketIO.listen(server)
-// liveUpdates(io)
 
 // Close Connection
 // ================
