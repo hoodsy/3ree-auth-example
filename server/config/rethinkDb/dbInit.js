@@ -2,6 +2,8 @@ import r from 'rethinkdb'
 import async from 'async'
 
 import config from './dbConfig'
+import { dbTables,
+         dbTablesWithIndex } from './dbTables'
 
 function createDb(next) {
   r.connect(config, (err, conn) => {
@@ -24,12 +26,7 @@ function createTable(name, next) {
 }
 
 function createTables(next) {
-  async.map([
-    'dashboards',
-    'lists',
-    'resources',
-    'users'
-  ], createTable, next)
+  async.map(dbTables, createTable, next)
 }
 
 function createIndex(target, next) {
@@ -44,11 +41,7 @@ function createIndex(target, next) {
 }
 
 function createIndexes(next) {
-  async.map([
-    { table: 'lists', index: 'dashboardId' },
-    { table: 'resources', index: 'listId' },
-    { table: 'users', index: 'email' }
-  ], createIndex, next)
+  async.map(dbTablesWithIndex, createIndex, next)
 }
 
 async.series({

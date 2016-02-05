@@ -61,17 +61,13 @@ changeFeedConfig(io)
 
 // Start Server
 // ============
-// app.listen(port, (error) => {
-//   if (error)
-//     console.error(error) // eslint-disable-line no-console
-//   else
-//     console.info(`==> 🌎  Server listening on port ${port}.`) // eslint-disable-line no-console
-// })
 server.listen(port, (error) => {
   if (error)
     console.error(error) // eslint-disable-line no-console
   else
-    console.info(`==> 🌎  Server listening on port ${port}.`) // eslint-disable-line no-console
+    console.info('----------')
+    console.info(`Server listening on port ${port}.`) // eslint-disable-line no-console
+    console.info('==========')
 })
 
 
