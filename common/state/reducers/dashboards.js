@@ -40,7 +40,7 @@ function currentDashboard(state = '', action) {
 
     case types.DELETE_DASHBOARD_SUCCESS:
       const { dashboardId } = action
-      return _.omit(state, dashboardId)[0] || ''
+      return _.keys(_.omit(state, dashboardId))[0] || ''
 
     case types.SET_CURRENT_DASHBOARD:
       return action.dashboardId
@@ -63,11 +63,17 @@ export default function dashboards(state = initialState, action) {
       }
 
     case types.CREATE_DASHBOARD_SUCCESS:
-    case types.DELETE_DASHBOARD_SUCCESS:
     case types.ADD_USER_TO_DASHBOARD_SUCCESS:
       return {
         dashboardsById: dashboardsById(state.dashboardsById, action),
         currentDashboard: currentDashboard(state.currentDashboard, action),
+        isFetching: false
+      }
+
+    case types.DELETE_DASHBOARD_SUCCESS:
+      return {
+        dashboardsById: dashboardsById(state.dashboardsById, action),
+        currentDashboard: currentDashboard(state.dashboardsById, action),
         isFetching: false
       }
 
