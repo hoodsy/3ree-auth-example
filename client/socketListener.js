@@ -1,20 +1,19 @@
 import socketClient from 'socket.io-client'
+import _ from 'lodash'
 
-export default function (store) {
+import { dbTables } from '../server/config/rethinkDb/dbTables'
+
+
+
+export default function({ dispatch }) {
   const io = socketClient.connect('http://localhost:3000')
 
-  io.on('event-change', (change) => {
-    console.log('socket captured change:')
-    console.log(change)
-    // let state = store.getState()
-    // if (!change.old_val) {
-    //   store.dispatch(actions.addEventSuccess(change.new_val))
-    // } else if (!change.new_val) {
-    //   store.dispatch(actions.deleteEventSuccess(change.old_val))
-    // } else {
-    //   store.dispatch(actions.editEventSuccess(change.new_val))
-    // }
-  })
+  function receiveChange(name) {
+    io.on(`${name}-change`,change => {
+      console.log(`${name}-change `, change)
+    })
+  }
+  _.map(dbTables, receiveChange)
 
   return io
 }

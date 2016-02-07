@@ -41,6 +41,7 @@ export class DashboardSettings extends Component {
 
     return (
       <div>
+        <h1>Test</h1>
         <ul>
           { _.keys(usersById).map(id =>
             <User

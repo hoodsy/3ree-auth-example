@@ -8,12 +8,9 @@ function listenOnTable(conn, io, name) {
   r.table(name)
   .changes()
   .run(conn, (err, cursor) => {
-    console.log(`ChangeFeed => SocketIO: ${name}`)
-    console.info('----------')
-    cursor.each((err, change) => {
-      console.log('Change detected', change)
-      io.emit('event-change', change)
-    })
+    console.info(`ChangeFeed => SocketIO: ${name}`) // eslint-disable-line no-console
+    console.info('----------') // eslint-disable-line no-console
+    cursor.each((err, change) => io.emit(`${name}-change`, change))
   })
 }
 

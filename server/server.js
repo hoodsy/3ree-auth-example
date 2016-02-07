@@ -15,7 +15,6 @@ import routesConfig from './routes'
 import { closeDbConnection,
          createDbConnection } from './middleware/dbConnection'
 import changeFeedConfig from './config/rethinkDb/changeFeedConfig'
-// import liveUpdates from '../config/liveUpdates'
 
 // Server Config
 // =============
@@ -64,10 +63,11 @@ changeFeedConfig(io)
 server.listen(port, (error) => {
   if (error)
     console.error(error) // eslint-disable-line no-console
-  else
-    console.info('----------')
+  else {
+    console.info('----------') // eslint-disable-line no-console
     console.info(`Server listening on port ${port}.`) // eslint-disable-line no-console
-    console.info('==========')
+    console.info('==========') // eslint-disable-line no-console
+  }
 })
 
 
