@@ -4,7 +4,7 @@ var webpack = require('webpack')
 var config = {
   devtool: 'eval-cheap-module-source-map',
   entry: [
-    'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true',
     './client/index'
   ],
   output: {
@@ -17,22 +17,52 @@ var config = {
     new webpack.IgnorePlugin(/iconv.*/), // Isomorphic fetch workaround
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-        'process.env.NODE_ENV': '"development"',
-    })
+    new webpack.NoErrorsPlugin()
   ],
-  resolve: {
-    alias: {
-      'redux-devtools': path.join(__dirname, 'node_modules', 'redux-devtools'),
-      'react': path.join(__dirname, 'node_modules', 'react')
-    }
-  },
   module: {
     loaders: [
-      { test: /\.json$/, loaders: ['json'], exclude: /node_modules/ },
-      { test: /\.js$/,  loader: 'babel', exclude: /node_modules/ },
-      { test: /\.js$/,  loader: 'eslint', exclude: /node_modules/ },
+      {
+        test: /\.json$/,
+        loader: 'json',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel',
+        include: [
+          path.join(__dirname, 'client'),
+          path.join(__dirname, 'common'),
+          path.join(__dirname, 'server')
+        ],
+        query: {
+          cacheDirectory: true,
+        },
+        plugins: [
+          ["transform-react-display-name"],
+          ['react-transform', {
+            transforms: [
+              {
+                transform: 'react-transform-hmr',
+                imports: ['react'],
+                locals: ['module'],
+              },
+              {
+                transform: 'react-transform-catch-errors',
+                imports: ['react', 'redbox-react'],
+              },
+            ],
+          }],
+        ],
+      },
+      {
+        test: /\.js$/,
+        loader: 'eslint',
+        include: [
+          path.join(__dirname, 'client'),
+          path.join(__dirname, 'common'),
+          path.join(__dirname, 'server')
+        ]
+      },
     ]
   },
   // build breaks on eslint without this workaround
