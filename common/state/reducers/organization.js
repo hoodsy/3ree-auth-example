@@ -5,6 +5,7 @@ import * as types from '../constants/actionTypes'
 // State Shape
 // ===========
 const initialState = {
+  id: '',
   title: '',
   users: [],
   dashboards: [],

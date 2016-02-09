@@ -182,8 +182,6 @@ export function logoutUser() {
       dispatch(routeActions.push('/login'))
     })
     .catch(err => {
-      console.log(err)
-      console.log('============')
       dispatch(logoutUserFailure(err, err.status))
     })
   }

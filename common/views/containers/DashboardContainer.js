@@ -46,7 +46,17 @@ class DashboardContainer extends Component {
 }
 
 DashboardContainer.propTypes = {
-
+  usersById: PropTypes.objectOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.shape({
+      displayName: PropTypes.string.isRequired,
+      givenName: PropTypes.string.isRequired,
+      familyName: PropTypes.string.isRequired
+    }).isRequired,
+    email: PropTypes.string.isRequired,
+    picture: PropTypes.string.isRequired
+  })).isRequired,
+  currentUser: PropTypes.string.isRequired
 }
 
 function mapStateToProps(state) {
