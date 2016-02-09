@@ -36,7 +36,9 @@ class DashboardContainer extends Component {
       currentUser
     } = this.props
 
-    const hasOrganization = usersById[currentUser]['organizationId'] != ''
+    const hasOrganization = currentUser != ''
+      ? usersById[currentUser]['organizationId'] != ''
+      : false
     return hasOrganization
       ? this.renderDashboard()
       : this.renderOrganizationCreation()
