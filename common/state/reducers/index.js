@@ -6,6 +6,7 @@ import lists from './lists'
 import resources from './resources'
 import inputTypes from './inputTypes'
 import users from './users'
+import organization from './organization'
 
 export default combineReducers({
   dashboards,
@@ -13,5 +14,6 @@ export default combineReducers({
   resources,
   inputTypes,
   users,
+  organization,
   routing
 })

@@ -9,6 +9,7 @@ import * as dashboards from './dashboards'
 import * as lists from './lists'
 import * as resources from './resources'
 import * as users from './users'
+import * as organizations from './organizations'
 
 export default (app, passport) => {
 
@@ -22,6 +23,12 @@ export default (app, passport) => {
   app.get('env') === 'development'
     ? router.get('/', initialRender)
     : router.get('/', requireAuthenticated, initialRender)
+
+
+  // Organizations
+  // =============
+  router.route('/api/organization')
+  .post(organizations.createOrganization)
 
   // Dashboards
   // ==========

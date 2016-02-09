@@ -41,7 +41,7 @@ export function createOrganization(title, userId) {
     return request('post', { title, userId }, apiEndpoint)
     .then(res => {
       dispatch(createOrganizationSuccess(res))
-      dispatch(addOrganizationToUser(res.id, userId))
+      // dispatch(addOrganizationToUser(res.id, userId))
     })
     .catch(err => {
       dispatch(createOrganizationFailure(err, err.status))

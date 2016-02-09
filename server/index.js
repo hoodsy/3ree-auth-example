@@ -86,7 +86,6 @@ function initializeStore(data = {}, user = {}) {
       isAuthenticated,
       isFetching: false
     }
-
   })
 }
 
