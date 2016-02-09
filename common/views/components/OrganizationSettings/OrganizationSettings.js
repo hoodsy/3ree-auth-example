@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react'
 
-export const OrganizationSettings = () =>
+export const OrganizationSettings = (
+  { id,
+    title }) =>
 (
   <div>
-    <h1>IN ORG SETTING</h1>
+    <h3>{ title }</h3>
   </div>
 )
 

@@ -5,24 +5,37 @@ import { OrganizationSettings } from '../'
 
 class OrganizationSettingsContainer extends Component {
   render() {
+    const {
+      organization
+    } = this.props
 
     return (
-      <OrganizationSettings />
+      <OrganizationSettings
+        { ...organization } />
     )
   }
 }
 
 OrganizationSettingsContainer.propTypes = {
-
+  organization: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    created: PropTypes.string.isRequired,
+    dashboards: PropTypes.arrayOf(
+      PropTypes.string
+    ).isRequired,
+    users: PropTypes.arrayOf(
+      PropTypes.string
+    ).isRequired
+  }).isRequired
 }
 
 function mapStateToProps(state) {
   return {
-    users: state.users,
+    organization: state.organization
   }
 }
 
 export default connect(
   mapStateToProps,
-  // { setCurrentList }
 )(OrganizationSettingsContainer)
