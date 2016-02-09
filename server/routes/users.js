@@ -78,6 +78,7 @@ function filterUserProperties(user) {
     name: user.name || '',
     email: user.email,
     picture: user.picture || '',
-    dashboards: user.dashboards
+    dashboards: user.dashboards,
+    organizationId: user.organizationId || ''
   }
 }

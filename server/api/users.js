@@ -73,6 +73,7 @@ export function createUserProperties(user, fields) {
   user.email = xss(user.email)
   user.password = xss(user.password)
   user.dashboards = []
+  user.organizationId = ''
   for (let field in fields) {
     user[field] = fields[field]
   }
