@@ -108,7 +108,19 @@ export function getUsers(conn, users) {
   .error(err => err)
 }
 
-// Create Dashboard to User
+
+// Add Organization to User
+// ========================
+export function addOrganizationToUser(conn, organizationId, userId) {
+  return r
+  .table('users')
+  .get(userId)
+  .update({ organizationId: organizationId })
+  .run(conn, SOFT_DURABILITY)
+  .error(err => err)
+}
+
+// Add Dashboard to User
 // =====================
 // Creates data to existing user
 // ---------------------

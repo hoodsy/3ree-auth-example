@@ -53,6 +53,7 @@ export default (app, passport) => {
   // =====
   router.route('/api/user')
   .get(users.getUser)
+  router.post('/api/user/organization/join', users.addOrganizationToUser)
   router.post('/api/user/dashboard/add', users.addDashboardToUser)
   router.post('/api/user/dashboard/remove', users.removeDashboardFromUser)
 

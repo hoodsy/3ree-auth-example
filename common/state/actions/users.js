@@ -71,6 +71,27 @@ function registerUserFailure(err, status) {
     status
   }
 }
+// Organizations
+// ---------
+function addOrganizationToUserRequest(organizationId) {
+  return {
+    type: types.ADD_ORGANIZATION_TO_USER_REQUEST,
+    organizationId
+  }
+}
+function addOrganizationToUserSuccess(user) {
+  return {
+    type: types.ADD_ORGANIZATION_TO_USER_SUCCESS,
+    user
+  }
+}
+function addOrganizationToUserFailure(err, status) {
+  return {
+    type: types.ADD_ORGANIZATION_TO_USER_FAILURE,
+    err,
+    status
+  }
+}
 // Dashboards
 // ---------
 function addDashboardToUserRequest(dashboardId) {
@@ -175,6 +196,20 @@ export function registerUser(user) {
     })
     .catch(err => {
       dispatch(registerUserFailure(err, err.status))
+    })
+  }
+}
+// Organizations
+// ----------
+export function addOrganizationToUser(organizationId, userId) {
+  return (dispatch) => {
+    dispatch(addOrganizationToUserRequest(organizationId))
+    return request('post', { organizationId, userId }, `${apiEndpoint}/organization/join`)
+    .then(res => {
+      dispatch(addOrganizationToUserSuccess(res))
+    })
+    .catch(err => {
+      dispatch(addOrganizationToUserFailure(err, err.status))
     })
   }
 }

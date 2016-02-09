@@ -36,6 +36,25 @@ export function registerUser(req, res, next) {
   .error(next)
 }
 
+export function addOrganizationToUser(req, res, next) {
+  const {
+    organizationId,
+    userId
+  } = req.body
+  service.addOrganizationToUser(req.dbConn, organizationId, userId)
+  .then(results => {
+    if (results.err) next(results.err)
+    service.getUser(req.dbConn, userId)
+    .then(user => {
+      if (user.err) next(user.err)
+      res.status(200)
+      .json(filterUserProperties(user))
+    })
+    .error(next)
+  })
+  .error(next)
+}
+
 export function addDashboardToUser(req, res, next) {
   const {
     dashboardId,
