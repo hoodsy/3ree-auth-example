@@ -6,6 +6,7 @@ export { default as Login } from './containers/Login'
 export * from './containers/DashboardContainer'
 export { default as DashboardHeaderContainer } from './containers/DashboardHeaderContainer'
 export { default as DashboardBodyContainer } from './containers/DashboardBodyContainer'
+export { default as OrganizationSettingsContainer } from './containers/OrganizationSettingsContainer'
 
 // Dashboard Header
 // ================
@@ -24,3 +25,7 @@ export * from './components/DashboardBody/DashboardBody'
 export * from './components/DashboardBody/List'
 export * from './components/DashboardBody/ListPicker'
 export * from './components/DashboardBody/Resource'
+
+// Organization Settings
+// =====================
+export * from './components/OrganizationSettings/OrganizationSettings'

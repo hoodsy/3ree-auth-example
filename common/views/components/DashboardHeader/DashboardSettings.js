@@ -27,21 +27,8 @@ export class DashboardSettings extends Component {
       currentDashboard
     } = this.props
 
-    // function renderUsers() {
-    //   const dashboardUsers = dashboardsById[currentDashboard]['users']
-    //   const userIds = _.intersection(_.keys(usersById), dashboardUsers)
-    //   return _.keys(userIds).map(id =>
-    //     <User
-    //       { ...usersById[id] }
-    //       key={ id }
-    //       logoutUser={ logoutUser }
-    //       isCurrentUser={ (currentUser === id) ? true : false } />
-    //   )
-    // }
-
     return (
       <div>
-        <h1>Test</h1>
         <ul>
           { _.keys(usersById).map(id =>
             <User
