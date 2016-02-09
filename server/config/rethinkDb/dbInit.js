@@ -8,9 +8,9 @@ import { dbTables,
 function createDb(next) {
   r.connect(config, (err, conn) => {
     r.dbCreate('anchor')
-    .run(conn, (err,res) => {
+    .run(conn, (err, res) => {
       conn.close()
-      next(err,res)
+      next(err, res)
     })
   })
 }
@@ -18,9 +18,9 @@ function createDb(next) {
 function createTable(name, next) {
   r.connect(config, (err,conn) => {
     r.tableCreate(name)
-    .run(conn, (err,res) => {
+    .run(conn, (err, res) => {
       conn.close()
-      next(err,res)
+      next(err, res)
     })
   })
 }
@@ -33,9 +33,9 @@ function createIndex(target, next) {
   r.connect(config, (err,conn) => {
     r.table(target.table)
     .indexCreate(target.index)
-    .run(conn, (err,res) => {
+    .run(conn, (err, res) => {
       conn.close()
-      next(err,res)
+      next(err, res)
     })
   })
 }
@@ -49,5 +49,8 @@ async.series({
   tables : createTables,
   indexes : createIndexes
 }, (err, res) => {
+  console.log(err)
+  console.log('============')
   console.log(res)
+  console.log('============')
 })
