@@ -30,6 +30,9 @@ export default (app, passport) => {
   router.route('/api/organization')
   .post(organizations.createOrganization)
 
+  router.route('/api/organization/add/user')
+  .post(organizations.addUserToOrganization)
+
   // Dashboards
   // ==========
   router.route('/api/dashboard')

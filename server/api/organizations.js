@@ -6,6 +6,16 @@ import { SOFT_DURABILITY,
 import { getUsers } from './users'
 import { getDashboardData } from './dashboards'
 
+// Get Dashboard
+// =============
+export function getOrganization(conn, organizationId) {
+  return r
+  .table('organizations')
+  .get(organizationId)
+  .run(conn)
+  .error(err => err)
+}
+
 // Create Organization
 // ================
 export function createOrganization(conn, title, userId) {

@@ -20,18 +20,21 @@ const initialState = {
 export default function dashboards(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_ORGANIZATION_REQUEST:
+    case types.ADD_USER_TO_ORGANIZATION_REQUEST:
       return {
         ...state,
         isFetching: true
       }
 
     case types.CREATE_ORGANIZATION_SUCCESS:
+    case types.ADD_USER_TO_ORGANIZATION_SUCCESS:
       return {
         ...action.organization,
         isFetching: false
       }
 
     case types.CREATE_ORGANIZATION_FAILURE:
+    case types.ADD_USER_TO_ORGANIZATION_FAILURE:
       return {
         ...state,
         isFetching: false,

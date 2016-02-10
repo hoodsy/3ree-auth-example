@@ -6,14 +6,14 @@ import { User } from '../..'
 export class DashboardSettings extends Component {
   handleSubmit(e) {
     const {
-      currentDashboard,
-      addUserToDashboard
+      organizationId,
+      addUserToOrganization
     } = this.props
     e.preventDefault()
     const node = this.refs.input
     const email = node.value.trim()
     if (email) {
-      addUserToDashboard(currentDashboard, email)
+      addUserToOrganization(organizationId, email)
       node.value = ''
     }
   }
@@ -22,9 +22,7 @@ export class DashboardSettings extends Component {
     const {
       usersById,
       currentUser,
-      logoutUser,
-      dashboardsById,
-      currentDashboard
+      logoutUser
     } = this.props
 
     return (
@@ -56,6 +54,5 @@ DashboardSettings.propTypes = {
   usersById: PropTypes.object.isRequired,
   currentUser: PropTypes.string.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  dashboardsById: PropTypes.object.isRequired,
-  currentDashboard: PropTypes.string.isRequired
+  addUserToOrganization: PropTypes.func.isRequired
 }

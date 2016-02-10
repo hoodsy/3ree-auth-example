@@ -98,7 +98,7 @@ export function deleteDashboard(id, userId) {
   return (dispatch) => {
     dispatch(deleteDashboardRequest(id))
     return request('delete', { id }, apiEndpoint)
-    .then(res => {
+    .then(res => { //eslint-disable-line no-unused-vars
       dispatch(deleteDashboardSuccess(id))
       dispatch(removeDashboardFromUser(id, userId))
     })

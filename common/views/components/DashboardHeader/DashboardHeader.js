@@ -21,16 +21,17 @@ export const DashboardHeader = (
     createResource,
     usersById,
     currentUser,
-    logoutUser }) =>
+    logoutUser,
+    organizationId,
+    addUserToOrganization }) =>
 (
   <div>
     <DashboardSettings
       usersById={ usersById }
       currentUser={ currentUser }
       logoutUser={ logoutUser }
-      dashboardsById={ dashboards.dashboardsById }
-      currentDashboard={ dashboards.currentDashboard }
-      addUserToDashboard={ addUserToDashboard } />
+      organizationId={ organizationId }
+      addUserToOrganization={ addUserToOrganization } />
     <DashboardPicker
       { ...dashboards }
       userId={ currentUser }

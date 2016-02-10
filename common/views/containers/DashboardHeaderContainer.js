@@ -20,7 +20,9 @@ class DashboardHeaderContainer extends Component {
       createResource,
       usersById,
       currentUser,
-      logoutUser
+      logoutUser,
+      organizationId,
+      addUserToOrganization
     } = this.props
 
     return (
@@ -38,7 +40,9 @@ class DashboardHeaderContainer extends Component {
         createResource={ createResource }
         usersById={ usersById }
         currentUser={ currentUser }
-        logoutUser={ logoutUser } />
+        logoutUser={ logoutUser }
+        organizationId={ organizationId }
+        addUserToOrganization={ addUserToOrganization } />
     )
   }
 }
@@ -87,7 +91,9 @@ DashboardHeaderContainer.propTypes = {
     picture: PropTypes.string.isRequired
   })).isRequired,
   currentUser: PropTypes.string.isRequired,
-  logoutUser: PropTypes.func.isRequired
+  logoutUser: PropTypes.func.isRequired,
+  organizationId: PropTypes.string.isRequired,
+  addUserToOrganization: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -97,7 +103,8 @@ function mapStateToProps(state) {
     listsById: state.lists.listsById,
     currentList: state.lists.currentList,
     usersById: state.users.usersById,
-    currentUser: state.users.currentUser
+    currentUser: state.users.currentUser,
+    organizationId: state.organization.id
   }
 }
 

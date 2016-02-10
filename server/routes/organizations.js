@@ -13,17 +13,17 @@ export function createOrganization(req, res, next) {
 
 export function addUserToOrganization(req, res, next) {
   const {
-    dashboardId,
+    organizationId,
     email
   } = req.body
   getUserByEmail(req.dbConn, email)
   .then(user => {
     if (!user)
       return next(new Error(`User at "${email}" doesn't exist.`))
-    service.addUserToOrganization(req.dbConn, dashboardId, user['id'])
+    service.addUserToOrganization(req.dbConn, organizationId, user['id'])
     .then(result => { // eslint-disable-line no-unused-vars
-      service.getOrganization(req.dbConn, dashboardId)
-      .then(dashboard => res.json({ dashboard, user }))
+      service.getOrganization(req.dbConn, organizationId)
+      .then(organization => res.json({ organization, user }))
       .error(next)
     })
     .error(next)

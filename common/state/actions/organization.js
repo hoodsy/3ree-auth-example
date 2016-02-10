@@ -1,6 +1,7 @@
 import request from './util/request'
 import * as types from '../constants/actionTypes'
-import { addOrganizationToUser } from '../actions'
+import { addOrganizationToUser,
+         addUser } from '../actions'
 
 // API Endpoint
 // ============
@@ -30,6 +31,28 @@ function createOrganizationFailure(err, status) {
     status
   }
 }
+// Add User
+// --------
+function addUserToOrganizationRequest(organizationId, email) {
+  return {
+    type: types.ADD_USER_TO_ORGANIZATION_REQUEST,
+    organizationId,
+    email
+  }
+}
+function addUserToOrganizationSuccess(organization) {
+  return {
+    type: types.ADD_USER_TO_ORGANIZATION_SUCCESS,
+    organization
+  }
+}
+function addUserToOrganizationFailure(err, status) {
+  return {
+    type: types.ADD_USER_TO_ORGANIZATION_FAILURE,
+    err,
+    status
+  }
+}
 
 // Public Actions
 // ==============
@@ -45,6 +68,22 @@ export function createOrganization(title, userId) {
     })
     .catch(err => {
       dispatch(createOrganizationFailure(err, err.status))
+    })
+  }
+}
+// Add User
+// --------
+export function addUserToOrganization(organizationId, email) {
+  return (dispatch) => {
+    dispatch(addUserToOrganizationRequest(organizationId, email))
+    return request('post', { organizationId, email }, `${apiEndpoint}/add/user`)
+    .then(res => {
+      const { organization, user } = res
+      dispatch(addUserToOrganizationSuccess(organization))
+      dispatch(addUser(user))
+    })
+    .catch(err => {
+      dispatch(addUserToOrganizationFailure(err, err.status))
     })
   }
 }
