@@ -52,9 +52,9 @@ DashboardContainer.propTypes = {
       displayName: PropTypes.string.isRequired,
       givenName: PropTypes.string.isRequired,
       familyName: PropTypes.string.isRequired
-    }).isRequired,
+    }),
     email: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired
+    picture: PropTypes.string
   })).isRequired,
   currentUser: PropTypes.string.isRequired
 }

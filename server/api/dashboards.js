@@ -10,8 +10,6 @@ import { extractByType,
 import { getDashboardLists,
          deleteDashboardLists } from './lists'
 import { deleteListResources } from './resources'
-import { getUsers } from './users'
-
 
 // Create Dashboard
 // ================
@@ -79,30 +77,27 @@ export function deleteDashboardData(conn, dashboard) {
 
 // Get Dashboard w/ Data
 // =====================
-export function getDashboardData(dashboards) {
-  if (!dashboards)
+export function getDashboardData(conn, dashboards) {
+  if (dashboards.length === 0)
     return new Promise((resolve) => resolve({}))
 
-  return r.connect(config)
-  .then(conn => {
-    return r.table('dashboards')
-    .getAll(...dashboards)
-    .map(dashboard => {
-      const lists = r.table('lists')
-      .getAll(dashboard('id'), { index: 'dashboardId' })
+  return r.table('dashboards')
+  .getAll(...dashboards)
+  .map(dashboard => {
+    const lists = r.table('lists')
+    .getAll(dashboard('id'), { index: 'dashboardId' })
+    .coerceTo('array')
+    .map(list => {
+      const resources = r.table('resources')
+      .getAll(list('id'), { index: 'listId' })
       .coerceTo('array')
-      .map(list => {
-        const resources = r.table('resources')
-        .getAll(list('id'), { index: 'listId' })
-        .coerceTo('array')
-        return { list, resources }
-      })
-      return { dashboard, lists }
+      return { list, resources }
     })
-    .run(conn)
-    .then(formatDashboardData)
-    .error(err => err)
+    return { dashboard, lists }
   })
+  .run(conn)
+  .then(formatDashboardData)
+  .error(err => err)
 }
 
 // Utility

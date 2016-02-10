@@ -100,11 +100,12 @@ export function getUserByEmail(conn, email) {
   .error(err => err)
 }
 
-export function getUsers(conn, users) {
+export function getUsers(conn, userIds) {
   return r
   .table('users')
-  .getAll(...users)
+  .getAll(...userIds)
   .run(conn)
+  .then(cursor => cursor.toArray())
   .error(err => err)
 }
 

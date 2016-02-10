@@ -6,14 +6,14 @@ import _ from 'lodash'
 
 import { DevTools } from '../common/views/index'
 import createRoutes from '../common/views/routes'
-import { getDashboardData } from './api/dashboards'
+import { getOrganizationData } from './api/organizations'
 import configureStore from '../common/state/stores/configureStore'
 
 export default function initialRender(req, res) {
-  const dashboards  = (req['user'] && req['user']['dashboards'].length)
-    ? req['user']['dashboards']
+  const organizationId  = (req['user'] && req['user']['organizationId'])
+    ? req['user']['organizationId']
     : null
-  getDashboardData(dashboards)
+  getOrganizationData(req.dbConn, organizationId)
   .then(data => {
 
     // Initial Data
@@ -51,42 +51,49 @@ export default function initialRender(req, res) {
   })
 }
 
-function initializeStore(data = {}, user = {}) {
-  const isAuthenticated = (user.id) ? true : false
-  const initDashboard = (data.dashboardsById)
-    ? _.keys(data.dashboardsById)[0]
+function initializeStore(data, user = {}) {
+  const currentDashboard = (data['dashboardsById'])
+    ? _.keys(data['dashboardsById'])[0]
     : ''
+  const isAuthenticated = (user['id']) ? true : false
+  if (isAuthenticated)
+    addCurrentUser(data['usersById'], user)
+
   return configureStore({
     dashboards: {
-      dashboardsById: data.dashboardsById || {},
-      currentDashboard: initDashboard,
+      dashboardsById: data['dashboardsById'] || {},
+      currentDashboard,
       isFetching: false
     },
     lists: {
-      listsById: data.listsById  || {},
+      listsById: data['listsById'] || {} ,
       currentList: '',
       isFetching: false
     },
     resources: {
-      resourcesById: data.resourcesById  || {},
+      resourcesById: data['resourcesById'] || {} ,
       isFetching: false
     },
     users: {
-      usersById: {
-        [user.id]: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          picture: user.picture,
-          dashboards: user.dashboards,
-          organizationId: user.organizationId
-        }
-      },
-      currentUser: user.id || '',
+      usersById: data['usersById'] || {},
+      currentUser: user['id'] || '',
       isAuthenticated,
       isFetching: false
-    }
+    },
+    organization: data['organization'] || {}
   })
+}
+
+function addCurrentUser(usersById, user) {
+  usersById[user['id']] = {
+    id: user['id'],
+    name: user['name'],
+    email: user['email'],
+    picture: user['picture'],
+    dashboards: user['dashboards'],
+    organizationId: user['organizationId']
+  }
+  return usersById
 }
 
 function renderTemplate(html, initialState) {
