@@ -1,5 +1,6 @@
 import * as service from '../api/organizations'
-import { getUserByEmail } from '../api/users'
+import { getUserByEmail,
+         addOrganizationToUser } from '../api/users'
 
 export function createOrganization(req, res, next) {
   const {
@@ -17,13 +18,18 @@ export function addUserToOrganization(req, res, next) {
     email
   } = req.body
   getUserByEmail(req.dbConn, email)
-  .then(user => {
-    if (!user)
+  .then(userPreUpdate => {
+    if (!userPreUpdate)
       return next(new Error(`User at "${email}" doesn't exist.`))
-    service.addUserToOrganization(req.dbConn, organizationId, user['id'])
-    .then(result => { // eslint-disable-line no-unused-vars
-      service.getOrganization(req.dbConn, organizationId)
-      .then(organization => res.json({ organization, user }))
+
+    addOrganizationToUser(req.dbConn, organizationId, userPreUpdate['id'])
+    .then(user => {
+      service.addUserToOrganization(req.dbConn, organizationId, user['id'])
+      .then(result => { // eslint-disable-line no-unused-vars
+        service.getOrganization(req.dbConn, organizationId)
+        .then(organization => res.json({ organization, user }))
+        .error(next)
+      })
       .error(next)
     })
     .error(next)

@@ -118,6 +118,13 @@ export function addOrganizationToUser(conn, organizationId, userId) {
   .get(userId)
   .update({ organizationId: organizationId })
   .run(conn, SOFT_DURABILITY)
+  .then(() => {
+    return r
+    .table('users')
+    .get(userId)
+    .run(conn)
+    .error(err => err)
+  })
   .error(err => err)
 }
 
