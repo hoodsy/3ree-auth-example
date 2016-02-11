@@ -1,7 +1,7 @@
 import request from './util/request'
 import * as types from '../constants/actionTypes'
-import { addOrganizationToUser,
-         addUser } from '../actions'
+import { addUser,
+         addOrganizationToUser } from '../actions'
 
 // API Endpoint
 // ============
@@ -53,6 +53,50 @@ function addUserToOrganizationFailure(err, status) {
     status
   }
 }
+// Add Dashboard
+// -------------
+function addDashboardToOrganizationRequest(organizationId, dashboardId) {
+  return {
+    type: types.ADD_DASHBOARD_TO_ORGANIZATION_REQUEST,
+    organizationId,
+    dashboardId
+  }
+}
+function addDashboardToOrganizationSuccess(organization) {
+  return {
+    type: types.ADD_DASHBOARD_TO_ORGANIZATION_SUCCESS,
+    organization
+  }
+}
+function addDashboardToOrganizationFailure(err, status) {
+  return {
+    type: types.ADD_DASHBOARD_TO_ORGANIZATION_FAILURE,
+    err,
+    status
+  }
+}
+// Remove Dashboard
+// ----------------
+function removeDashboardFromOrganizationRequest(organizationId, dashboardId) {
+  return {
+    type: types.REMOVE_DASHBOARD_FROM_ORGANIZATION_REQUEST,
+    organizationId,
+    dashboardId
+  }
+}
+function removeDashboardFromOrganizationSuccess(organization) {
+  return {
+    type: types.REMOVE_DASHBOARD_FROM_ORGANIZATION_SUCCESS,
+    organization
+  }
+}
+function removeDashboardFromOrganizationFailure(err, status) {
+  return {
+    type: types.REMOVE_DASHBOARD_FROM_ORGANIZATION_FAILURE,
+    err,
+    status
+  }
+}
 
 // Public Actions
 // ==============
@@ -84,6 +128,36 @@ export function addUserToOrganization(organizationId, email) {
     })
     .catch(err => {
       dispatch(addUserToOrganizationFailure(err, err.status))
+    })
+  }
+}
+// Add Dashboard
+// -------------
+export function addDashboardToOrganization(organizationId, dashboardId) {
+  return (dispatch) => {
+    dispatch(addDashboardToOrganizationRequest(organizationId, dashboardId))
+    return request('post', { organizationId, dashboardId }, `${apiEndpoint}/add/dashboard`)
+    .then(res => {
+      const { organization } = res
+      dispatch(addDashboardToOrganizationSuccess(organization))
+    })
+    .catch(err => {
+      dispatch(addDashboardToOrganizationFailure(err, err.status))
+    })
+  }
+}
+// Remove Dashboard
+// ----------------
+export function removeDashboardFromOrganization(organizationId, dashboardId) {
+  return (dispatch) => {
+    dispatch(removeDashboardFromOrganizationRequest(organizationId, dashboardId))
+    return request('post', { organizationId, dashboardId }, `${apiEndpoint}/remove/dashboard`)
+    .then(res => {
+      const { organization } = res
+      dispatch(removeDashboardFromOrganizationSuccess(organization))
+    })
+    .catch(err => {
+      dispatch(removeDashboardFromOrganizationFailure(err, err.status))
     })
   }
 }

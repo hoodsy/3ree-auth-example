@@ -33,6 +33,11 @@ export default (app, passport) => {
   router.route('/api/organization/add/user')
   .post(organizations.addUserToOrganization)
 
+  router.route('/api/organization/add/dashboard')
+  .post(organizations.addDashboardToOrganization)
+  router.route('/api/organization/remove/dashboard')
+  .post(organizations.removeDashboardFromOrganization)
+
   // Dashboards
   // ==========
   router.route('/api/dashboard')

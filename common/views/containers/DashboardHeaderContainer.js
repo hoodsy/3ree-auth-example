@@ -60,7 +60,6 @@ DashboardHeaderContainer.propTypes = {
     currentDashboard: PropTypes.string.isRequired,
     isFetching: PropTypes.bool.isRequired
   }).isRequired,
-  addUserToDashboard: PropTypes.func.isRequired,
   setCurrentDashboard: PropTypes.func.isRequired,
   inputTypes: PropTypes.shape({
     inputTypesById: PropTypes.objectOf(PropTypes.shape({

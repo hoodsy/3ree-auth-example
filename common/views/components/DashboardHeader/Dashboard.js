@@ -5,7 +5,7 @@ export const Dashboard = (
     title,
     currentDashboard,
     onClick,
-    userId,
+    organizationId,
     deleteDashboard }) =>
 (
   <div style={ flex }>
@@ -18,7 +18,7 @@ export const Dashboard = (
       { title }
     </h1>
     <button
-      onClick={ () => deleteDashboard(id, userId) }
+      onClick={ () => deleteDashboard( organizationId, id) }
       style={{
         ...styles
       }}>

@@ -16,6 +16,7 @@ function dashboardsById(state = {}, action) {
   switch(action.type) {
     case types.CREATE_DASHBOARD_SUCCESS:
     case types.ADD_USER_TO_DASHBOARD_SUCCESS:
+    case types.ADD_DASHBOARD:
       const { dashboard } = action
       return {
         ...state,
@@ -84,6 +85,12 @@ export default function dashboards(state = initialState, action) {
         ...state,
         isFetching: false,
         error: action.error
+      }
+
+    case types.ADD_DASHBOARD:
+      return {
+        ...state,
+        dashboardsById: dashboardsById(state.dashboardsById, action)
       }
 
     case types.SET_CURRENT_DASHBOARD:

@@ -16,13 +16,13 @@ function usersById(state = {}, action) {
   switch(action.type) {
     case types.LOGIN_USER_SUCCESS:
     case types.REGISTER_USER_SUCCESS:
-    case types.ADD_ORGANIZATION_TO_USER_SUCCESS:
-    case types.ADD_DASHBOARD_TO_USER_SUCCESS:
-    case types.REMOVE_DASHBOARD_FROM_USER_SUCCESS:
       return {
         [user.id]: user
       }
 
+    case types.ADD_ORGANIZATION_TO_USER_SUCCESS:
+    case types.ADD_DASHBOARD_TO_USER_SUCCESS:
+    case types.REMOVE_DASHBOARD_FROM_USER_SUCCESS:
     case types.GET_USER_SUCCESS:
     case types.ADD_USER:
       return {

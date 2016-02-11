@@ -7,7 +7,7 @@ export const DashboardPicker = (
   { dashboardsById,
     currentDashboard,
     setCurrentDashboard,
-    userId,
+    organizationId,
     deleteDashboard }) =>
 (
   <div>
@@ -17,7 +17,7 @@ export const DashboardPicker = (
           key={ id }
           currentDashboard={ currentDashboard }
           onClick={ setCurrentDashboard }
-          userId={ userId }
+          organizationId={ organizationId }
           deleteDashboard={ deleteDashboard } />
     )}
   </div>
@@ -27,7 +27,7 @@ DashboardPicker.propTypes = {
   dashboardsById: PropTypes.object.isRequired,
   currentDashboard: PropTypes.string.isRequired,
   setCurrentDashboard: PropTypes.func.isRequired,
-  userId: PropTypes.string.isRequired,
+  organizationId: PropTypes.string.isRequired,
   deleteDashboard: PropTypes.func.isRequired,
   isFetching: PropTypes.bool.isRequired
 }

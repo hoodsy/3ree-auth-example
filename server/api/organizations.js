@@ -44,6 +44,30 @@ export function addUserToOrganization(conn, organizationId, userId) {
   .error(err => err)
 }
 
+// Add Dashboard
+// =============
+export function addDashboardToOrganization(conn, organizationId, dashboardId) {
+  return r
+  .table('organizations')
+  .get(organizationId)
+  .update({ dashboards: r.row('dashboards').append(dashboardId) })
+  .run(conn, SOFT_DURABILITY)
+  .error(err => err)
+}
+
+// Remove Dashboard
+// ================
+export function removeDashboardFromOrganization(conn, organizationId, dashboardId) {
+  return r
+  .table('organizations')
+  .get(organizationId)
+  .update({
+    dashboards: r.row('dashboards').difference([ dashboardId ])
+  })
+  .run(conn)
+  .error(err => err)
+}
+
 // Get Organization w/ Data
 // ========================
 export function getOrganizationData(conn, organizationId) {

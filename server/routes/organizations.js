@@ -25,14 +25,38 @@ export function addUserToOrganization(req, res, next) {
     addOrganizationToUser(req.dbConn, organizationId, userPreUpdate['id'])
     .then(user => {
       service.addUserToOrganization(req.dbConn, organizationId, user['id'])
-      .then(result => { // eslint-disable-line no-unused-vars
+      .then(() => {
         service.getOrganization(req.dbConn, organizationId)
         .then(organization => res.json({ organization, user }))
         .error(next)
-      })
-      .error(next)
-    })
+      }).error(next)
+    }).error(next)
+  }).error(next)
+}
+
+export function addDashboardToOrganization(req, res, next) {
+  const {
+    organizationId,
+    dashboardId
+  } = req.body
+  service.addDashboardToOrganization(req.dbConn, organizationId, dashboardId)
+  .then(() => {
+    service.getOrganization(req.dbConn, organizationId)
+    .then(organization => res.json({ organization }))
     .error(next)
-  })
-  .error(next)
+  }).error(next)
+
+}
+
+export function removeDashboardFromOrganization(req, res, next) {
+  const {
+    organizationId,
+    dashboardId
+  } = req.body
+  service.removeDashboardFromOrganization(req.dbConn, organizationId, dashboardId)
+  .then(() => {
+    service.getOrganization(req.dbConn, organizationId)
+    .then(organization => res.json({ organization }))
+    .error(next)
+  }).error(next)
 }

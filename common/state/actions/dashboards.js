@@ -1,8 +1,8 @@
 import request from './util/request'
 import * as types from '../constants/actionTypes'
 import { addUser,
-         addDashboardToUser,
-         removeDashboardFromUser } from '../actions'
+         removeDashboardFromOrganization,
+         addDashboardToOrganization } from '../actions'
 
 // API Endpoint
 // ============
@@ -12,10 +12,11 @@ const apiEndpoint = '/api/dashboard'
 // ===============
 // Create
 // ------
-function createDashboardRequest(title) {
+function createDashboardRequest(title, organizationId) {
   return {
     type: types.CREATE_DASHBOARD_REQUEST,
-    title
+    title,
+    organizationId
   }
 }
 function createDashboardSuccess(dashboard) {
@@ -79,13 +80,13 @@ function addUserToDashboardFailure(err, status) {
 // ==============
 // Create
 // ------
-export function createDashboard(title, userId) {
+export function createDashboard(title, organizationId) {
   return (dispatch) => {
     dispatch(createDashboardRequest(title))
-    return request('post', { title, userId }, apiEndpoint)
+    return request('post', { title, organizationId }, apiEndpoint)
     .then(res => {
       dispatch(createDashboardSuccess(res))
-      dispatch(addDashboardToUser(res.id, userId))
+      dispatch(addDashboardToOrganization(organizationId, res.id))
     })
     .catch(err => {
       dispatch(createDashboardFailure(err, err.status))
@@ -94,13 +95,13 @@ export function createDashboard(title, userId) {
 }
 // Delete
 // ------
-export function deleteDashboard(id, userId) {
+export function deleteDashboard(organizationId, id) {
   return (dispatch) => {
     dispatch(deleteDashboardRequest(id))
     return request('delete', { id }, apiEndpoint)
     .then(res => { //eslint-disable-line no-unused-vars
       dispatch(deleteDashboardSuccess(id))
-      dispatch(removeDashboardFromUser(id, userId))
+      dispatch(removeDashboardFromOrganization(organizationId, id))
     })
     .catch(err => {
       dispatch(deleteDashboardFailure(err, err.status))
@@ -129,5 +130,13 @@ export function setCurrentDashboard(dashboardId) {
   return {
     type: types.SET_CURRENT_DASHBOARD,
     dashboardId
+  }
+}
+// Utility
+// -------
+export function addDashboard(dashboard) {
+  return {
+    type: types.ADD_DASHBOARD,
+    dashboard
   }
 }

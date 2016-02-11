@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 import * as types from '../constants/actionTypes'
 
 // State Shape
@@ -21,6 +19,7 @@ export default function dashboards(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_ORGANIZATION_REQUEST:
     case types.ADD_USER_TO_ORGANIZATION_REQUEST:
+    case types.REMOVE_USER_FROM_ORGANIZATION_REQUEST:
       return {
         ...state,
         isFetching: true
@@ -28,6 +27,7 @@ export default function dashboards(state = initialState, action) {
 
     case types.CREATE_ORGANIZATION_SUCCESS:
     case types.ADD_USER_TO_ORGANIZATION_SUCCESS:
+    case types.REMOVE_USER_FROM_ORGANIZATION_SUCCESS:
       return {
         ...action.organization,
         isFetching: false
@@ -35,6 +35,7 @@ export default function dashboards(state = initialState, action) {
 
     case types.CREATE_ORGANIZATION_FAILURE:
     case types.ADD_USER_TO_ORGANIZATION_FAILURE:
+    case types.REMOVE_USER_FROM_ORGANIZATION_FAILURE:
       return {
         ...state,
         isFetching: false,

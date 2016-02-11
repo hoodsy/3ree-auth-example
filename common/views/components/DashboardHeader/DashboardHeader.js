@@ -11,7 +11,6 @@ export const DashboardHeader = (
   { dashboards,
     createDashboard,
     deleteDashboard,
-    addUserToDashboard,
     setCurrentDashboard,
     inputTypes,
     setCurrentInputType,
@@ -34,9 +33,9 @@ export const DashboardHeader = (
       addUserToOrganization={ addUserToOrganization } />
     <DashboardPicker
       { ...dashboards }
-      userId={ currentUser }
       deleteDashboard={ deleteDashboard }
-      setCurrentDashboard={ setCurrentDashboard } />
+      setCurrentDashboard={ setCurrentDashboard }
+      organizationId={ organizationId } />
     <GlobalInput
       { ...inputTypes }
       createDashboard={ createDashboard }
@@ -46,7 +45,7 @@ export const DashboardHeader = (
       currentList={ currentList }
       listsById={ listsById }
       setCurrentInputType={ setCurrentInputType }
-      userId={ currentUser } />
+      organizationId={ organizationId } />
   </div>
 )
 
@@ -54,7 +53,6 @@ DashboardHeader.propTypes = {
   dashboards: PropTypes.object.isRequired,
   createDashboard: PropTypes.func.isRequired,
   deleteDashboard: PropTypes.func.isRequired,
-  addUserToDashboard: PropTypes.func.isRequired,
   setCurrentDashboard: PropTypes.func.isRequired,
   inputTypes: PropTypes.object.isRequired,
   setCurrentInputType: PropTypes.func.isRequired,
@@ -64,5 +62,6 @@ DashboardHeader.propTypes = {
   createResource: PropTypes.func.isRequired,
   usersById: PropTypes.object.isRequired,
   currentUser: PropTypes.string.isRequired,
-  logoutUser: PropTypes.func.isRequired
+  logoutUser: PropTypes.func.isRequired,
+  addUserToOrganization: PropTypes.func.isRequired
 }

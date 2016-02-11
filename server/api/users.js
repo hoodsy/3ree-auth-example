@@ -142,7 +142,7 @@ export function addDashboardToUser(conn, dashboardId, userId) {
 }
 
 // Remove Dashboard
-// =====================
+// ================
 export function removeDashboardFromUser(conn, dashboardId, userId) {
   return r
   .table('users')
