@@ -52,7 +52,7 @@ export default function initialRender(req, res) {
 }
 
 function initializeStore(data, user = {}) {
-  const currentDashboard = (data['dashboardsById'])
+  const currentDashboard = (_.keys(data['dashboardsById']).length)
     ? _.keys(data['dashboardsById'])[0]
     : ''
   const isAuthenticated = (user['id']) ? true : false
@@ -90,7 +90,6 @@ function addCurrentUser(usersById, user) {
     name: user['name'],
     email: user['email'],
     picture: user['picture'],
-    dashboards: user['dashboards'],
     organizationId: user['organizationId']
   }
   return usersById

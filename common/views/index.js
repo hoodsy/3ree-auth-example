@@ -13,7 +13,6 @@ export { default as OrganizationSettingsContainer } from './containers/Organizat
 export * from './components/DashboardHeader/DashboardHeader'
 export * from './components/DashboardHeader/Dashboard'
 export * from './components/DashboardHeader/DashboardPicker'
-export * from './components/DashboardHeader/DashboardSettings'
 export * from './components/DashboardHeader/GlobalInput'
 export * from './components/DashboardHeader/InputType'
 export * from './components/DashboardHeader/InputTypesPicker'

@@ -1,11 +1,18 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { createOrganization } from '../../state/actions'
 import { DashboardHeaderContainer,
          DashboardBodyContainer,
          OrganizationSettingsContainer,
          OrganizationCreation } from '../'
+import { createOrganization } from '../../state/actions'
+
+function mapStateToProps(state) {
+  return {
+    usersById: state.users.usersById,
+    currentUser: state.users.currentUser
+  }
+}
 
 class DashboardContainer extends Component {
   renderDashboard() {
@@ -49,24 +56,20 @@ DashboardContainer.propTypes = {
   usersById: PropTypes.objectOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.shape({
-      displayName: PropTypes.string.isRequired,
-      givenName: PropTypes.string.isRequired,
-      familyName: PropTypes.string.isRequired
+      displayName: PropTypes.string,
+      givenName: PropTypes.string,
+      familyName: PropTypes.string
     }),
     email: PropTypes.string.isRequired,
     picture: PropTypes.string
   })).isRequired,
-  currentUser: PropTypes.string.isRequired
-}
-
-function mapStateToProps(state) {
-  return {
-    usersById: state.users.usersById,
-    currentUser: state.users.currentUser
-  }
+  currentUser: PropTypes.string.isRequired,
+  createOrganization: PropTypes.func.isRequired
 }
 
 export default connect(
   mapStateToProps,
-  { createOrganization }
+  {
+    createOrganization
+  }
 )(DashboardContainer)

@@ -1,8 +1,27 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import * as actions from '../../state/actions'
 import { DashboardHeader } from '../'
+import { createDashboard,
+         deleteDashboard,
+         setCurrentDashboard,
+         setCurrentInputType,
+         createList,
+         createResource,
+         logoutUser,
+         addUserToOrganization } from '../../state/actions'
+
+function mapStateToProps(state) {
+  return {
+    dashboards: state.dashboards,
+    inputTypes: state.inputTypes,
+    listsById: state.lists.listsById,
+    currentList: state.lists.currentList,
+    usersById: state.users.usersById,
+    currentUser: state.users.currentUser,
+    organizationId: state.organization.id
+  }
+}
 
 class DashboardHeaderContainer extends Component {
   render() {
@@ -10,7 +29,6 @@ class DashboardHeaderContainer extends Component {
       dashboards,
       createDashboard,
       deleteDashboard,
-      addUserToDashboard,
       setCurrentDashboard,
       inputTypes,
       setCurrentInputType,
@@ -30,7 +48,6 @@ class DashboardHeaderContainer extends Component {
         dashboards={ dashboards }
         createDashboard={ createDashboard }
         deleteDashboard={ deleteDashboard }
-        addUserToDashboard={ addUserToDashboard }
         setCurrentDashboard={ setCurrentDashboard }
         inputTypes={ inputTypes }
         setCurrentInputType={ setCurrentInputType }
@@ -82,12 +99,12 @@ DashboardHeaderContainer.propTypes = {
   usersById: PropTypes.objectOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.shape({
-      displayName: PropTypes.string.isRequired,
-      givenName: PropTypes.string.isRequired,
-      familyName: PropTypes.string.isRequired
+      displayName: PropTypes.string,
+      givenName: PropTypes.string,
+      familyName: PropTypes.string
     }).isRequired,
     email: PropTypes.string.isRequired,
-    picture: PropTypes.string.isRequired
+    picture: PropTypes.string
   })).isRequired,
   currentUser: PropTypes.string.isRequired,
   logoutUser: PropTypes.func.isRequired,
@@ -95,19 +112,16 @@ DashboardHeaderContainer.propTypes = {
   addUserToOrganization: PropTypes.func.isRequired
 }
 
-function mapStateToProps(state) {
-  return {
-    dashboards: state.dashboards,
-    inputTypes: state.inputTypes,
-    listsById: state.lists.listsById,
-    currentList: state.lists.currentList,
-    usersById: state.users.usersById,
-    currentUser: state.users.currentUser,
-    organizationId: state.organization.id
-  }
-}
-
 export default connect(
   mapStateToProps,
-  { ...actions }
+  {
+    createDashboard,
+    deleteDashboard,
+    setCurrentDashboard,
+    setCurrentInputType,
+    createList,
+    createResource,
+    logoutUser,
+    addUserToOrganization
+  }
 )(DashboardHeaderContainer)

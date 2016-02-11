@@ -31,6 +31,6 @@ export class OrganizationCreation extends Component {
 }
 
 OrganizationCreation.propTypes = {
-
+  currentUser: PropTypes.string.isRequired,
+  createOrganization: PropTypes.func.isRequired
 }
-

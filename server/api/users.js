@@ -68,18 +68,6 @@ export function createUser(conn, user, fields = {}) {
   .error(err => err)
 }
 
-export function createUserProperties(user, fields) {
-  user.created = new Date().toString()
-  user.email = xss(user.email)
-  user.password = xss(user.password)
-  user.dashboards = []
-  user.organizationId = ''
-  for (let field in fields) {
-    user[field] = fields[field]
-  }
-  return user
-}
-
 // Get User
 // ========
 export function getUser(conn, userId) {
@@ -152,4 +140,16 @@ export function removeDashboardFromUser(conn, dashboardId, userId) {
   })
   .run(conn)
   .error(err => err)
+}
+
+function createUserProperties(user, fields) {
+  user.created = new Date().toString()
+  user.name = user.name || {}
+  user.email = xss(user.email)
+  user.password = xss(user.password)
+  user.organizationId = ''
+  for (let field in fields) {
+    user[field] = fields[field]
+  }
+  return user
 }

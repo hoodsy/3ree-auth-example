@@ -4,6 +4,14 @@ import { connect } from 'react-redux'
 import { DashboardBody } from '../'
 import { setCurrentList } from '../../state/actions'
 
+function mapStateToProps(state) {
+  return {
+    lists: state.lists,
+    resources: state.resources,
+    currentDashboard: state.dashboards.currentDashboard
+  }
+}
+
 class DashboardBodyContainer extends Component {
   render() {
     const {
@@ -45,15 +53,9 @@ DashboardBodyContainer.propTypes = {
   setCurrentList: PropTypes.func.isRequired
 }
 
-function mapStateToProps(state) {
-  return {
-    lists: state.lists,
-    resources: state.resources,
-    currentDashboard: state.dashboards.currentDashboard
-  }
-}
-
 export default connect(
   mapStateToProps,
-  { setCurrentList }
+  {
+    setCurrentList
+  }
 )(DashboardBodyContainer)

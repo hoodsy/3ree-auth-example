@@ -38,7 +38,6 @@ Dashboard.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   currentDashboard: PropTypes.string.isRequired,
-  userId: PropTypes.string.isRequired,
   deleteDashboard: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired
 }

@@ -60,15 +60,8 @@ Login.propTypes = {
   registerUser: PropTypes.func.isRequired
 }
 
-function mapStateToProps(state) {
-  return {
-    // users: state.users
-  }
-}
-
 export default connect(
-  mapStateToProps,
+  () => ({}),
   { loginUser,
     registerUser }
 )(Login)
-

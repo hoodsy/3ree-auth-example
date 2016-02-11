@@ -94,10 +94,9 @@ export function removeDashboardFromUser(req, res, next) {
 function filterUserProperties(user) {
   return {
     id: user.id,
-    name: user.name || '',
+    name: user.name || {},
     email: user.email,
     picture: user.picture || '',
-    dashboards: user.dashboards,
     organizationId: user.organizationId || ''
   }
 }
