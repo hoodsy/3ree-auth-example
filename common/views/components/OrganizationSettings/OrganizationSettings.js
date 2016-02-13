@@ -2,8 +2,17 @@ import React, { Component, PropTypes } from 'react'
 import _ from 'lodash'
 
 import { User } from '../..'
+import { extractUsersEmails,
+         filterByEmail } from '../../../state/util'
 
 export class OrganizationSettings extends Component {
+  userNotInOrganization(email) {
+    const {
+      usersById
+    } = this.props
+    return _.isEmpty(filterByEmail(extractUsersEmails(usersById), email))
+  }
+
   handleSubmit(e) {
     const {
       id,
@@ -13,8 +22,10 @@ export class OrganizationSettings extends Component {
     const node = this.refs.input
     const email = node.value.trim()
     if (email) {
-      addUserToOrganization(id, email)
-      node.value = ''
+      if (this.userNotInOrganization(email)) {
+        addUserToOrganization(id, email)
+        node.value = ''
+      }
     }
   }
 
