@@ -8,11 +8,17 @@ import { DevTools } from '../common/views/index'
 import createRoutes from '../common/views/routes'
 import { getOrganizationData } from './api/organizations'
 import configureStore from '../common/state/stores/configureStore'
+import { organizationFeed } from './config/rethinkDb/changeFeedConfig'
 
 export default function initialRender(req, res) {
   const organizationId  = (req['user'] && req['user']['organizationId'])
     ? req['user']['organizationId']
     : null
+
+  if (organizationId) {
+    organizationFeed(organizationId)
+  }
+
   getOrganizationData(req.dbConn, organizationId)
   .then(data => {
 

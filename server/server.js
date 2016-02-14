@@ -21,7 +21,7 @@ import changeFeedConfig from './config/rethinkDb/changeFeedConfig'
 const app = express()
 const server = Server(app)
 const port = 3000
-const io = SocketIO(server)
+export const io = SocketIO(server)
 
 // Server Middleware
 // =================
