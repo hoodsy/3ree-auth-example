@@ -1,6 +1,7 @@
 import * as service from '../api/organizations'
 import { getUserByEmail,
          addOrganizationToUser } from '../api/users'
+import openFeeds from '../api/util/openFeeds'
 
 export function createOrganization(req, res, next) {
   const {
@@ -9,7 +10,7 @@ export function createOrganization(req, res, next) {
   } = req.body
   service.createOrganization(req.dbConn, title, userId)
   .then(organization => {
-    service.openOrganizationFeed(organization['id'])
+    openFeeds(organization['id'])
     res.json(organization)
   })
   .error(next)

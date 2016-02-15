@@ -82,7 +82,7 @@ function addUserToDashboardFailure(err, status) {
 // ------
 export function createDashboard(title, organizationId) {
   return (dispatch) => {
-    dispatch(createDashboardRequest(title))
+    dispatch(createDashboardRequest(title, organizationId))
     return request('post', { title, organizationId }, apiEndpoint)
     .then(res => {
       dispatch(createDashboardSuccess(res))

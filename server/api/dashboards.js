@@ -1,7 +1,6 @@
 import xss from 'xss'
 import r from 'rethinkdb'
 
-import config from '../config/rethinkDb/dbConfig'
 import { extractByType,
          merge,
          normalize,
@@ -13,11 +12,11 @@ import { deleteListResources } from './resources'
 
 // Create Dashboard
 // ================
-export function createDashboard(conn, title, userId) {
+export function createDashboard(conn, title, organizationId) {
   const dashboard = {
     created: new Date().toString(),
     title: xss(title),
-    users: [ xss(userId) ]
+    organizationId
   }
   return r
   .table('dashboards')

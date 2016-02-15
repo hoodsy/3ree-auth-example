@@ -11,13 +11,13 @@ export function emitChanges(organizationId, tableName) {
     const organizationSocket = io.of(`/${organizationId}`)
     organizationSocket.on('connection', () => {
       console.info('----------') // eslint-disable-line no-console
-      console.info(`Socket Connection => ${organizationId}`) // eslint-disable-line no-console
+      console.info(`${tableName} Connection => ${organizationId}`) // eslint-disable-line no-console
       console.info('==========') // eslint-disable-line no-console
     })
 
     let changeType
     cursor.each((err, change) => {
-      if (change.new_val && !change.old_val) changeType = 'create'
+      if (change.new_val && !change.old_val) changeType = 'add'
       else if (change.new_val && change.old_val) changeType = 'update'
       else changeType = 'delete'
 

@@ -4,9 +4,9 @@ import { getUserByEmail } from '../api/users'
 export function createDashboard(req, res, next) {
   const {
     title,
-    userId
+    organizationId
   } = req.body
-  service.createDashboard(req.dbConn, title, userId)
+  service.createDashboard(req.dbConn, title, organizationId)
   .then(dashboard => res.json(dashboard))
   .error(next)
 }

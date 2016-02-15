@@ -1,10 +1,8 @@
 import xss from 'xss'
 import r from 'rethinkdb'
 
-import config from '../config/rethinkDb/dbConfig'
 import { SOFT_DURABILITY,
          normalize } from './util'
-import { emitChanges } from './util/sockets'
 import { getUsers } from './users'
 import { getDashboardData } from './dashboards'
 
@@ -33,20 +31,6 @@ export function createOrganization(conn, title, userId) {
   .run(conn, SOFT_DURABILITY)
   .then(res => ({ ...organization, id: res.generated_keys[0] }))
   .error(err => err)
-}
-
-// Create Organization
-// ===================
-export function openOrganizationFeed(organizationId) {
-  r.connect(config, (err, conn) => {
-    if (err) return err
-    return r
-    .table('organizations')
-    .get(organizationId)
-    .changes()
-    .run(conn, emitChanges(organizationId, 'organizations'))
-    .error(err => err)
-  })
 }
 
 // Add User
