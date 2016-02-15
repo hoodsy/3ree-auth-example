@@ -8,7 +8,10 @@ export function createOrganization(req, res, next) {
     userId
   } = req.body
   service.createOrganization(req.dbConn, title, userId)
-  .then(organization => res.json(organization))
+  .then(organization => {
+    service.openOrganizationFeed(organization['id'])
+    res.json(organization)
+  })
   .error(next)
 }
 

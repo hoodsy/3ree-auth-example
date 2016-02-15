@@ -7,7 +7,7 @@ import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import passport from 'passport'
-import SocketIO from 'socket.io'
+import socketIo from 'socket.io'
 
 import config from '../webpack.config'
 import passportConfig from './config/passport'
@@ -21,7 +21,7 @@ import changeFeedConfig from './config/rethinkDb/changeFeedConfig'
 const app = express()
 const server = Server(app)
 const port = 3000
-export const io = SocketIO(server)
+export const io = socketIo(server)
 
 // Server Middleware
 // =================
@@ -56,7 +56,7 @@ routesConfig(app, passport)
 
 // Changefeed Config
 // =================
-changeFeedConfig(io)
+// changeFeedConfig(io)
 
 // Start Server
 // ============

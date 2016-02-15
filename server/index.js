@@ -15,9 +15,9 @@ export default function initialRender(req, res) {
     ? req['user']['organizationId']
     : null
 
-  if (organizationId) {
-    organizationFeed(organizationId)
-  }
+  // if (organizationId) {
+  //   organizationFeed(organizationId)
+  // }
 
   getOrganizationData(req.dbConn, organizationId)
   .then(data => {

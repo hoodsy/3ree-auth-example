@@ -109,6 +109,7 @@ export function createOrganization(title, userId) {
     .then(res => {
       dispatch(createOrganizationSuccess(res))
       dispatch(addOrganizationToUser(res.id, userId))
+      location.reload()
     })
     .catch(err => {
       dispatch(createOrganizationFailure(err, err.status))
@@ -161,3 +162,12 @@ export function removeDashboardFromOrganization(organizationId, dashboardId) {
     })
   }
 }
+// Update Organization
+// -------------------
+export function updateOrganization(organization) {
+  return {
+    type: types.UPDATE_ORGANIZATION,
+    organization
+  }
+}
+

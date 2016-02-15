@@ -2,24 +2,28 @@ import socketClient from 'socket.io-client'
 import _ from 'lodash'
 
 import { dbTables } from '../server/config/rethinkDb/dbTables'
+import * as actions from '../common/state/actions'
 
 export default function(store) {
   const { dispatch } = store
   const { organization: { id } } = store.getState()
-  // const io = socketClient.connect('http://localhost:3000')
-  const socket = socketClient(`http://localhost:3000/${id}`)
+  const socket = socketClient(`/${id}`)
 
-  socket.on(`change`, change => {
-    console.log(`change`, change)
-  })
+  function receiveChange(tableName) {
+    socket.on(`create-${tableName}`, change => {
+      console.log(`create-${tableName}`, change)
+    })
+    socket.on(`update-${tableName}`, change => {
+      console.log(`update-${tableName}`, change)
+      tableName = _.capitalize(tableName).slice(0, -1)
+      dispatch(actions[`update${tableName}`](change.new_val))
 
-  // function receiveChange(name) {
-  //   io.on(`${name}-change`, change => {
-  //     console.log(`${name}-change `, change)
-  //   })
-  // }
-  // _.map(dbTables, receiveChange)
+    })
+    socket.on(`delete-${tableName}`, change => {
+      console.log(`delete-${tableName}`, change)
+    })
+  }
+  _.map(dbTables, receiveChange)
 
-  // return io
   return socket
 }
