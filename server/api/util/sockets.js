@@ -14,8 +14,8 @@ export function emitChanges(organizationId, tableName) {
       console.info(`Socket Connection => ${organizationId}`) // eslint-disable-line no-console
       console.info('==========') // eslint-disable-line no-console
     })
-    let changeType
 
+    let changeType
     cursor.each((err, change) => {
       if (change.new_val && !change.old_val) changeType = 'create'
       else if (change.new_val && change.old_val) changeType = 'update'
