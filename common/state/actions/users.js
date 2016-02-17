@@ -164,8 +164,8 @@ export function loginUser(user) {
     return request('post', { ...user }, `${authEndpoint}/login`)
     .then(res => {
       dispatch(loginUserSuccess(res))
-      location.reload()
       dispatch(routeActions.push('/'))
+      location.reload()
     })
     .catch(err => {
       dispatch(loginUserFailure(err, err.status))
@@ -178,8 +178,8 @@ export function logoutUser() {
     return request('get', {}, `${authEndpoint}/logout`)
     .then(res => { // eslint-disable-line no-unused-vars
       dispatch(logoutUserSuccess())
-      location.reload()
       dispatch(routeActions.push('/login'))
+      location.reload()
     })
     .catch(err => {
       dispatch(logoutUserFailure(err, err.status))

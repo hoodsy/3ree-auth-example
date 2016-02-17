@@ -10,8 +10,6 @@ export default function (organizationId) {
   openOrganizationFeed(organizationId)
   _.map([ 'dashboards', 'users' ], openFeed(organizationId))
 
-  // openDashboardFeed(organizationId)
-
 }
 
 //
