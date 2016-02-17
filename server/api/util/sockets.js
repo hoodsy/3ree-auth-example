@@ -1,4 +1,5 @@
 import { io } from '../../server'
+import * as changeTypes from '../../../common/state/constants/changeTypes'
 
 // Emit Changes
 // ============
@@ -15,13 +16,28 @@ export function emitChanges(organizationId, tableName) {
       console.info('==========') // eslint-disable-line no-console
     })
 
-    let changeType
     cursor.each((err, change) => {
-      if (change.new_val && !change.old_val) changeType = 'add'
-      else if (change.new_val && change.old_val) changeType = 'update'
-      else changeType = 'delete'
+      if (isAdd(change))
+        organizationSocket.emit(`${changeTypes['ADD']}-${tableName}`, change)
 
-      organizationSocket.emit(`${changeType}-${tableName}`, change)
+      else if (isUpdate(change))
+        organizationSocket.emit(`${changeTypes['UPDATE']}-${tableName}`, change)
+
+      else if (isRemove(change))
+        organizationSocket.emit(`${changeTypes['REMOVE']}-${tableName}`, change)
     })
   }
 }
+
+function isAdd(change) {
+  return change['new_val'] && !change['old_val']
+}
+
+function isUpdate(change) {
+  return change['new_val'] && change['old_val']
+}
+
+function isRemove(change) {
+  return !change['new_val'] && change['old_val']
+}
+

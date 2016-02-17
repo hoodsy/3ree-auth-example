@@ -140,3 +140,9 @@ export function addDashboard(dashboard) {
     dashboard
   }
 }
+export function removeDashboard({ id }) {
+  return {
+    type: types.REMOVE_DASHBOARD,
+    dashboardId: id
+  }
+}

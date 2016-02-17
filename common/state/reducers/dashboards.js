@@ -23,6 +23,7 @@ function dashboardsById(state = {}, action) {
         [dashboard.id]: dashboard
       }
 
+    case types.REMOVE_DASHBOARD:
     case types.DELETE_DASHBOARD_SUCCESS:
       const { dashboardId } = action
       return _.omit(state, dashboardId)
@@ -39,6 +40,7 @@ function currentDashboard(state = '', action) {
       if (!state) return dashboard.id
       return state
 
+    case types.REMOVE_DASHBOARD:
     case types.DELETE_DASHBOARD_SUCCESS:
       const { dashboardId } = action
       return _.keys(_.omit(state, dashboardId))[0] || ''
@@ -71,6 +73,7 @@ export default function dashboards(state = initialState, action) {
         isFetching: false
       }
 
+    case types.REMOVE_DASHBOARD:
     case types.DELETE_DASHBOARD_SUCCESS:
       return {
         dashboardsById: dashboardsById(state.dashboardsById, action),

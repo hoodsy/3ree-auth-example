@@ -14,7 +14,6 @@ import passportConfig from './config/passport'
 import routesConfig from './routes'
 import { closeDbConnection,
          createDbConnection } from './middleware/dbConnection'
-import changeFeedConfig from './config/rethinkDb/changeFeedConfig'
 
 // Server Config
 // =============
@@ -54,10 +53,6 @@ passportConfig(passport)
 // =============
 routesConfig(app, passport)
 
-// Changefeed Config
-// =================
-// changeFeedConfig(io)
-
 // Start Server
 // ============
 server.listen(port, (error) => {
@@ -69,7 +64,6 @@ server.listen(port, (error) => {
     console.info('==========') // eslint-disable-line no-console
   }
 })
-
 
 // Close Connection
 // ================
