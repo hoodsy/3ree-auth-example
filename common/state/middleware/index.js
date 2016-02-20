@@ -1,4 +1,4 @@
-import { routeActions } from 'redux-simple-router'
+import { routeActions } from 'react-router-redux'
 
 export const authenticationRouter = store => next => action => {
   if (action.err && action.status === 401)

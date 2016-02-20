@@ -1,4 +1,4 @@
-import { routeActions } from 'redux-simple-router'
+import { routeActions } from 'react-router-redux'
 
 import request from './util/request'
 import * as types from '../constants/actionTypes'

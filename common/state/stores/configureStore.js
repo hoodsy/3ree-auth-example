@@ -2,7 +2,7 @@ import { compose,
          createStore,
          applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
-import { syncHistory } from 'redux-simple-router'
+import { syncHistory } from 'react-router-redux'
 import { browserHistory } from 'react-router'
 import { DevTools } from '../../views'
 import anchorApp from '../reducers'
