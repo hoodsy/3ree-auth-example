@@ -36,7 +36,10 @@ function receiveChanges(socket, dispatch) {
     const formattedTableName = _.capitalize(tableName).slice(0, -1)
     socket.on(`${changeType}-${tableName}`, change => {
       console.log(`${changeType}-${tableName}`, change)
-      const changeData = (changeType === changeTypes['REMOVE']) ? change['old_val'] : change['new_val']
+      const changeData = (changeType === changeTypes['REMOVE'])
+        ? change['old_val']
+        : change['new_val']
+
       dispatch(actions[`${changeType}${formattedTableName}`](changeData))
     })
   }

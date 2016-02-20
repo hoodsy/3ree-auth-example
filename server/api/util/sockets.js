@@ -10,11 +10,8 @@ export function emitChanges(organizationId, tableName) {
     if (err) return err
 
     const organizationSocket = io.of(`/${organizationId}`)
-    organizationSocket.on('connection', () => {
-      console.info('----------') // eslint-disable-line no-console
-      console.info(`${tableName} Connection => ${organizationId}`) // eslint-disable-line no-console
-      console.info('==========') // eslint-disable-line no-console
-    })
+    // Can be used to test connections.
+    // organizationSocket.on('connection', () => {})
 
     cursor.each((err, change) => {
       if (isAdd(change))
