@@ -19,7 +19,7 @@ This application is still a WIP - as a result, actions such as editing/deleting 
 ### Installation and Setup
 
 ##### Repo and Dependencies
-1. Download the project: ```git clone git@github.com:hoodsy/3ree-auth.git```
+1. Download the project: ```git clone git@github.com:hoodsy/3ree-auth-example.git```
 
 2. Install dependencies: ```npm install```
 
