@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { DashboardHeader } from '../'
+import { DashboardPicker,
+         GlobalInput } from '../'
 import { createDashboard,
          deleteDashboard,
          setCurrentDashboard,
@@ -36,30 +37,27 @@ class DashboardHeaderContainer extends Component {
       currentList,
       createList,
       createResource,
-      usersById,
-      currentUser,
-      logoutUser,
-      organizationId,
-      addUserToOrganization
+      organizationId
     } = this.props
 
     return (
-      <DashboardHeader
-        dashboards={ dashboards }
-        createDashboard={ createDashboard }
-        deleteDashboard={ deleteDashboard }
-        setCurrentDashboard={ setCurrentDashboard }
-        inputTypes={ inputTypes }
-        setCurrentInputType={ setCurrentInputType }
-        listsById={ listsById }
-        createList={ createList }
-        currentList={ currentList }
-        createResource={ createResource }
-        usersById={ usersById }
-        currentUser={ currentUser }
-        logoutUser={ logoutUser }
-        organizationId={ organizationId }
-        addUserToOrganization={ addUserToOrganization } />
+      <div>
+        <DashboardPicker
+          { ...dashboards }
+          deleteDashboard={ deleteDashboard }
+          setCurrentDashboard={ setCurrentDashboard }
+          organizationId={ organizationId } />
+        <GlobalInput
+          { ...inputTypes }
+          createDashboard={ createDashboard }
+          createList={ createList }
+          createResource={ createResource }
+          currentDashboard={ dashboards.currentDashboard }
+          currentList={ currentList }
+          listsById={ listsById }
+          setCurrentInputType={ setCurrentInputType }
+          organizationId={ organizationId } />
+      </div>
     )
   }
 }

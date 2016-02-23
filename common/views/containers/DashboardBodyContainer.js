@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { DashboardBody } from '../'
+import { ListPicker } from '../'
 import { setCurrentList } from '../../state/actions'
 
 function mapStateToProps(state) {
@@ -22,9 +22,9 @@ class DashboardBodyContainer extends Component {
     } = this.props
 
     return (
-      <DashboardBody
-        lists={ lists }
-        resources={ resources }
+      <ListPicker
+        { ...lists }
+        { ...resources }
         currentDashboard={ currentDashboard }
         setCurrentList={ setCurrentList } />
     )

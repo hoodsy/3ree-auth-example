@@ -10,7 +10,6 @@ export { default as OrganizationSettingsContainer } from './containers/Organizat
 
 // Dashboard Header
 // ================
-export * from './components/DashboardHeader/DashboardHeader'
 export * from './components/DashboardHeader/Dashboard'
 export * from './components/DashboardHeader/DashboardPicker'
 export * from './components/DashboardHeader/GlobalInput'
@@ -20,7 +19,6 @@ export * from './components/DashboardHeader/User'
 
 // Dashboard Body
 // ==============
-export * from './components/DashboardBody/DashboardBody'
 export * from './components/DashboardBody/List'
 export * from './components/DashboardBody/ListPicker'
 export * from './components/DashboardBody/Resource'
