@@ -12,9 +12,9 @@ This application allows *Users* to create *Organizations*, which can hold *Dashb
 This application is still a WIP - as a result, actions such as editing/deleting resources or lists individually are incomplete.
 
 ##### App Architecture
-![App Architecture](https://s3.amazonaws.com/3ree-auth/App+Architecture.png)
+![App Architecture](https://s3.amazonaws.com/3ree-auth/App+Architecture+2.png)
 ##### DB Table Relationships
-![Table Relations](https://s3.amazonaws.com/3ree-auth/Table+Relations.png)
+![Table Relations](https://s3.amazonaws.com/3ree-auth/Table+Relations+2.png)
 
 ### Installation and Setup
 
@@ -45,3 +45,7 @@ All the things! Including:
 - Password encryption
 - Server with: generators, promises
 - Finished/polished app functionality (edit/delete)
+- Webpack split into prod/dev
+- True HMR (affected by stateless components)
+
+... And many other things.
