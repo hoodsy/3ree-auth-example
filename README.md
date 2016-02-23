@@ -19,7 +19,7 @@ This application is still a WIP - as a result, actions such as editing/deleting 
 ### Installation and Setup
 
 ##### Repo and Dependencies
-1. Download the project: ```git clone REPO REMOTE```
+1. Download the project: ```git clone git@github.com:hoodsy/3ree-auth.git```
 
 2. Install dependencies: ```npm install```
 
@@ -29,7 +29,7 @@ This application is still a WIP - as a result, actions such as editing/deleting 
 4. Run RethinkDB from outside the project: ```rethinkdb```
 *RethinkDB will create a data folder in place - these files shouldn't be included in the project*
 
-5. Open a new terminal window and init the DB, tables, indexes: ```npm init```
+5. Open a new terminal window and init the DB, tables, indexes: ```npm run init```
 
 ##### Running
 6. Simply run: ```npm start``` and navigate to localhost:3000
