@@ -1,13 +1,14 @@
 {
-  "name": "anchor",
-  "version": "0.0.0",
-  "description": "Anchor app",
+  "name": "3ree-auth-example",
+  "version": "0.0.2",
+  "description": "An example full stack, realtime Javascript app with React, universal Redux, RethinkDB, and Express (3REE).",
   "scripts": {
-    "start": "NODE_ENV=development node server/server.babel.js"
+    "start": "NODE_ENV=development node server/server.babel.js",
+    "init": "babel-node server/config/rethinkDb/dbInit.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hoodsy/anchor"
+    "url": "https://github.com/hoodsy/3ree-auth-example"
   },
   "dependencies": {
     "babel-plugin-transform-react-display-name": "^6.4.0",
