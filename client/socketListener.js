@@ -35,7 +35,7 @@ function receiveChanges(socket, dispatch) {
   return ({ changeType, tableName }) => {
     const formattedTableName = _.capitalize(tableName).slice(0, -1)
     socket.on(`${changeType}-${tableName}`, change => {
-      console.log(`${changeType}-${tableName}`, change)
+      console.log(`${changeType}-${tableName}`, change) // eslint-disable-line no-console
       const changeData = (changeType === changeTypes['REMOVE'])
         ? change['old_val']
         : change['new_val']
