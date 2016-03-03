@@ -244,7 +244,7 @@ export function removeDashboardFromUser(dashboardId, userId) {
 export function getUser(userId) {
   return (dispatch) => {
     dispatch(getUserRequest(userId))
-    return request('get', { userId }, apiEndpoint)
+    return request('get', {}, `${apiEndpoint}/${userId}`)
     .then(res => {
       dispatch(getUserSuccess(res))
     })

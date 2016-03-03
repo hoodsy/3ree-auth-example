@@ -1,7 +1,7 @@
 import * as service from '../api/users'
 
 export function getUser(req, res, next) {
-  const { userId } = req.body
+  const { userId } = req.params
   service.getUser(req.dbConn, userId)
   .then(user => {
     if (user.err) next(user.err)

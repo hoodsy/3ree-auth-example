@@ -19,7 +19,7 @@ export default (app, passport) => {
 
   // Auth Middleware
   // ===============
-  router.all('/api/*', requireAuthenticated)
+  // router.all('/api/*', requireAuthenticated)
   app.get('env') === 'development'
     ? router.get('/', initialRender)
     : router.get('/', requireAuthenticated, initialRender)
@@ -59,7 +59,7 @@ export default (app, passport) => {
 
   // Users
   // =====
-  router.route('/api/user')
+  router.route('/api/user/:userId')
   .get(users.getUser)
   router.post('/api/user/organization/join', users.addOrganizationToUser)
   router.post('/api/user/dashboard/add', users.addDashboardToUser)
