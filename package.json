@@ -11,6 +11,7 @@
     "url": "https://github.com/hoodsy/3ree-auth-example"
   },
   "dependencies": {
+    "async": "^1.5.2",
     "babel-plugin-transform-react-display-name": "^6.4.0",
     "body-parser": "^1.14.1",
     "es6-promise": "^3.0.2",
@@ -26,9 +27,9 @@
     "react-dom": "^0.14.0",
     "react-redux": "^4.0.0",
     "react-router": "^2.0.0",
+    "react-router-redux": "^3.0.0",
     "reduce": "^1.0.1",
     "redux": "^3.0.0",
-    "react-router-redux": "^3.0.0",
     "redux-thunk": "^0.1.0",
     "rethinkdb": "^2.2.0",
     "socket.io": "^1.4.5",
