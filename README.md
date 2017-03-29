@@ -36,16 +36,3 @@ This application is still a WIP - as a result, actions such as editing/deleting 
 
 ##### OAuth
 OAuth keys for Google and Facebook do not come included in this project - simply add your keys to ```server/config/passport/keys.example.js``` and rename the file to ```keys.js``` to use OAuth.
-
-### TODO
-
-All the things! Including:
-
-- Tests
-- Password encryption
-- Server with: generators, promises
-- Finished/polished app functionality (edit/delete)
-- Webpack split into prod/dev
-- True HMR (affected by stateless components)
-
-... And many other things.
